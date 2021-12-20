@@ -8,10 +8,12 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 
+import { Header } from "~/components/Header";
+
 import styles from "~/styles/global.css";
 import tailwind from "~/styles/tailwind.css";
 
-export const links = () => [{rel: "stylesheet", href: styles}, {rel: "stylesheet", href: tailwind}];
+export const links = () => [{ rel: "stylesheet", href: styles }, { rel: "stylesheet", href: tailwind }];
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
@@ -27,6 +29,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
