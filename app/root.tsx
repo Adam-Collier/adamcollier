@@ -12,10 +12,11 @@ import { getUser } from "~/utils/session.server";
 
 import { Header } from "~/components/Header";
 
+import reset from "@unocss/reset/tailwind.css"
 import styles from "~/styles/global.css";
-import tailwind from "~/tailwind.css";
+import unocss from "~/styles/uno.css";
 
-export const links = () => [{ rel: "stylesheet", href: styles }, { rel: "stylesheet", href: tailwind }];
+export const links = () => [{ rel: "stylesheet", href: reset }, { rel: "stylesheet", href: styles }, { rel: "stylesheet", href: unocss }];
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
