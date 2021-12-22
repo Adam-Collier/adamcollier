@@ -4,14 +4,16 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
+  useLoaderData
 } from "remix";
-import type { MetaFunction } from "remix";
+import type { MetaFunction, LoaderFunction } from "remix";
+import { getUser } from "~/utils/session.server";
 
 import { Header } from "~/components/Header";
 
 import styles from "~/styles/global.css";
-import tailwind from "~/styles/tailwind.css";
+import tailwind from "~/tailwind.css";
 
 export const links = () => [{ rel: "stylesheet", href: styles }, { rel: "stylesheet", href: tailwind }];
 
@@ -19,7 +21,18 @@ export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await getUser(request);
+  const data = {
+    user
+  }
+
+  return data;
+}
+
 export default function App() {
+  const data = useLoaderData();
+
   return (
     <html lang="en">
       <head>
@@ -29,7 +42,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header />
+        <Header isLoggedIn={data.user} />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
