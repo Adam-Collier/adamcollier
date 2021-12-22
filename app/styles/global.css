@@ -1,1 +1,8 @@
+html,
+body {
+  height: 100%;
+}
 
+.noise {
+  background-image: url(/static/noise.svg);
+}

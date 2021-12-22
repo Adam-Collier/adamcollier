@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form {
+  @apply flex flex-col items-start gap-3 shadow-sm rounded px-8 pt-6 pb-8 bg-white;
+}
+
+.form > * {
+  @apply flex flex-col gap-2 w-full;
+}
+
+.form input[type="text"] {
+  @apply border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base;
+}
+
+.btn {
+  @apply bg-neutral-900 hover:bg-neutral-700 text-white py-2 px-4 rounded mt-2;
+}
