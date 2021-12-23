@@ -22,7 +22,7 @@ type TextInputProps = {
 
 export const TextInput = ({ id, name, label }: TextInputProps) => (
 	<div className="flex flex-col gap-2 w-full" >
-		<label htmlFor={id}>{label}</label>
+		<label htmlFor={id} className="font-medium">{label}</label>
 		<input
 			type="text"
 			id={id}
