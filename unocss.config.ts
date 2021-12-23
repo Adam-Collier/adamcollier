@@ -1,4 +1,4 @@
-import { defineConfig } from "unocss";
+import { defineConfig, presetIcons, presetUno } from "unocss";
 
 export default defineConfig({
   shortcuts: [
@@ -6,4 +6,5 @@ export default defineConfig({
       btn: "bg-neutral-900 hover:bg-neutral-700 text-white py-2 px-4 rounded mt-2",
     },
   ],
+  presets: [presetUno(), presetIcons()],
 });
