@@ -30,13 +30,13 @@ export default function Index() {
       <section className="flex flex-col gap-4">
         <p>Looking for a new book to read? Check out what I'm reading and the last few I've finished. All pulled from my Oku.club feed.</p>
         {/* show the one im currently reading first */}
-        <p className="block bg-amber-50 text-amber-600 self-start px-2 py-1 text-sm">Currently Reading...</p>
+        <p className="block bg-amber-50 text-amber-600 self-start px-2 py-1 text-sm flex gap-1 items-center"><div className="i-ri:bookmark-line" />Currently Reading...</p>
         <section className="flex flex-col gap-4">
           <a href={reading.link}>
             <h2>{reading.title}</h2>
             <p className="text-slate-500 text-sm">{reading.creator}</p>
           </a>
-          <p className="block bg-lime-50 text-lime-800 self-start px-2 py-1 text-sm">Last few I've finished</p>
+          <p className="block bg-lime-50 text-lime-800 self-start px-2 py-1 text-sm flex gap-1 items-center"><div className="i-ri:check-double-line" />Last few I've finished</p>
           {/* instead of creating a type or interface I've declared the types inline */}
           {read.map((book: { link: string, title: string, creator: string }) => (
             <a href={book.link}>
