@@ -5,9 +5,9 @@
   "license": "",
   "scripts": {
     "build": "npm run build:css && remix build",
-    "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css",
+    "build:css": "unocss ./app/**/*.{ts,tsx} -o ./app/styles/uno.css",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
-    "dev:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css --watch",
+    "dev:css": "unocss ./app/**/*.{ts,tsx} -o ./app/styles/uno.css --watch",
     "postinstall": "remix setup node",
     "start": "remix-serve ./public"
   },
@@ -24,9 +24,8 @@
     "@remix-run/dev": "^1.1.1",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
-    "concurrently": "^6.5.1",
-    "tailwindcss": "^3.0.7",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "unocss": "^0.17.2"
   },
   "engines": {
     "node": ">=14"

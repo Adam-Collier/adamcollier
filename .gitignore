@@ -6,6 +6,6 @@ node_modules
 
 public/build
 api/_build
-app/tailwind.css
+app/styles/uno.css
 
 .env
