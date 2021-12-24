@@ -16,7 +16,6 @@
     "@remix-run/serve": "^1.1.1",
     "@remix-run/vercel": "^1.1.1",
     "@unocss/reset": "^0.17.3",
-    "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remix": "^1.1.1",
@@ -27,6 +26,7 @@
     "@remix-run/dev": "^1.1.1",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "dotenv": "^10.0.0",
     "typescript": "^4.1.2",
     "unocss": "^0.17.2"
   },
