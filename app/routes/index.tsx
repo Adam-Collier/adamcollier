@@ -1,14 +1,22 @@
 import type { LoaderFunction } from "remix";
-import { getBooks } from "~/home";
+import { getBooks, getLatestFilms } from "~/home";
 import { useLoaderData } from "remix";
 
 export const loader: LoaderFunction = async () => {
-  const books = await getBooks();
+  const [books, latestFilms] = await Promise.all([getBooks(), getLatestFilms()]);
+
   const data = {
-    books
+    books,
+    latestFilms
   };
 
   return data;
+}
+
+export function headers() {
+  return {
+    "Cache-Control": "s-maxage=1 stale-while-revalidate"
+  };
 }
 
 export default function Index() {
@@ -30,16 +38,20 @@ export default function Index() {
       <section className="flex flex-col gap-4">
         <p>Looking for a new book to read? Check out what I'm reading and the last few I've finished. All pulled from my Oku.club feed.</p>
         {/* show the one im currently reading first */}
-        <p className="block bg-amber-50 text-amber-600 self-start px-2 py-1 text-sm flex gap-1 items-center"><div className="i-ri:bookmark-line" />Currently Reading...</p>
+        <p className="block bg-amber-50 text-amber-600 self-start px-2 py-1 text-sm flex gap-1 items-center">
+          <span className="i-ri:bookmark-line" />Currently Reading...
+        </p>
         <section className="flex flex-col gap-4">
           <a href={reading.link}>
             <h2>{reading.title}</h2>
             <p className="text-slate-500 text-sm">{reading.creator}</p>
           </a>
-          <p className="block bg-lime-50 text-lime-800 self-start px-2 py-1 text-sm flex gap-1 items-center"><div className="i-ri:check-double-line" />Last few I've finished</p>
+          <p className="block bg-lime-50 text-lime-800 self-start px-2 py-1 text-sm flex gap-1 items-center">
+            <span className="i-ri:check-double-line" />Last few I've finished
+          </p>
           {/* instead of creating a type or interface I've declared the types inline */}
-          {read.map((book: { link: string, title: string, creator: string }) => (
-            <a href={book.link}>
+          {read.map((book: { link: string, title: string, creator: string }, index: number) => (
+            <a href={book.link} key={index}>
               <h2>{book.title}</h2>
               <p className="text-slate-500 text-sm">{book.creator}</p>
             </a>
