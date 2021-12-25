@@ -45,7 +45,7 @@ const Login = () => {
 	const actionData = useActionData<ActionData>();
 
 	return (<main className="noise w-full h-full flex justify-center items-center bg-gradient-to-t from-neutral-50 to-rose-50">
-		<Form method="post" className="max-w-sm w-full">
+		<Form reloadDocument method="post" className="max-w-sm w-full">
 			<TextInput id="username-input" name="username" label="Username" />
 			<TextInput id="password-input" name="password" label="Password" />
 			<button className="btn" type="submit">Submit</button>
