@@ -1,8 +1,10 @@
+import React from "react";
 import { Form as RemixForm, FormProps as RemixFormProps } from "remix";
 
 interface FormProps extends RemixFormProps {
 	className?: string
 	disabled?: boolean
+	children?: React.ReactNode
 }
 
 export const Form = (props: FormProps) => {

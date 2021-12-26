@@ -28,6 +28,7 @@ body {
   word-wrap: break-word;
   font-kerning: normal;
   font-feature-settings: "kern", "liga", "clig", "calt";
+  text-rendering: optimizeLegibility;
 }
 
 h1,

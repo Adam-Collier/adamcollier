@@ -5,10 +5,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData
 } from "remix";
-import type { MetaFunction, LoaderFunction } from "remix";
-import { getUser } from "~/utils/session.server";
+import type { MetaFunction } from "remix";
+import { AuthProvider } from "~/context";
 
 import { Header } from "~/components/Header";
 
@@ -22,17 +21,7 @@ export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const user = await getUser(request);
-  const data = {
-    user
-  }
-
-  return data;
-}
-
 export default function App() {
-  const data = useLoaderData();
 
   return (
     <html lang="en">
@@ -43,8 +32,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header isLoggedIn={data.user} />
-        <Outlet />
+        <AuthProvider>
+          <Header />
+          <Outlet />
+        </AuthProvider>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
