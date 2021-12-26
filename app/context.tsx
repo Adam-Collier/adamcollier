@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import useSwr from "swr";
 
 type ContextItems = {
 	user: string | null,
@@ -8,24 +9,14 @@ type ContextItems = {
 // we use null when we are not logged in so it makes sense to use it here
 const AuthContext = React.createContext<ContextItems>({} as ContextItems)
 
-const getUser = async () => {
-	// send a post requests to the session route resource
-	const response = await fetch("/session", { method: "POST" });
-	// if the response is null we are not authenticated
-	if (response === null) return null;
-	// else return the user
-	const user = await response.json();
-	return user;
-}
+const fetcher = (url: string) => fetch(url, { method: "POST" }).then(r => r.json())
 
 export const AuthProvider: React.FC = ({ children }) => {
 	const [user, setUser] = useState<string | null>(null);
 
-	useEffect(() => {
-		getUser().then(response => {
-			setUser(response);
-		})
-	}, [])
+	const { data } = useSwr("/session", fetcher)
+
+	if (data !== user) setUser(data);
 
 	const updateUser = (value: string | null) => {
 		setUser(value);
