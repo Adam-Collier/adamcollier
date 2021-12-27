@@ -25,7 +25,7 @@ export default function Index() {
   const { reading, read } = data.books;
 
   return (
-    <main className="block max-w-2xl mx-auto px-4 pt-16 md:pt-24 flex flex-col gap-10">
+    <main className="block max-w-2xl mx-auto px-4 py-16 md:py-24 flex flex-col gap-10">
       <section className="flex flex-col gap-4">
         <h1 className="text-3xl">
           Hey, I'm Adam Collier
@@ -58,8 +58,15 @@ export default function Index() {
           ))}
         </section>
       </section>
-      <section>
-        <p></p>
+      <section className="flex flex-col gap-4">
+        <p>Struggling for a film to watch? Here's the latest five from my Letterboxd</p>
+        <div className="flex gap-2">
+          {data.latestFilms.map(({ link, src }: { link: string, src: string }) => {
+            return (<a href={link}>
+              <img src={src} alt="" />
+            </a>)
+          })}
+        </div>
       </section>
     </main>
   );
