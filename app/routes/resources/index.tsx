@@ -1,6 +1,8 @@
-import { LoaderFunction, json, useLoaderData, HeadersFunction, Link } from "remix";
+import { LoaderFunction, json, useLoaderData } from "remix";
 import { db } from "~/utils/db.server";
 import { useAuth } from "~/context";
+import { Resource as ResourceProps } from "@prisma/client";
+import Resource from "~/components/Resource";
 
 type Resource = {
 	id: number,
@@ -42,21 +44,8 @@ const Resources = () => {
 				thought could become useful in the future.
 			</p>
 			<h3 className="text-xl">Latest Resources</h3>
-			{data.map(({ id, link, title, summary, description }: Resource) => (
-				<div key={id} className="grid grid-cols-[140px,1fr] md:grid-cols-[200px,1fr]">
-					<div>
-						<a href={link} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo-600">
-							<p className="font-semibold">{title}</p>
-						</a>
-						<p className="text-sm text-gray-400">
-							{summary}
-						</p>
-						{user &&
-							<Link to={`/admin/resources/edit/${id}`} className="hover:underline"><i className="text-sm flex items-center gap-1 hover:underline">edit <span className="inline-block i-ri:arrow-right-line" /></i></Link>
-						}
-					</div>
-					<div className="href:text-indigo-500" dangerouslySetInnerHTML={{ __html: description }} />
-				</div>
+			{data.map((props: ResourceProps) => (
+				<Resource user={user} {...props} />
 			))}
 		</main>
 	);

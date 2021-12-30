@@ -18,7 +18,7 @@ const Resource = ({ id, link, title, summary, description, user }: ResourceProps
         <Link to={`/admin/resources/edit/${id}`} className="hover:underline"><i className="text-sm flex items-center gap-1 hover:underline">edit <span className="inline-block i-ri:arrow-right-line" /></i></Link>
       }
     </div>
-    <div className="href:text-indigo-500" dangerouslySetInnerHTML={{ __html: description }} />
+    <div className="href:text-indigo-500 href:underline" dangerouslySetInnerHTML={{ __html: description }} />
   </div>
 )
 
