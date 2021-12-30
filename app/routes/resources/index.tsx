@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async () => {
 		},
 		orderBy: [
 			{
-				section: "asc",
+				updatedAt: "desc",
 			},
 		],
 	});
