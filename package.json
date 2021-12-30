@@ -5,22 +5,34 @@
   "license": "",
   "scripts": {
     "build": "npm run build:css && remix build",
-    "build:css": "unocss ./app/**/*.{ts,tsx} -o ./app/styles/uno.css",
+    "build:css": "unocss ./app/**/* -o ./app/styles/uno.css",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
-    "dev:css": "unocss ./app/**/*.{ts,tsx} -o ./app/styles/uno.css --watch",
+    "dev:css": "unocss ./app/**/*.{ts,tsx} ./app/routes/**/*.{ts,tsx} ./app/routes/admin/**/*.{ts,tsx} -o ./app/styles/uno.css --watch",
     "postinstall": "remix setup node",
-    "start": "remix-serve ./public"
+    "db:prod": "pscale connect adamcollier main --port 3309",
+    "db:dev": "pscale connect adamcollier dev --port 3309",
+    "db:shadow": "pscale connect adamcollier shadow --port 3310"
   },
   "dependencies": {
+    "@prisma/client": "^3.7.0",
     "@remix-run/react": "^1.1.1",
     "@remix-run/serve": "^1.1.1",
     "@remix-run/vercel": "^1.1.1",
     "@unocss/reset": "^0.17.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "rehype-external-links": "^1.0.1",
+    "rehype-parse": "^8.0.3",
+    "rehype-remark": "^9.1.0",
+    "rehype-sanitize": "^5.0.1",
+    "rehype-stringify": "^9.0.2",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "remark-stringify": "^10.0.2",
     "remix": "^1.1.1",
     "rss-parser": "^3.12.0",
-    "swr": "^1.1.1"
+    "swr": "^1.1.1",
+    "unified": "^10.1.1"
   },
   "devDependencies": {
     "@iconify-json/ri": "^1.0.2",
@@ -28,6 +40,7 @@
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "dotenv": "^10.0.0",
+    "prisma": "^3.7.0",
     "typescript": "^4.1.2",
     "unocss": "^0.17.2"
   },
