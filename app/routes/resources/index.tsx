@@ -27,14 +27,8 @@ export const loader: LoaderFunction = async () => {
 		],
 	});
 
-	return json(latestResources, { headers: { "Cache-Control": "s-maxage=1, stale-while-revalidate" } });
+	return json(latestResources);
 };
-
-export const headers: HeadersFunction = () => {
-	return {
-		"Cache-Control": "s-maxage=1, stale-while-revalidate"
-	}
-}
 
 const Resources = () => {
 	const data = useLoaderData();
