@@ -32,6 +32,8 @@ const Resources = () => {
 
   const { name, description, resources } = data;
 
+  let sectionName = "";
+
   return (
     <div className="flex flex-col gap-4">
       {user && (
@@ -39,12 +41,21 @@ const Resources = () => {
       )}
       <h1 className="text-2xl">{name}</h1>
       <p>{description}</p>
-      {resources.map((props: ResourceProps) => (
-        <Resource user={user} {...props} />
-      ))}
+      {resources.map((props: ResourceProps) => {
+        const resource = (
+          <>
+            {props.section !== sectionName && (
+              <h2 className="text-xl">{props.section}</h2>
+            )}
+            <Resource user={user} {...props} />
+          </>
+        )
+        sectionName = props.section;
+        return resource;
+      }
+      )}
     </div>
   )
-
 }
 
 export default Resources
