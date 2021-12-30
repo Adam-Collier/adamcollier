@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "remix";
+import { HeadersFunction, json, LoaderFunction } from "remix";
 import { getBooks, getLatestFilms } from "~/home";
 import { useLoaderData } from "remix";
 
@@ -10,13 +10,14 @@ export const loader: LoaderFunction = async () => {
     latestFilms
   };
 
-  return data;
+  return json(data, { headers: { "Cache-Control": "s-maxage=1, stale-while-revalidate" } });
 }
 
-export function headers() {
+export const headers: HeadersFunction = () => {
+  // loader headers doesnt seem to be working atm
   return {
-    "Cache-Control": "s-maxage=1 stale-while-revalidate"
-  };
+    "Cache-Control": "s-maxage=1, stale-while-revalidate"
+  }
 }
 
 export default function Index() {
