@@ -33,12 +33,23 @@ type Collection = {
 
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData();
+  const button = formData.get("button");
   const title = formData.get("title")?.toString();
   const link = formData.get("link")?.toString();
   const summary = formData.get("summary")?.toString();
   const collection = formData.get("collection");
   const description = formData.get("description")?.toString();
   const section = formData.get("section")?.toString();
+
+  if (button === "delete") {
+    await db.resource.delete({
+      where: {
+        id: Number(params.id)
+      },
+    })
+
+    return redirect("/resources");
+  }
 
   await db.resource.update({
     where: {
@@ -62,8 +73,6 @@ const Edit = () => {
   const data = useLoaderData();
 
   const { resource, collections }: { resource: Resource, collections: Collection[] } = data;
-
-
   const { link, title, description, summary, resourceCollectionId, section } = resource;
 
   return (
@@ -78,9 +87,14 @@ const Edit = () => {
           <RadioButton key={name} name="collection" label={name} value={id} defaultChecked={id === resourceCollectionId} />
         ))}
       </div>
-      <button className="btn">{transition.submission
-        ? "Saving..."
-        : "Edit Resource"}</button>
+      <div className="flex gap-2">
+        <button className="btn" name="button">{transition.submission
+          ? "Saving..."
+          : "Edit Resource"}</button>
+        <button className="btn bg-transparent border border-color-red-600 text-red-600 hover:bg-red-600 hover:text-white" type="submit" name="button" value="delete">{transition.submission
+          ? "Deleting..."
+          : "Delete Resource"}</button>
+      </div>
     </Form>
   )
 }
