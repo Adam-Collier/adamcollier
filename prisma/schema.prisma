@@ -1,0 +1,55 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Resource {
+  id                   Int                 @id @default(autoincrement())
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  title                String
+  description          String              @db.MediumText
+  link                 String
+  summary              String              @db.VarChar(250)
+  section              String
+  ResourceCollection   ResourceCollection? @relation(fields: [resourceCollectionId], references: [id])
+  resourceCollectionId Int?
+}
+
+model ResourceCollection {
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  name        String     @unique
+  // this stored as HTML that we convert from markdown
+  description String     @db.MediumText
+  excerpt     String?    @db.VarChar(250)
+  resources   Resource[]
+}
+
+model Snippet {
+  id                  Int                @id @default(autoincrement())
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  title               String
+  content             String             @db.LongText
+  collectionId        Int
+  SnippetCollection   SnippetCollection? @relation(fields: [snippetCollectionId], references: [id])
+  snippetCollectionId Int?
+}
+
+model SnippetCollection {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  name        String    @unique
+  description String?   @db.MediumText
+  snippets    Snippet[]
+}
