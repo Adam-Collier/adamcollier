@@ -1,4 +1,4 @@
-import { LoaderFunction, json, useLoaderData } from "remix";
+import { LoaderFunction, json, useLoaderData, Link } from "remix";
 import { db } from "~/utils/db.server";
 import { useAuth } from "~/context";
 import { Resource as ResourceProps } from "@prisma/client";
@@ -38,6 +38,9 @@ const Resources = () => {
 
 	return (
 		<main className="flex flex-col gap-4">
+			{user && (
+				<Link to="/admin/resources/new" className="hover:underline"><i className="text-sm flex items-center gap-1 hover:underline">Add New Resource <span className="inline-block i-ri:arrow-right-line" /></i></Link>
+			)}
 			<h2 className="text-2xl">Resources</h2>
 			<p>
 				This is a group of resources I have either learned something from or
