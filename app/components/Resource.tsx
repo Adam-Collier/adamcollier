@@ -6,7 +6,7 @@ interface ResourceProps extends Resource {
 }
 
 const Resource = ({ id, link, title, summary, description, user }: ResourceProps) => (
-  <div key={id} className="grid grid-cols-[140px,1fr] md:grid-cols-[200px,1fr]">
+  <div key={id} className="grid grid-cols-[140px_1fr] md:grid-cols-[200px_1fr]">
     <div>
       <a href={link} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo-600">
         <p className="font-semibold">{title}</p>
