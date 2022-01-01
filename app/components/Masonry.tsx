@@ -12,6 +12,9 @@ const Wrapper = ({ url, children, ...props }: WrapperProps) =>
   url ? (
     <a href={url} rel="noopener noreferrer" target="_blank" {...props}>
       {children}
+      <div className="text-white absolute top-1 right-1 p-0.5 bg-black">
+        <span className="i-ri:arrow-right-up-line block w-3 h-3"></span>
+      </div>
     </a>
   ) : (
     <div {...props}>{children}</div>
@@ -50,7 +53,8 @@ const Masonry = ({ images }: { images: ImageProps[] }) => {
       numberOfColumns.current,
       setNumberOfColumns
     );
-  }, []);
+    // if the images change we need to re-run this function
+  }, [images]);
 
   useEffect(() => {
     const handleResize = () =>
