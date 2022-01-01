@@ -66,7 +66,7 @@ const Masonry = ({ images }: { images: ImageProps[] }) => {
 
   // repeat(auto-fit, minmax(275px, 0.5fr))
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 col-auto" ref={masonry}>
+    <div className="grid gap-0 grid-cols-2 sm:grid-cols-3 md:grid-cols-5" ref={masonry}>
       {images.map(({ image, pageURL, color }: ImageProps, index: number) => (
         <Wrapper url={pageURL} style={{
           background: color,
