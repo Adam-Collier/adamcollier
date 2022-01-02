@@ -1,4 +1,4 @@
-import { LoaderFunction, useLoaderData } from "remix"
+import { json, LoaderFunction, useLoaderData } from "remix"
 import Masonry from "~/components/Masonry";
 
 export const saveeBoards: { [key: string]: string } = {
@@ -27,9 +27,12 @@ export const loader: LoaderFunction = async () => {
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 
-  return sortedByDate;
+  return json(sortedByDate, { headers: { "Cache-Control": "s-maxage=1, stale-while-revalidate" } });
 }
 
+export const headers = () => ({
+  "Cache-Control": "s-maxage=1, stale-while-revalidate"
+})
 
 
 const Inspiration = () => {
