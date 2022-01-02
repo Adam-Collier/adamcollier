@@ -13,7 +13,7 @@ export function headers({ }) {
 }
 
 const Inspiration = () => (
-  <main>
+  <main className="bg-black">
     <Outlet />
     <nav className="fixed shadow-md bottom-24 left-8">
       <ul className="flex px-2 py-2 bg-gray-100 rounded children:cursor-pointer">

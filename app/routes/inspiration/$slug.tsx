@@ -27,3 +27,11 @@ const InspirationPage = () => {
 }
 
 export default InspirationPage;
+
+export function CatchBoundary() {
+  return (
+    <div className="flex w-full h-full items-center justify-center">
+      <h2 className="text-xl">We couldn't find that page!</h2>
+    </div>
+  );
+}
