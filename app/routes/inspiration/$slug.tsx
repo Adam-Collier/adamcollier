@@ -4,9 +4,10 @@ import { saveeBoards } from "./index";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params;
-
   if (!slug) throw new Response("Not Found", { status: 404 });
   const id = saveeBoards[slug];
+  if (!id) throw new Response("Not Found", { status: 404 });
+
   const response = await fetch(
     `https://api.savee.it/user/adamcollier/boards/${id}/items/`
   );
