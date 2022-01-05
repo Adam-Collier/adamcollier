@@ -1,5 +1,5 @@
 import { Link } from "remix";
-import { Home, Posts, Snippets, Resources, Inspiration, Signout } from "~/svgs";
+import { Home, Posts, Snippets, Resources, Inspiration, Signout, Music } from "~/svgs";
 import { useAuth } from "~/context";
 
 export const Header = () => {
@@ -36,6 +36,11 @@ export const Header = () => {
 			<li>
 				<Link to="/inspiration">
 					<Inspiration />
+				</Link>
+			</li>
+			<li>
+				<Link to="/music">
+					<Music />
 				</Link>
 			</li>
 			{user && (

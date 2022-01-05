@@ -39,3 +39,10 @@ export const Inspiration = () => (
 		<path d="M22 20a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h18a1 1 0 011 1v16zm-11-5H4v4h7v-4zm9-4h-7v8h7v-8zm-9-6H4v8h7V5zm9 0h-7v4h7V5z"></path>
 	</svg>
 )
+
+export const Music = () => (
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+		<path fill="none" d="M0 0h24v24H0z"></path>
+		<path d="M12 20a8 8 0 100-16 8 8 0 000 16zm0 2C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-8a2 2 0 100-4 2 2 0 000 4zm0 2a4 4 0 110-8 4 4 0 010 8z"></path>
+	</svg>
+)
