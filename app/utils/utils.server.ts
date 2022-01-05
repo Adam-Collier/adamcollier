@@ -7,10 +7,22 @@ export const toHTML = async (markdown: string) => {
   );
   const { default: rehypeSanitize } = await import("rehype-sanitize");
   const { default: rehypeStringify } = await import("rehype-stringify");
+  const { default: rehypeHighlight } = await import("rehype-highlight");
+  // const { default: rehypeHighlight } = await import(
+  //   "~/utils/unified/rehype-highlight-code"
+  // );
+  const { default: rehypeMetaAttributes } = await import(
+    "~/utils/unified/rehype-meta-attribute"
+  );
+
+  markdown =
+    "First line of markdown \n```javascript\n const foo=bar;\n```\nsome other markdown content";
 
   let processor = unified()
     .use(remarkParse) // Parse markdown content to a syntax tree
     .use(remarkRehype) // Turn markdown syntax tree to HTML syntax tree, ignoring embedded HTML
+    .use(rehypeHighlight)
+    .use(rehypeMetaAttributes)
     .use(rehypeExternalLinks)
     .use(rehypeSanitize)
     .use(rehypeStringify); // Serialize HTML syntax tree

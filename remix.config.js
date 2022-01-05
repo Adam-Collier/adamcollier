@@ -1,10 +1,18 @@
 /**
  * @type {import('@remix-run/dev/config').AppConfig}
  */
-module.exports = {
+// module.exports = {
+//   appDirectory: "app",
+//   assetsBuildDirectory: "public/build",
+//   publicPath: "/build/",
+//   serverBuildDirectory: "api/_build",
+//   ignoredRouteFiles: [".*"]
+// };
+
+export default {
   appDirectory: "app",
   assetsBuildDirectory: "public/build",
   publicPath: "/build/",
   serverBuildDirectory: "api/_build",
-  ignoredRouteFiles: [".*"]
+  ignoredRouteFiles: [".*"],
 };

@@ -1,4 +1,4 @@
-import { json, Link, LoaderFunction, useLoaderData } from "remix";
+import { json, Link, LoaderFunction, useLoaderData, Outlet } from "remix";
 import { db } from "~/utils/db.server";
 import { toSlug } from "~/utils/utils";
 
@@ -22,7 +22,7 @@ const Snippets = () => {
   const data = useLoaderData();
 
   return (<div className="flex flex-col sm:flex-row gap-8 md:gap-16 block max-w-4xl mx-auto px-4 py-16">
-    <aside>
+    <aside className="md:flex-shrink-0">
       <ul className="flex flex-col gap-1">
         {data.map(({ name, snippets }: { name: string, snippets: [{ title: string }] }) => (
           <>
@@ -36,9 +36,7 @@ const Snippets = () => {
         ))}
       </ul>
     </aside>
-    <div>
-
-    </div>
+    <Outlet />
   </div>)
 }
 
