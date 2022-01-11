@@ -77,11 +77,11 @@ const Edit = () => {
 
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
-      <TextInput id="link-input" name="link" label="Link" defaultValue={link} required />
-      <TextInput id="title-input" name="title" label="Title" defaultValue={title} required />
-      <TextInput id="summary-input" name="summary" label="Summary" defaultValue={summary} required />
+      <TextInput name="link" label="Link" defaultValue={link} required />
+      <TextInput name="title" label="Title" defaultValue={title} required />
+      <TextInput name="summary" label="Summary" defaultValue={summary} required />
       <TextArea id="resource-description" name="description" label="Description" defaultValue={description} />
-      <TextInput id="section-input" name="section" label="Section" defaultValue={section} required />
+      <TextInput name="section" label="Section" defaultValue={section} required />
       <div className="flex w-full gap-2 mt-2">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton key={name} name="collection" label={name} value={id} defaultChecked={id === resourceCollectionId} />

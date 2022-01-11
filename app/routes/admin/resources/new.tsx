@@ -54,10 +54,10 @@ const NewResource = () => {
 
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
-      <TextInput id="link-input" name="link" label="Link" required />
-      <TextInput id="title-input" name="title" label="Title" required />
-      <TextInput id="summary-input" name="summary" label="Summary" required />
-      <TextInput id="section-input" name="section" label="Section" required />
+      <TextInput name="link" label="Link" required />
+      <TextInput name="title" label="Title" required />
+      <TextInput name="summary" label="Summary" required />
+      <TextInput name="section" label="Section" required />
       <TextArea name="description" label="Description" id="resource-description" />
       <div className="flex w-full gap-2 mt-2">
         {collections.map(({ id, name }: Collection) => (

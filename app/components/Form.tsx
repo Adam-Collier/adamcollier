@@ -17,23 +17,46 @@ export const Form = (props: FormProps) => {
 }
 
 type TextInputProps = {
-	id: string,
+	name: string,
+	label: string,
+	defaultValue?: string
+	required?: boolean
+	onChange?: (e: React.ChangeEvent<any>) => void
+}
+
+export const TextInput = ({ name, label, defaultValue, required, onChange }: TextInputProps) => (
+	<div className="flex flex-col gap-2 w-full" >
+		<label htmlFor={name} className="font-medium">{label}</label>
+		<input
+			type="text"
+			id={name}
+			name={name}
+			className="border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base"
+			defaultValue={defaultValue}
+			required={required}
+			onChange={onChange}
+		/>
+	</div >
+)
+
+type NumberInputProps = {
 	name: string,
 	label: string,
 	defaultValue?: string
 	required?: boolean
 }
 
-export const TextInput = ({ id, name, label, defaultValue, required }: TextInputProps) => (
+export const NumberInput = ({ name, label, defaultValue, required }: NumberInputProps) => (
 	<div className="flex flex-col gap-2 w-full" >
-		<label htmlFor={id} className="font-medium">{label}</label>
+		<label htmlFor={name} className="font-medium">{label}</label>
 		<input
-			type="text"
-			id={id}
+			type="number"
+			id={name}
 			name={name}
 			className="border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base"
 			defaultValue={defaultValue}
 			required={required}
+			step=".01"
 		/>
 	</div >
 )
@@ -72,3 +95,20 @@ export const RadioButton = ({ name, value, label, defaultChecked }: RadioButtonP
 		<p className="text-xs rounded px-2.5 py-1.5 border border-gray-100 cursor-pointer	">{label}</p>
 	</label>
 )
+
+type DropDownProps = {
+	name: string
+	label: string
+	children: React.ReactNode
+}
+
+export const DropDown = ({ name, label, children }: DropDownProps) => {
+	return (
+		<div className="flex flex-col gap-2 w-full">
+			<label htmlFor={name}>{label}</label>
+			<select name={name} id={name} className="form-select cursor-pointer block appearance-none focus:shadow-outline border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base bg-clip-padding bg-no-repeat">
+				{children}
+			</select>
+		</div>
+	)
+}
