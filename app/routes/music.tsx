@@ -109,7 +109,7 @@ const Music = () => {
             </a>
           ))}
         </div>
-        <Link className="i-ri:add-line w-6 h-6 mb-2" to="/admin/music/new/radio"></Link>
+        {user && <Link className="i-ri:add-line w-6 h-6 mb-2" to="/admin/music/new/radio"></Link>}
       </div>
     </section >
   )
