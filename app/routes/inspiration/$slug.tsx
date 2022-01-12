@@ -1,37 +1,41 @@
-import { json, LoaderFunction, useLoaderData } from "remix";
-import Masonry from "~/components/Masonry";
-import { saveeBoards } from "./index";
+import { json, LoaderFunction, useLoaderData } from 'remix'
+import Masonry from '~/components/Masonry'
+import { saveeBoards } from './index'
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { slug } = params;
-  if (!slug) throw new Response("Not Found", { status: 404 });
-  const id = saveeBoards[slug];
-  if (!id) throw new Response("Not Found", { status: 404 });
+  const { slug } = params
+  if (!slug) throw new Response('Not Found', { status: 404 })
+  const id = saveeBoards[slug]
+  if (!id) throw new Response('Not Found', { status: 404 })
 
   const response = await fetch(
-    `https://api.savee.it/user/adamcollier/boards/${id}/items/`
-  );
-  const { data } = await response.json();
-  return json(data, { headers: { "Cache-Control": "s-maxage=1, stale-while-revalidate" } });
+    `https://api.savee.it/user/adamcollier/boards/${id}/items/`,
+  )
+  const { data } = await response.json()
+  return json(data, {
+    headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate' },
+  })
 }
 
 export const headers = () => ({
-  "Cache-Control": "s-maxage=1, stale-while-revalidate"
+  'Cache-Control': 's-maxage=1, stale-while-revalidate',
 })
 
 const InspirationPage = () => {
-  const data = useLoaderData();
-  return <main>
-    <Masonry images={data} />
-  </main>
+  const data = useLoaderData()
+  return (
+    <main>
+      <Masonry images={data} />
+    </main>
+  )
 }
 
-export default InspirationPage;
+export default InspirationPage
 
 export function CatchBoundary() {
   return (
     <div className="flex w-full h-full items-center justify-center">
       <h2 className="text-xl">We couldn't find that page!</h2>
     </div>
-  );
+  )
 }

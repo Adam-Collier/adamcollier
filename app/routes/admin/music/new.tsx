@@ -1,11 +1,11 @@
-import { Link, LoaderFunction, Outlet } from "remix"
-import { getUser } from "~/utils/session.server";
+import { Link, LoaderFunction, Outlet } from 'remix'
+import { getUser } from '~/utils/session.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response("Unauthorized", { status: 401 });
+  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
 
-  return null;
+  return null
 }
 
 const NewMusic = () => {
