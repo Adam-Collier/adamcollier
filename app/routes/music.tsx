@@ -65,10 +65,11 @@ const Music = () => {
   const { user } = useAuth()
 
   return (
-    <section className="flex h-full">
+    <section className="flex flex-col sm:flex-row h-full">
       {/* gradient created with: https://larsenwork.com/easing-gradients/#editor */}
+      {/* spotify */}
       <div
-        className="p-4 basis-5/6 space-y-4"
+        className="p-4 space-y-4 sm:w-11/12 lg:w-8/12"
         style={{
           backgroundImage:
             'linear-gradient(to bottom, hsl(0, 0%, 39%) 0%, hsl(0, 0%, 35.62%) 2.5%, hsl(0, 0%, 32.33%) 4.4%, hsl(0, 0%, 29.13%) 6.2%, hsl(0, 0%, 26.05%) 7.9%, hsl(0, 0%, 23.06%) 9.9%, hsl(0, 0%, 20.18%) 12.4%, hsl(0, 0%, 17.42%) 15.7%, hsl(0, 0%, 14.77%) 20%, hsl(0, 0%, 12.24%) 25.6%, hsl(0, 0%, 9.84%) 32.7%, hsl(0, 0%, 7.58%) 41.6%, hsl(0, 0%, 5.45%) 52.5%, hsl(0, 0%, 3.47%) 65.7%, hsl(0, 0%, 1.65%) 81.5%, hsl(0, 0%, 0%) 100%',
@@ -83,25 +84,27 @@ const Music = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-8 gap-2">
+        <div className="grid grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-2">
           {spotifyAlbums.map(
             (
-              {
-                image,
-                link,
-                rating,
-              }: { image: string; link: string; rating: number },
+              { image, link }: { image: string; link: string; rating: number },
               index: string,
             ) => (
-              <a className="block w-full relative" href={link} key={index}>
+              <a
+                className="block w-full relative"
+                href={link}
+                target="_blank"
+                rel="noreferrer noopener"
+                key={index}
+              >
                 <img className="rounded" src={image} alt="" />
-                {/* <span className="block absolute bottom-2 right-2 text-white text-xs bg-black p-1 line-height-1 rounded">{rating.toFixed(1)}</span> */}
               </a>
             ),
           )}
         </div>
       </div>
-      <div className="p-4 bg-gradient-to-t from-[#f30] to-[#f70] space-y-4 flex-grow">
+      {/* soundcloud */}
+      <div className="p-4 bg-gradient-to-t from-[#f30] to-[#f70] space-y-4 flex flex-col flex-grow flex-shrink min-w-0">
         <div className="h-[24px] flex items-center justify-between">
           <SoundcloudLogo className="h-[18px]" />
           {user && (
@@ -113,7 +116,7 @@ const Music = () => {
             </Link>
           )}
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           {soundcloudMixes.map(
             (
               {
@@ -126,22 +129,22 @@ const Music = () => {
             ) => {
               return (
                 <a
-                  className="block w-full relative flex items-start text-white bg-gradient-to-r to-white/3 hover:to-white/10 from-transparent rounded overflow-hidden"
+                  className="block relative flex items-start text-white bg-gradient-to-r to-white/3 hover:to-white/10 from-transparent rounded overflow-hidden"
                   href={link}
                   target="_blank"
                   rel="noreferrer noopener"
                   key={index}
                 >
-                  <div className="w-12 h-12 relative rounded overflow-hidden">
+                  <div className="w-12 h-12 relative rounded overflow-hidden flex-shrink-0">
                     <img
                       className="absolute top-0 left-0 w-full h-full"
                       src={image}
                       alt=""
                     />
                   </div>
-                  <div className="p-2">
+                  <div className="p-2 flex flex-col w-full min-w-0">
                     <h3 className="text-sm truncate">{title}</h3>
-                    <p className="text-xs">{artist}</p>
+                    <p className="text-xs truncate">{artist}</p>
                   </div>
                 </a>
               )
@@ -149,8 +152,9 @@ const Music = () => {
           )}
         </div>
       </div>
-      <div className="bg-black p-2 flex flex-col justify-between items-center bg-gradient-to-t from-orange-300 to-orange-100">
-        <div className="flex flex-col gap-2">
+      {/* radio stations */}
+      <div className="order-first sm:order-last bg-black p-2 flex sm:flex-col justify-between items-center bg-gradient-to-t from-orange-300 to-orange-100 ">
+        <div className="flex sm:flex-col gap-2">
           {radioStations.map(
             ({
               name,
@@ -174,7 +178,7 @@ const Music = () => {
         </div>
         {user && (
           <Link
-            className="i-ri:add-line w-6 h-6 mb-2"
+            className="i-ri:add-line w-6 h-6 sm:mb-2"
             to="/admin/music/new/radio"
           ></Link>
         )}
