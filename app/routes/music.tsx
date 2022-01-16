@@ -1,62 +1,37 @@
-import { json, Link, LoaderFunction, useCatch, useLoaderData } from 'remix'
-import notion from '~/utils/notion.server'
+import {
+  ActionFunction,
+  json,
+  Link,
+  LoaderFunction,
+  useCatch,
+  useLoaderData,
+} from 'remix'
 import { Spotify as SpotifyLogo, Soundcloud as SoundcloudLogo } from '~/svgs'
 import { useAuth } from '~/context'
+import { getMusicData } from '~/music'
+import { lruCache } from '~/utils/cache.server'
+
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData()
+  const cache = form.get('cache')
+
+  if (cache) {
+    if (lruCache.has('musicData')) lruCache.del('musicData')
+  }
+
+  return null
+}
 
 export const loader: LoaderFunction = async () => {
-  if (!process.env.NOTION_SPOTIFY_ALBUMS) {
-    throw new Response('notion spotify album id needed', { status: 500 })
-  }
-  if (!process.env.NOTION_SOUNDCLOUD_MIXES) {
-    throw new Response('notion soundcloud mixes id needed', { status: 500 })
-  }
-  if (!process.env.NOTION_INTERNET_RADIO_STATIONS) {
-    throw new Response('notion internet radio station id needed', {
-      status: 500,
-    })
+  if (lruCache.has('musicData')) {
+    return json({ ...lruCache.get('musicData') })
   }
 
-  const [albumData, soundcloudData, radioData] = await Promise.all([
-    await notion.databases.query({
-      database_id: process.env.NOTION_SPOTIFY_ALBUMS,
-    }),
-    await notion.databases.query({
-      database_id: process.env.NOTION_SOUNDCLOUD_MIXES,
-    }),
-    await notion.databases.query({
-      database_id: process.env.NOTION_INTERNET_RADIO_STATIONS,
-    }),
-  ])
-
-  const spotifyAlbums = albumData.results.map(({ properties }: any) => {
-    return {
-      artist: properties.artist.title[0].plain_text,
-      link: properties.link.rich_text[0].plain_text,
-      album: properties.album.rich_text[0].plain_text,
-      rating: properties.rating.number,
-      image: properties.image.rich_text[0].plain_text,
-    }
-  })
-
-  const soundcloudMixes = soundcloudData.results.map(({ properties }: any) => ({
-    artist: properties.artist.rich_text[0].plain_text,
-    title: properties.title.title[0].plain_text,
-    link: properties.link.rich_text[0].plain_text,
-    image: properties.image.rich_text[0].plain_text,
-  }))
-
-  const radioStations = radioData.results.map(({ properties }: any) => {
-    return {
-      name: properties.name.title[0].plain_text,
-      link: properties.link.rich_text[0].plain_text,
-      image: properties.image.rich_text[0].plain_text,
-    }
-  })
+  let data = await getMusicData()
+  lruCache.set('musicData', data)
 
   return json({
-    spotifyAlbums,
-    soundcloudMixes,
-    radioStations,
+    ...data,
   })
 }
 
@@ -69,7 +44,7 @@ const Music = () => {
       {/* gradient created with: https://larsenwork.com/easing-gradients/#editor */}
       {/* spotify */}
       <div
-        className="p-4 space-y-4 sm:w-11/12 lg:w-8/12"
+        className="p-4 pb-5 space-y-4 sm:w-11/12 lg:w-8/12"
         style={{
           backgroundImage:
             'linear-gradient(to bottom, hsl(0, 0%, 39%) 0%, hsl(0, 0%, 35.62%) 2.5%, hsl(0, 0%, 32.33%) 4.4%, hsl(0, 0%, 29.13%) 6.2%, hsl(0, 0%, 26.05%) 7.9%, hsl(0, 0%, 23.06%) 9.9%, hsl(0, 0%, 20.18%) 12.4%, hsl(0, 0%, 17.42%) 15.7%, hsl(0, 0%, 14.77%) 20%, hsl(0, 0%, 12.24%) 25.6%, hsl(0, 0%, 9.84%) 32.7%, hsl(0, 0%, 7.58%) 41.6%, hsl(0, 0%, 5.45%) 52.5%, hsl(0, 0%, 3.47%) 65.7%, hsl(0, 0%, 1.65%) 81.5%, hsl(0, 0%, 0%) 100%',
@@ -78,26 +53,58 @@ const Music = () => {
         <div className="h-[24px] flex justify-between items-center">
           <SpotifyLogo className="h-full w-auto" />
           {user && (
-            <Link to="/admin/music/new/spotify" className="text-white text-xs">
-              Add an Album
-            </Link>
+            <div className="flex text-white space-x-2 place-items-center">
+              <Link
+                to="/admin/music/new/spotify"
+                className="text-white text-xs"
+              >
+                Add an Album
+              </Link>
+              <span className="text-xs">|</span>
+              <form method="post" className="flex place-items-center">
+                <button
+                  type="submit"
+                  className="text-white text-xs"
+                  name="cache"
+                  value="delete"
+                >
+                  Delete the cache
+                </button>
+              </form>
+            </div>
           )}
         </div>
 
         <div className="grid grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-2">
           {spotifyAlbums.map(
             (
-              { image, link }: { image: string; link: string; rating: number },
+              {
+                image,
+                link,
+                artist,
+                album,
+              }: {
+                image: string
+                link: string
+                rating: number
+                artist: string
+                album: string
+              },
               index: string,
             ) => (
               <a
-                className="block w-full relative"
+                className="block w-full relative pt-full rounded overflow-hidden"
                 href={link}
                 target="_blank"
                 rel="noreferrer noopener"
                 key={index}
               >
-                <img className="rounded" src={image} alt="" />
+                <img
+                  className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20"
+                  src={image.replace(/b273/g, '1e02')}
+                  alt={`${album}, ${artist}`}
+                  loading="lazy"
+                />
               </a>
             ),
           )}
@@ -135,11 +142,12 @@ const Music = () => {
                   rel="noreferrer noopener"
                   key={index}
                 >
-                  <div className="w-12 h-12 relative rounded overflow-hidden flex-shrink-0">
+                  <div className="w-13 h-13 relative rounded overflow-hidden flex-shrink-0 bg-orange-100/20">
                     <img
                       className="absolute top-0 left-0 w-full h-full"
                       src={image}
-                      alt=""
+                      alt={`${title}, ${artist}`}
+                      loading="lazy"
                     />
                   </div>
                   <div className="p-2 flex flex-col w-full min-w-0">
@@ -151,27 +159,37 @@ const Music = () => {
             },
           )}
         </div>
+        <div className="block h-24"></div>
       </div>
       {/* radio stations */}
-      <div className="order-first sm:order-last bg-black p-2 flex sm:flex-col justify-between items-center bg-gradient-to-t from-orange-300 to-orange-100 ">
+      <div className="order-first sm:order-last bg-black p-2 px-4 flex sm:flex-col justify-between items-center bg-gradient-to-t sm:bg-gradient-to-t from-orange-200 to-orange-100 ">
         <div className="flex sm:flex-col gap-2">
           {radioStations.map(
-            ({
-              name,
-              link,
-              image,
-            }: {
-              name: string
-              link: string
-              image: string
-            }) => (
+            (
+              {
+                name,
+                link,
+                image,
+              }: {
+                name: string
+                link: string
+                image: string
+              },
+              index: string,
+            ) => (
               <a
                 href={link}
-                className="relative block rounded w-10 h-10 border border-gray-800"
+                className="relative block rounded w-10 h-10 sm:w-10 overflow-hidden sm:h-10 bg-orange-200"
                 target="_blank"
                 rel="noreferrer noopener"
+                key={index}
               >
-                <img src={image} alt={name} />
+                <img
+                  src={image}
+                  alt={name}
+                  className="absolute top-0 left-0 w-full h-full"
+                  loading="lazy"
+                />
               </a>
             ),
           )}

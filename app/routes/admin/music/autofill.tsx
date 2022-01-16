@@ -14,7 +14,7 @@ export const action: ActionFunction = async ({ request }) => {
     let meta: { [key: string]: string } = {}
     // parse the html here
     walk(ast, {
-      enter: (node, parent) => {
+      enter: (node) => {
         // match only the og:title, og:description or og:image meta tags
         if (
           node.type === SyntaxKind.Tag &&
