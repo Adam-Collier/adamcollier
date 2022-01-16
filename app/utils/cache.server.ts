@@ -9,6 +9,11 @@ const createLruCache = () => {
 
   return newCache
 }
+declare global {
+  // This preserves the LRU cache during development
+  // eslint-disable-next-line
+  var lruCache: LRU<string, { value: any }> | undefined
+}
 
 const lruCache = (global.lruCache = global.lruCache
   ? global.lruCache
