@@ -2,6 +2,7 @@ import React from 'react'
 import { ActionFunction, redirect, useTransition } from 'remix'
 import { Form, TextInput } from '~/components/Form'
 import notion from '~/utils/notion.server'
+import { lruCache } from '~/utils/cache.server'
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
@@ -45,6 +46,8 @@ export const action: ActionFunction = async ({ request }) => {
       },
     },
   })
+
+  if (lruCache.has('musicData')) lruCache.del('musicData')
 
   return redirect('/music')
 }
