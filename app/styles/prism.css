@@ -1,0 +1,114 @@
+:root {
+  --orange: rgba(255, 135, 31, 1);
+  --turq: rgba(0, 245, 196, 1);
+  --pink: rgba(232, 141, 163, 1);
+  --yellow: rgba(255, 221, 0, 1);
+  --red: rgba(249, 16, 74, 1);
+  --blue: rgba(3, 136, 252, 1);
+  --gray: rgba(128, 128, 128, 1);
+  --white: rgba(255, 255, 255, 1);
+  --black: rgba(19, 19, 21, 1);
+
+  --text: var(--white);
+  --background: rgb(255 135 31 / 5%);
+  --syntax1: var(--orange);
+  --syntax2: var(--turq);
+  --syntax3: var(--pink);
+  --syntax4: var(--pink);
+  --comment: var(--gray);
+  --removed: var(--red);
+  --added: var(--turq);
+}
+
+pre {
+  box-sizing: border-box;
+  font-family: 'Fira Mono, monospace';
+  background: var(--background);
+  overflow: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  color: #fff;
+}
+
+pre > code {
+  display: block;
+}
+
+body {
+  background: rgb(19, 19, 21);
+}
+
+.token.parameter {
+  color: var(--text);
+}
+
+.token.tag,
+.token.class-name,
+.token.selector,
+.token.selector .class,
+.token.function {
+  color: var(--syntax1);
+}
+
+.token.attr-value,
+.token.class,
+.token.string,
+.token.number,
+.token.unit,
+.token.color {
+  color: var(--syntax2);
+}
+
+.token.attr-name,
+.token.keyword,
+.token.rule,
+.token.operator,
+.token.pseudo-class,
+.token.important {
+  color: var(--syntax3);
+}
+
+.token.punctuation,
+.token.module,
+.token.property {
+  color: var(--syntax4);
+}
+
+.token.comment {
+  color: var(--comment);
+}
+
+.token.atapply .token:not(.rule):not(.important) {
+  color: inherit;
+}
+
+.language-shell .token:not(.comment) {
+  color: inherit;
+}
+
+.language-css .token.function {
+  color: inherit;
+}
+
+.token.deleted:not(.prefix),
+.token.inserted:not(.prefix) {
+  display: block;
+  /* px: $4,
+    mx: -$4, */
+}
+
+.token.deleted:not(.prefix) {
+  color: var(--removed);
+}
+
+.token.inserted:not(.prefix) {
+  color: var(--added);
+}
+
+.token.deleted.prefix,
+.token.inserted.prefix {
+  user-select: none;
+}
