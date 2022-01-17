@@ -48,6 +48,7 @@ export const TextInput = ({
       defaultValue={defaultValue}
       required={required}
       onChange={onChange}
+      spellCheck={true}
     />
   </div>
 )
@@ -84,19 +85,25 @@ export const NumberInput = ({
 type TextAreaProps = {
   label: string
   name: string
-  id: string
   defaultValue?: string
+  rows?: number
 }
 
-export const TextArea = ({ label, name, id, defaultValue }: TextAreaProps) => (
+export const TextArea = ({
+  label,
+  name,
+  defaultValue,
+  rows = 5,
+}: TextAreaProps) => (
   <div className="flex flex-col gap-2 w-full">
-    <label htmlFor={id}>{label}</label>
+    <label htmlFor={name}>{label}</label>
     <textarea
       className="border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base"
       name={name}
-      id={id}
-      rows={5}
+      id={name}
+      rows={rows}
       defaultValue={defaultValue}
+      spellCheck={true}
     ></textarea>
   </div>
 )
