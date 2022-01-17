@@ -63,6 +63,7 @@ export const action: ActionFunction = async ({ request }) => {
 
         if (node.type === SyntaxKind.Tag && node.name === 'h1') {
           if (node.body) {
+            // @ts-ignore .body does exist so I don't know why thy ist complaining
             meta['artist'] = node.body[2].body[0].value
           }
         }
@@ -99,13 +100,15 @@ export const action: ActionFunction = async ({ request }) => {
         if (
           node.type === SyntaxKind.Tag &&
           node.name === 'link' &&
-          node.attributeMap.rel.value.value === 'apple-touch-icon'
+          node.attributeMap!.rel.value!.value === 'apple-touch-icon'
         ) {
-          let imagePath = node.attributeMap.href.value?.value
+          if (node.attributeMap) {
+            let imagePath = node.attributeMap.href.value?.value
 
-          let baseUrl = url.endsWith('/') ? url?.slice(0, -1) : url
+            let baseUrl = url.endsWith('/') ? url?.slice(0, -1) : url
 
-          meta['image'] = baseUrl + imagePath
+            meta['image'] = baseUrl + imagePath
+          }
         }
       },
     })
