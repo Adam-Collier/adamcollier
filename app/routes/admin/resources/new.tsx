@@ -65,11 +65,7 @@ const NewResource = () => {
       <TextInput name="title" label="Title" required />
       <TextInput name="summary" label="Summary" required />
       <TextInput name="section" label="Section" required />
-      <TextArea
-        name="description"
-        label="Description"
-        id="resource-description"
-      />
+      <TextArea name="description" label="Description" />
       <div className="flex w-full gap-2 mt-2">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton name="collectionId" label={name} value={id} />
