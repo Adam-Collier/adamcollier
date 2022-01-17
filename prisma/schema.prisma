@@ -40,9 +40,8 @@ model Snippet {
   updatedAt           DateTime           @updatedAt
   title               String
   content             String             @db.LongText
-  collectionId        Int
   SnippetCollection   SnippetCollection? @relation(fields: [snippetCollectionId], references: [id])
-  snippetCollectionId Int?
+  snippetCollectionId Int
 }
 
 model SnippetCollection {
