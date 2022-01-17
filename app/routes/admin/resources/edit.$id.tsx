@@ -100,7 +100,6 @@ const Edit = () => {
         required
       />
       <TextArea
-        id="resource-description"
         name="description"
         label="Description"
         defaultValue={description}
