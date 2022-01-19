@@ -33,5 +33,5 @@ export const toMarkdown = async (html: string) => {
 
   const markdown = await processor.process(html)
 
-  return markdown.value.toString()
+  return markdown.contents
 }
