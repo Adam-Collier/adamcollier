@@ -162,7 +162,7 @@ const Music = () => {
         <div className="block h-24"></div>
       </div>
       {/* radio stations */}
-      <div className="order-first sm:order-last bg-black p-2 px-4 flex sm:flex-col justify-between items-center bg-gradient-to-t sm:bg-gradient-to-t from-orange-200 to-orange-100 ">
+      <div className="order-first sm:order-last bg-black p-2 flex sm:flex-col justify-between items-center bg-gradient-to-t sm:bg-gradient-to-t from-orange-200 to-orange-100 ">
         <div className="flex sm:flex-col gap-2">
           {radioStations.map(
             (
