@@ -64,11 +64,9 @@ const Snippets = () => {
         <div className="space-y-8">
           {data.snippets.map(
             ({ title, content, updatedAt, id }: Snippet, index: number) => {
-              const slug = toSlug(`${name}/#${title}`)
-
               return (
                 <div className="block space-y-3">
-                  <h2 className="text-lg text-white" id={slug}>
+                  <h2 className="text-lg text-white" id={toSlug(title)}>
                     {title}
                   </h2>
                   <div

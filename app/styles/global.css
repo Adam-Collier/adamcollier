@@ -42,6 +42,7 @@ h3,
 h4 {
   font-weight: 600;
   line-height: 1.3;
+  scroll-margin-top: 20px;
 }
 
 .noise {
