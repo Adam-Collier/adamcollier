@@ -21,7 +21,7 @@ export function headers({}) {
 const Inspiration = () => (
   <main className="bg-black">
     <Outlet />
-    <nav className="fixed shadow-md bottom-20 left-1/2 -translate-x-1/2">
+    <nav className="fixed shadow-md bottom-20 left-1/2 -translate-x-1/2 sm:left-4 sm:translate-x-0">
       <ul className="flex px-2 py-2 bg-gray-100 rounded children:cursor-pointer">
         <li>
           <Link to="/inspiration/">All</Link>
