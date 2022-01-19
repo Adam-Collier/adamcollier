@@ -14,13 +14,7 @@ export const Header = () => {
   const { user } = useAuth()
 
   return (
-    <ul
-      className="flex flex-row justify-around items-center px-4 py-4 gap-4 rounded-md fixed bottom-4 right-12 left-12 sm:bottom-4 sm:left-4 sm:right-auto sm:w-fit shadow-md z-10"
-      style={{
-        background:
-          'conic-gradient(from 37.1deg at 56.4% 622.81%, #FEFEFE 0deg, #CCD1FF 133.21deg, #FFEEFF 233.47deg, #FFF3F3 348.34deg, #FFEAEA 360deg)',
-      }}
-    >
+    <ul className="flex flex-row justify-around items-center px-4 py-4 space-x-4 rounded-md fixed bottom-4 w-fit shadow-md z-10 bg-gray-200 bg-opacity-70 backdrop-filter backdrop-blur-sm left-1/2 -translate-x-1/2">
       <li>
         <Link to="/">
           <Home />

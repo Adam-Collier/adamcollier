@@ -10,6 +10,7 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toHTML } from '~/utils/utils.server'
+import { metaAutofill } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const isAuthenticated = await getUser(request)
@@ -61,7 +62,7 @@ const NewResource = () => {
 
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
-      <TextInput name="link" label="Link" required />
+      <TextInput name="link" label="Link" onChange={metaAutofill} required />
       <TextInput name="title" label="Title" required />
       <TextInput name="summary" label="Summary" required />
       <TextInput name="section" label="Section" required />
