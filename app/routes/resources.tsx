@@ -27,7 +27,7 @@ const Resources = () => {
   }
 
   return (
-    <main className="flex flex-col sm:flex-row gap-8 md:gap-16 block max-w-4xl mx-auto px-4 py-16">
+    <main className="flex flex-col sm:flex-row gap-8 md:gap-16 block max-w-5xl mx-auto px-4 py-16">
       <div className="md:flex-shrink-0">
         <ul className="flex flex-col gap-4">
           {data.map(({ name, updatedAt }: Collection, index: number) => {
