@@ -44,7 +44,7 @@ export const action: ActionFunction = async ({ request }) => {
     let meta: { [key: string]: string } = {}
     // parse the html here
     walk(ast, {
-      enter: (node, parent) => {
+      enter: (node) => {
         // match only the og:title, og:description or og:image meta tags
         if (
           node.type === SyntaxKind.Tag &&
@@ -87,7 +87,7 @@ export const action: ActionFunction = async ({ request }) => {
         if (
           node.type === SyntaxKind.Tag &&
           node.name === 'meta' &&
-          node.attributes[0].value?.value.match(/^(og:title)$/)
+          node.attributes[0].value?.value.match(/^(og:title|og:description)$/)
         ) {
           // remove the og: bit of the string
           let property = node.attributes[0].value.value.slice(3)
@@ -96,27 +96,14 @@ export const action: ActionFunction = async ({ request }) => {
           // add to the meta object
           meta[property] = node.attributes[1].value?.value
         }
-
-        if (
-          node.type === SyntaxKind.Tag &&
-          node.name === 'link' &&
-          node.attributeMap!.rel.value!.value === 'apple-touch-icon'
-        ) {
-          if (node.attributeMap) {
-            let imagePath = node.attributeMap.href.value?.value
-
-            let baseUrl = url.endsWith('/') ? url?.slice(0, -1) : url
-
-            meta['image'] = baseUrl + imagePath
-          }
-        }
       },
     })
 
-    const { title, image } = meta
+    const { title, image, description } = meta
     // sort into the data we need
     data = {
-      name: title,
+      title: title,
+      description: description,
       image: image,
     }
   }

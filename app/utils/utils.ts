@@ -130,3 +130,57 @@ export const positionGridItems = (
     }
   }
 }
+
+export const metaAutofill = async (
+  e: React.ChangeEvent<any>,
+): Promise<void> => {
+  let { value } = e.target as HTMLInputElement
+
+  if (!value) return
+
+  const response = await fetch('/admin/autofill/meta', {
+    method: 'POST',
+    body: JSON.stringify({
+      url: value,
+    }),
+  })
+
+  const data = await response.json()
+
+  for (const property in data) {
+    if (document.getElementById(property)) {
+      let input = document.getElementById(property) as HTMLInputElement
+      input.value = data[property]
+    }
+  }
+}
+
+export const faviconAutofill = async (
+  e: React.ChangeEvent<any>,
+): Promise<void> => {
+  let { value } = e.target as HTMLInputElement
+
+  console.log(value)
+
+  if (!value) return
+
+  const response = await fetch('/admin/autofill/favicon', {
+    method: 'POST',
+    body: JSON.stringify({
+      url: value,
+    }),
+  })
+
+  console.log(response)
+
+  const data = await response.json()
+
+  console.log(data)
+
+  for (const property in data) {
+    if (document.getElementById(property)) {
+      let input = document.getElementById(property) as HTMLInputElement
+      input.value = data[property]
+    }
+  }
+}

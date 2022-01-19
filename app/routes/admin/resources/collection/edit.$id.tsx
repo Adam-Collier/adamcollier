@@ -64,7 +64,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     },
   })
 
-  return redirect(`/snippets/${toSlug(name)}`)
+  return redirect(`/resources/${toSlug(name)}`)
 }
 
 const EditSnippetCollection = () => {
