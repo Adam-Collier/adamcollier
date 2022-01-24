@@ -12,9 +12,12 @@ export const Form = (props: FormProps) => {
   return (
     <RemixForm
       {...rest}
-      className={[className, 'rounded px-8 pt-6 pb-8 bg-white'].join(' ')}
+      className={[className, 'rounded bg-white w-full'].join(' ')}
     >
-      <fieldset disabled={disabled} className="flex flex-col items-start gap-3">
+      <fieldset
+        disabled={disabled}
+        className="flex flex-col items-start gap-3 w-full"
+      >
         {children}
       </fieldset>
     </RemixForm>
