@@ -1,5 +1,15 @@
 export const toSlug = (title: string) => title.toLowerCase().replace(/ /g, '-')
 
+export const toReadableDate = (date: Date) => {
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+
+  return new Date(date).toLocaleDateString('en-US', dateOptions)
+}
+
 const conjunctions = ['for', 'and', 'nor', 'but', 'or', 'yet', 'so']
 
 const articles = ['a', 'an', 'the']
