@@ -110,7 +110,7 @@ const Edit = () => {
         defaultValue={section}
         required
       />
-      <div className="flex w-full gap-2 mt-2">
+      <div className="flex w-full gap-2 my-2">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton
             key={name}
@@ -126,7 +126,7 @@ const Edit = () => {
           {transition.submission ? 'Saving...' : 'Edit Resource'}
         </button>
         <button
-          className="btn bg-transparent border border-color-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+          className="btn-delete"
           type="submit"
           name="button"
           value="delete"

@@ -83,7 +83,7 @@ const EditSnippet = () => {
         name="content"
         label="Content"
         defaultValue={content}
-        rows={20}
+        rows={5}
       />
       <div className="flex gap-2">
         <button className="btn" name="button">

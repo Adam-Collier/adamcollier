@@ -71,7 +71,7 @@ const NewSoundcloudMix = () => {
       <TextInput name="artist" label="Artist" />
       <TextInput name="title" label="Title" />
       <TextInput name="image" label="Image" />
-      <button className="btn">
+      <button className="btn mt-2">
         {transition.submission ? 'Submitting...' : 'Submit'}
       </button>
     </Form>

@@ -23,7 +23,7 @@ const Link = (props: NavLinkProps) => (
 const NewMusic = () => {
   return (
     <main className="flex flex-col sm:flex-row sm:gap-8 md:gap-16 block max-w-4xl mx-auto min-h-[100vh] bg-gradient-to-t">
-      <div className="md:flex-shrink-0 pt-8 sm:pt-16">
+      <div className="md:flex-shrink-0">
         <ul className="flex md:flex-col gap-2 md:gap-4 pl-8 sm:pl-0">
           <li>
             <Link to="spotify">Spotify</Link>

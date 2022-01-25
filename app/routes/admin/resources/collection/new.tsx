@@ -34,7 +34,7 @@ const NewResourceCollection = () => {
     <Form method="post" className="w-full max-w-xl mx-auto">
       <TextInput name="name" label="Name" required />
       <TextArea name="description" label="Description" />
-      <TextArea name="excerpt" label="Excerpt" />
+      <TextArea name="excerpt" rows={2} label="Excerpt" />
       <button className="btn">
         {transition.submission ? 'Creating...' : 'Create Snippet Collection'}
       </button>

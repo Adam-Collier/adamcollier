@@ -76,7 +76,7 @@ const NewMusic = () => {
       <TextInput name="album" label="Album" />
       <TextInput name="image" label="Image" />
       <NumberInput name="rating" label="Rating" />
-      <button className="btn">
+      <button className="btn mt-2">
         {transition.submission ? 'Submitting...' : 'Submit'}
       </button>
     </Form>

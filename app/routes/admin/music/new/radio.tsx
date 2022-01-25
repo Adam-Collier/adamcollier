@@ -60,7 +60,7 @@ const NewRadioShow = () => {
       <TextInput name="link" label="Link" onChange={faviconAutofill} />
       <TextInput name="name" label="Name" />
       <TextInput name="image" label="Image" />
-      <button className="btn">
+      <button className="btn mt-2">
         {transition.submission ? 'Submitting...' : 'Submit'}
       </button>
     </Form>
