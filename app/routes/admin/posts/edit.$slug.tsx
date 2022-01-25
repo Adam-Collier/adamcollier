@@ -8,15 +8,16 @@ import {
 } from 'remix'
 import { Form, TextArea, TextInput } from '~/components/Form'
 import { db } from '~/utils/db.server'
+import { toSlug } from '~/utils/utils'
 
 export const action: ActionFunction = async ({ request, params }) => {
   const { slug } = params
-  const data = await request.formData()
-  const action = data.get('_action')
-  const title = data.get('title') as string
-  const content = data.get('markdown') as string
+  const formData = await request.formData()
+  const action = formData.get('_action')
+  const title = formData.get('title') as string
+  const content = formData.get('markdown') as string
 
-  if (action === 'draft') {
+  if (action === 'update') {
     await db.post.update({
       where: {
         slug,
@@ -24,31 +25,24 @@ export const action: ActionFunction = async ({ request, params }) => {
       data: {
         title,
         content,
+        slug: toSlug(title),
       },
     })
 
-    return json({ success: 'The draft has been saved!' })
+    return redirect(`/blog/${toSlug(title)}`)
   }
 
-  if (action === 'publish') {
-    await db.post.update({
+  if (action === 'delete') {
+    await db.post.delete({
       where: {
         slug,
       },
-      data: {
-        title,
-        content,
-        published: true,
-      },
     })
-
-    return redirect(`/blog/${slug}`)
   }
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
-
   const data = await db.post.findUnique({
     where: {
       slug,
@@ -58,16 +52,16 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json(data)
 }
 
-const EditDraft = () => {
+const EditPost = () => {
   const data = useLoaderData()
   const { title, content } = data
   const transition = useTransition()
 
   return (
-    <div className="w-full min-w-0">
-      <Form method="post">
-        <div className="flex flex-col-reverse sm:flex-row gap-8 sm:items-start w-full">
-          <div className="flex flex-grow flex-col gap-3">
+    <>
+      <Form method="post" className="w-full max-w-5xl mx-auto pt-8 px-4">
+        <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
+          <div className="flex-grow flex flex-col gap-3">
             <TextInput
               name="title"
               label="Title"
@@ -81,33 +75,29 @@ const EditDraft = () => {
               defaultValue={content}
             />
           </div>
-          <div className="flex justify-end space-x-2">
-            <button
-              name="_action"
-              value="draft"
-              className="btn bg-white hover:bg-gray-100 border border-black text-black"
-            >
-              {transition.submission?.formData.get('_action') === 'draft' &&
+          <div className="flex space-x-2 sm:min-w-48 sm:justify-end sm:sticky sm:top-8">
+            <button name="_action" value="delete" className="btn-delete">
+              {transition.submission?.formData.get('_action') === 'delete' &&
               transition.state === 'submitting'
-                ? 'Saving'
+                ? 'Deleting'
                 : transition.state === 'loading'
-                ? 'Saved!'
-                : 'Save Draft'}
+                ? 'Deleted!'
+                : 'Delete'}
             </button>
-            <button name="_action" value="publish" className="btn">
-              {transition.submission?.formData.get('_action') === 'publish' &&
+            <button name="_action" value="update" className="btn">
+              {transition.submission?.formData.get('_action') === 'update' &&
               transition.state === 'submitting'
-                ? 'Publishing'
+                ? 'Updating'
                 : transition.state === 'loading'
-                ? 'Published!'
-                : 'Publish'}
+                ? 'Updated!'
+                : 'Update'}
             </button>
           </div>
         </div>
       </Form>
       <div className="h-50vh"></div>
-    </div>
+    </>
   )
 }
 
-export default EditDraft
+export default EditPost

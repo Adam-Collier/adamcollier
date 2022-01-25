@@ -7,14 +7,14 @@ export const action: ActionFunction = async ({ request }) => {
   const data = await request.formData()
   const action = data.get('_action')
   const title = data.get('title') as string
-  const markdown = data.get('markdown') as string
+  const content = data.get('markdown') as string
 
   if (action === 'draft') {
     await db.post.create({
       data: {
         title,
         slug: toSlug(title),
-        content: markdown,
+        content: content,
         published: false,
       },
     })
@@ -23,16 +23,16 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   if (action === 'publish') {
-    const response = await db.post.create({
+    await db.post.create({
       data: {
         title,
         slug: toSlug(title),
-        content: markdown,
+        content: content,
         published: true,
       },
     })
 
-    return response
+    return redirect(`/blog/${toSlug(title)}`)
   }
 }
 
