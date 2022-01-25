@@ -10,7 +10,9 @@
   --black: rgba(19, 19, 21, 1);
 
   --text: var(--white);
-  --background: rgb(255 135 31 / 5%);
+  /* use a linear gradient hack for consistency between dark and light pages */
+  --background: linear-gradient(rgb(255 135 31 / 5%), rgb(255 135 31 / 5%)),
+    linear-gradient(rgb(24, 24, 27, 1), rgb(24, 24, 27, 1));
   --syntax1: var(--orange);
   --syntax2: var(--turq);
   --syntax3: var(--pink);
@@ -34,13 +36,8 @@ pre {
 }
 
 pre > code {
+  background: transparent;
   display: block;
-}
-
-html,
-body {
-  /* bg-zinc-900 */
-  background: rgb(24, 24, 27, 1);
 }
 
 .token.parameter {

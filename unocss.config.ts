@@ -3,7 +3,9 @@ import { defineConfig, presetIcons, presetUno } from 'unocss'
 export default defineConfig({
   shortcuts: [
     {
-      btn: 'bg-neutral-900 hover:bg-neutral-700 text-white text-sm py-2 px-4 rounded mt-2',
+      btn: 'text-sm py-2 px-4 rounded bg-neutral-900 hover:bg-neutral-700 border border-transparent text-white',
+      'btn-delete':
+        'text-sm py-2 px-4 rounded bg-transparent hover:bg-red-600 border border-color-red-600 text-red-600 hover:text-white',
     },
   ],
   rules: [
@@ -27,5 +29,10 @@ export default defineConfig({
       }
     },
   ],
+  theme: {
+    listStyleType: {
+      revert: 'revert',
+    },
+  },
   presets: [presetUno(), presetIcons()],
 })

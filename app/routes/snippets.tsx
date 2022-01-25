@@ -2,6 +2,7 @@ import { json, Link, LoaderFunction, useLoaderData, Outlet } from 'remix'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 import prism from '~/styles/prism.css'
+import dark from '~/styles/dark.css'
 
 export const loader: LoaderFunction = async () => {
   // get everything we need for the headings here
@@ -19,7 +20,10 @@ export const loader: LoaderFunction = async () => {
   return json(data)
 }
 
-export const links = () => [{ rel: 'stylesheet', href: prism }]
+export const links = () => [
+  { rel: 'stylesheet', href: prism },
+  { rel: 'stylesheet', href: dark },
+]
 
 const Snippets = () => {
   const data = useLoaderData()
