@@ -42,7 +42,11 @@ const Login = () => {
 
   return (
     <main className="noise w-full h-full flex justify-center items-center bg-gradient-to-t from-neutral-50 to-rose-50">
-      <Form reloadDocument method="post" className="max-w-sm w-full shadow-sm ">
+      <Form
+        reloadDocument
+        method="post"
+        className="max-w-sm w-full shadow-sm p-8"
+      >
         <TextInput name="username" label="Username" />
         <TextInput name="password" label="Password" />
         <button className="btn" type="submit">
