@@ -36,6 +36,7 @@ pre {
 }
 
 pre > code {
+  background: transparent;
   display: block;
 }
 
