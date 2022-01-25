@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Form as RemixForm, FormProps as RemixFormProps } from 'remix'
 
 interface FormProps extends RemixFormProps {
@@ -47,7 +47,7 @@ export const TextInput = ({
       type="text"
       id={name}
       name={name}
-      className="border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base"
+      className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base"
       defaultValue={defaultValue}
       required={required}
       onChange={onChange}
@@ -77,7 +77,7 @@ export const NumberInput = ({
       type="number"
       id={name}
       name={name}
-      className="border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base"
+      className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base"
       defaultValue={defaultValue}
       required={required}
       step=".01"
@@ -97,19 +97,51 @@ export const TextArea = ({
   name,
   defaultValue,
   rows = 5,
-}: TextAreaProps) => (
-  <div className="flex flex-col gap-2 w-full">
-    <label htmlFor={name}>{label}</label>
-    <textarea
-      className="border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base"
-      name={name}
-      id={name}
-      rows={rows}
-      defaultValue={defaultValue}
-      spellCheck={true}
-    ></textarea>
-  </div>
-)
+}: TextAreaProps) => {
+  const textarea = useRef<HTMLTextAreaElement>(null)
+  // if we change the line height in css make sure to change this
+  let lineHeight = 1.75
+  let initialLimit = rows * (lineHeight * 16)
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    let scrollLeft =
+      window.pageXOffset ||
+      (document.documentElement || document.body.parentNode || document.body)
+        .scrollLeft
+    let scrollTop =
+      window.pageYOffset ||
+      (document.documentElement || document.body.parentNode || document.body)
+        .scrollTop
+    e.target.style.height = 'auto'
+    e.target.style.height = `${Math.max(e.target.scrollHeight, initialLimit)}px`
+    window.scrollTo(scrollLeft, scrollTop)
+  }
+
+  useEffect(() => {
+    if (textarea.current) {
+      textarea.current.style.height = 'inherit'
+      textarea.current.style.height = `${Math.max(
+        textarea.current.scrollHeight,
+        initialLimit,
+      )}px`
+    }
+  }, [])
+
+  return (
+    <div className="flex flex-col gap-2 w-full">
+      <label htmlFor={name}>{label}</label>
+      <textarea
+        ref={textarea}
+        className="border-slate-300 border w-full p-3 text-black leading-7 rounded text-base resize-none overflow-hidden"
+        name={name}
+        id={name}
+        rows={rows}
+        defaultValue={defaultValue}
+        spellCheck={true}
+        onChange={handleChange}
+      ></textarea>
+    </div>
+  )
+}
 
 type RadioButtonProps = {
   name: string
@@ -152,7 +184,7 @@ export const DropDown = ({ name, label, children }: DropDownProps) => {
       <select
         name={name}
         id={name}
-        className="form-select cursor-pointer block appearance-none focus:shadow-outline border-slate-100 border w-full py-2 px-3 text-gray-700 leading-tight rounded text-base bg-clip-padding bg-no-repeat"
+        className="form-select cursor-pointer block appearance-none focus:shadow-outline border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base bg-clip-padding bg-no-repeat"
       >
         {children}
       </select>
