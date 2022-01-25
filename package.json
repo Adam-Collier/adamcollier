@@ -5,9 +5,9 @@
   "license": "",
   "scripts": {
     "build": "npm run build:css && remix build",
-    "build:css": "unocss ./app/utils/unified/typography.js ./app/**/*.{ts,tsx} ./app/routes/**/**/*.{ts,tsx} ./app/routes/admin/**/**/**/*.{ts,tsx} -o ./app/styles/uno.css",
+    "build:css": "unocss ./app/utils/unified/typography.js ./app/**/*.{ts,tsx} ./app/**/**/*.{ts,tsx} ./app/**/**/**/*.{ts,tsx} -o ./app/styles/uno.css",
     "dev": "node -r dotenv/config node_modules/.bin/remix dev",
-    "dev:css": "unocss ./app/utils/unified/typography.js ./app/**/*.{ts,tsx} ./app/routes/**/**/*.{ts,tsx} ./app/routes/admin/**/**/**/*.{ts,tsx} -o ./app/styles/uno.css --watch",
+    "dev:css": "unocss ./app/utils/unified/typography.js ./app/**/*.{ts,tsx} ./app/**/**/*.{ts,tsx} ./app/**/**/**/*.{ts,tsx} -o ./app/styles/uno.css --watch",
     "postinstall": "remix setup node",
     "db:prod": "pscale connect adamcollier main --port 3309",
     "db:dev": "pscale connect adamcollier dev --port 3309",
