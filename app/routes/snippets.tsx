@@ -30,8 +30,8 @@ const Snippets = () => {
 
   return (
     <div className="dark w-full bg-zinc-900">
-      <div className="flex flex-col sm:flex-row gap-8 md:gap-16 block max-w-5xl mx-auto px-4 py-16">
-        <aside className="md:flex-shrink-0 space-y-4">
+      <div className="flex flex-col sm:flex-row gap-8 block max-w-5xl mx-auto px-4 py-16">
+        <aside className="sm:flex-shrink-0 sm:w-52 space-y-4">
           <ul className="flex flex-col gap-1">
             {data.map(
               (
