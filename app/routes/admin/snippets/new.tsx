@@ -9,7 +9,6 @@ import {
 import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
-import { toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const isAuthenticated = await getUser(request)
@@ -56,7 +55,6 @@ const NewResource = () => {
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
       <TextInput name="title" label="Title" required />
-
       <TextArea name="content" label="Content" rows={15} />
       <div className="flex w-full gap-2 mt-2">
         {collections.map(({ id, name }: Collection) => (
