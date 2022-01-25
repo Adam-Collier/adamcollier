@@ -45,6 +45,11 @@ h4 {
   scroll-margin-top: 20px;
 }
 
+b,
+strong {
+  font-weight: 650;
+}
+
 .noise {
   background-image: url(/static/noise.svg);
 }
