@@ -14,8 +14,8 @@ export const Header = () => {
   const { user } = useAuth()
 
   return (
-    <div className="flex fixed bottom-4 w-full mx-auto left-1/2 -translate-x-1/2 justify-center sm:justify-start px-4 z-10">
-      <ul className="flex justify-around items-center p-4 space-x-4 rounded-md w-fit shadow-md z-10 bg-gray-200 bg-opacity-70 backdrop-filter backdrop-blur-sm">
+    <div className="flex fixed bottom-8 w-full mx-auto left-1/2 -translate-x-1/2 justify-center px-8 z-10">
+      <ul className="flex justify-around items-center p-4 space-x-4 rounded-lg w-fit shadow-md z-10 bg-gray-200 bg-opacity-90 backdrop-filter backdrop-blur-sm">
         <li>
           <Link to="/">
             <Home />
