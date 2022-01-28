@@ -8,6 +8,7 @@ import {
 } from 'remix'
 import { Form, TextArea, TextInput } from '~/components/Form'
 import { db } from '~/utils/db.server'
+import { toSlug } from '~/utils/utils'
 
 export const action: ActionFunction = async ({ request, params }) => {
   const { slug } = params
@@ -22,6 +23,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         slug,
       },
       data: {
+        slug: toSlug(title),
         title,
         content,
       },
@@ -36,6 +38,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         slug,
       },
       data: {
+        slug: toSlug(title),
         title,
         content,
         published: true,
@@ -81,7 +84,7 @@ const EditDraft = () => {
               defaultValue={content}
             />
           </div>
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-end space-x-2 min-w-52">
             <button
               name="_action"
               value="draft"
@@ -90,16 +93,12 @@ const EditDraft = () => {
               {transition.submission?.formData.get('_action') === 'draft' &&
               transition.state === 'submitting'
                 ? 'Saving'
-                : transition.state === 'loading'
-                ? 'Saved!'
                 : 'Save Draft'}
             </button>
             <button name="_action" value="publish" className="btn">
               {transition.submission?.formData.get('_action') === 'publish' &&
               transition.state === 'submitting'
                 ? 'Publishing'
-                : transition.state === 'loading'
-                ? 'Published!'
                 : 'Publish'}
             </button>
           </div>
