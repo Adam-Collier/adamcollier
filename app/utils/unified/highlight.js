@@ -16,7 +16,7 @@ const refractor = require('refractor')
 //   children: Node[]
 // }
 
-module.exports = (options = {}) => {
+module.exports = () => {
   return (tree) => {
     visit(tree, 'element', visitor)
   }
@@ -27,14 +27,34 @@ module.exports = (options = {}) => {
       const lang = node.properties.className
         ? node.properties.className[0].split('-')[1]
         : 'md'
-      let result = refractor.highlight(nodeToString(node), lang)
-      parentNode.properties.className = "pre"
+      let code = nodeToString(node)
+      let result = refractor.highlight(code, lang)
+      parentNode.properties.className = 'pre relative'
       //   // line highlight
       //   const linesToHighlight = rangeParser(node.properties.line || '0')
       //   result = highlightLine(result, linesToHighlight)
 
       // word highlight
       //   result = highlightWord(result)
+
+      parentNode.children.push({
+        type: 'element',
+        tagName: 'button',
+        properties: {
+          className: 'absolute top-4 right-4',
+          dataCode: code,
+          onclick: 'copyCodeToClipboard(this)',
+        },
+        children: [
+          {
+            type: 'element',
+            tagName: 'span',
+            properties: {
+              className: 'block i-ri:clipboard-line',
+            },
+          },
+        ],
+      })
 
       node.children = result
     }

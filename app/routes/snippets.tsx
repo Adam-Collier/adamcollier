@@ -1,8 +1,9 @@
 import { json, Link, LoaderFunction, useLoaderData, Outlet } from 'remix'
 import { db } from '~/utils/db.server'
-import { toSlug } from '~/utils/utils'
+import { copyCodeToClipboard, toSlug } from '~/utils/utils'
 import prism from '~/styles/prism.css'
 import dark from '~/styles/dark.css'
+import { useEffect } from 'react'
 
 export const loader: LoaderFunction = async () => {
   // get everything we need for the headings here
@@ -27,6 +28,10 @@ export const links = () => [
 
 const Snippets = () => {
   const data = useLoaderData()
+
+  useEffect(() => {
+    copyCodeToClipboard()
+  }, [])
 
   return (
     <div className="dark w-full bg-zinc-900">
