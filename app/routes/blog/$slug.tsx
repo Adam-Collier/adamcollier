@@ -44,6 +44,12 @@ const Post = () => {
   const { user } = useAuth()
   const location = useLocation()
 
+  let TableOfContents = () => (
+    <ul className="w-full sm:w-44 sm:flex-shrink-0 space-y-2 sm:sticky sm:top-18 sm:self-start min-w-0">
+      {createTableItems(headings, location.pathname)}
+    </ul>
+  )
+
   return (
     <>
       <AdminToolbar user={user}>
@@ -51,18 +57,21 @@ const Post = () => {
         <Link to={`/admin/posts/edit/${toSlug(title)}`}>Edit Post</Link>
         <Link to={`/admin/posts/drafts`}>Drafts</Link>
       </AdminToolbar>
-      {/* post content and headers */}
-
-      <div className="flex flex-col space-y-4 sm:flex-grow w-full min-w-0 max-w-[75ch]">
+      <div className="flex flex-col space-y-4 sm:flex-grow w-full min-w-0 max-w-[65ch] pb-24">
         <h1 className="text-2xl">{title}</h1>
+        {headings.length !== 0 && (
+          <div className="sm:hidden pl-4">
+            <TableOfContents />
+          </div>
+        )}
         <div
           className="space-y-4"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
-      <ul className="w-full sm:w-44 sm:flex-shrink-0 space-y-1 sm:sticky sm:top-18 sm:self-start min-w-0">
-        {createTableItems(headings, location.pathname)}
-      </ul>
+      <div className="hidden sm:block ">
+        <TableOfContents />
+      </div>
     </>
   )
 }
