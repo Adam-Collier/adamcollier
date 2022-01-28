@@ -6,7 +6,7 @@ import {
   useLoaderData,
   useTransition,
 } from 'remix'
-import { Form, TextArea, TextInput } from '~/components/Form'
+import { DatePicker, Form, TextArea, TextInput } from '~/components/Form'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 
@@ -16,6 +16,8 @@ export const action: ActionFunction = async ({ request, params }) => {
   const action = formData.get('_action')
   const title = formData.get('title') as string
   const content = formData.get('markdown') as string
+  const publishedDate = formData.get('published-date') as string
+  console.log(publishedDate, 'this is the published date')
 
   if (action === 'update') {
     await db.post.update({
@@ -26,6 +28,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         title,
         content,
         slug: toSlug(title),
+        createdAt: String(new Date(publishedDate).toISOString()),
       },
     })
 
@@ -54,12 +57,12 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const EditPost = () => {
   const data = useLoaderData()
-  const { title, content } = data
+  const { title, content, createdAt } = data
   const transition = useTransition()
 
   return (
     <>
-      <Form method="post" className="w-full max-w-5xl mx-auto pt-8 px-4">
+      <Form method="post" className="w-full max-w-5xl mx-auto">
         <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
           <div className="flex-grow flex flex-col gap-3">
             <TextInput
@@ -75,27 +78,29 @@ const EditPost = () => {
               defaultValue={content}
             />
           </div>
-          <div className="flex space-x-2 sm:min-w-48 sm:justify-end sm:sticky sm:top-8">
-            <button name="_action" value="delete" className="btn-delete">
-              {transition.submission?.formData.get('_action') === 'delete' &&
-              transition.state === 'submitting'
-                ? 'Deleting'
-                : transition.state === 'loading'
-                ? 'Deleted!'
-                : 'Delete'}
-            </button>
-            <button name="_action" value="update" className="btn">
-              {transition.submission?.formData.get('_action') === 'update' &&
-              transition.state === 'submitting'
-                ? 'Updating'
-                : transition.state === 'loading'
-                ? 'Updated!'
-                : 'Update'}
-            </button>
-          </div>
+          <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
+            <div className="flex space-x-2 sm:sticky sm:top-8">
+              <button name="_action" value="delete" className="btn-delete">
+                {transition.submission?.formData.get('_action') === 'delete' &&
+                transition.state === 'submitting'
+                  ? 'Deleting'
+                  : 'Delete'}
+              </button>
+              <button name="_action" value="update" className="btn">
+                {transition.submission?.formData.get('_action') === 'update' &&
+                transition.state === 'submitting'
+                  ? 'Updating'
+                  : 'Update'}
+              </button>
+            </div>
+            <DatePicker
+              defaultValue={createdAt}
+              name="published-date"
+              label="Published"
+            />
+          </aside>
         </div>
       </Form>
-      <div className="h-50vh"></div>
     </>
   )
 }

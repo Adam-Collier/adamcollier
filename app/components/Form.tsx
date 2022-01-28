@@ -52,6 +52,7 @@ export const TextInput = ({
       required={required}
       onChange={onChange}
       spellCheck={true}
+      autoComplete="off"
     />
   </div>
 )
@@ -188,6 +189,34 @@ export const DropDown = ({ name, label, children }: DropDownProps) => {
       >
         {children}
       </select>
+    </div>
+  )
+}
+
+export const DatePicker = ({
+  defaultValue,
+  name,
+  label,
+}: {
+  defaultValue?: string
+  name: string
+  label: string
+}) => {
+  const value = defaultValue
+    ? new Date(defaultValue).toISOString().split('T')[0]
+    : ''
+
+  return (
+    <div className="flex flex-col gap-2 w-full">
+      <label htmlFor={name}>{label}</label>
+      <input
+        id={name}
+        name={name}
+        className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base"
+        type="date"
+        defaultValue={value}
+        autoComplete="off"
+      />
     </div>
   )
 }
