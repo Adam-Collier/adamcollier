@@ -56,9 +56,10 @@ const Snippets = () => {
         <Link to={`/admin/snippets/collection/edit/${id}`}>
           Edit Collection
         </Link>
+        <Link to="/admin/snippets/collection/new">Add Collection</Link>
         <Link to="/admin/snippets/new">Add Snippet</Link>
       </AdminToolbar>
-      <div className="flex flex-col gap-4 min-w-0 w-full">
+      <div className="flex flex-col gap-4 min-w-0 w-full pb-24">
         <h1 className="text-2xl text-white">{name}</h1>
         {description && <p className="text-white">{description}</p>}
         <div className="space-y-8">
