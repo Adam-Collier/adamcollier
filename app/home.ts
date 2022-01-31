@@ -42,7 +42,7 @@ export const getLatestFilms = async () => {
   const feed = await parser.parseURL(process.env.LETTERBOXD_LATEST!)
   const { items } = feed
 
-  const filteredFilms = items.slice(0, 5).map((film) => {
+  const filteredFilms = items.slice(0, 8).map((film) => {
     const { content, title, link } = film
 
     const src = content?.split('"')[1]
