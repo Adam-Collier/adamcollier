@@ -13,7 +13,10 @@ const Resource = ({
   description,
   user,
 }: ResourceProps) => (
-  <div key={id} className="grid grid-cols-[140px_1fr] md:grid-cols-[200px_1fr]">
+  <div
+    key={id}
+    className="grid grid-cols-[140px_1fr] md:grid-cols-[200px_1fr] gap-4 sm:gap-8"
+  >
     <div>
       <a
         href={link}
