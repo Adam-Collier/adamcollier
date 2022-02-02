@@ -22,7 +22,18 @@ export const links = () => [
 ]
 
 export const meta: MetaFunction = () => {
-  return { title: 'New Remix App' }
+  const description =
+    'Adam Collier is a Creative UX Designer Developer from Manchester, UK. Creating content to come back to. Discover useful snippets, resources and blogposts.'
+  return {
+    title: 'Adam Collier',
+    description,
+    'twitter:image': 'https://adamcollier.co.uk/img/social.jpg',
+    'twitter:card': 'summary_large_image',
+    'twitter:creator': '@CollierAdam',
+    'twitter:site': '@CollierAdam',
+    'twitter:title': 'Adam Collier',
+    'twitter:description': description,
+  }
 }
 
 export default function App() {

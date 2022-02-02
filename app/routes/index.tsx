@@ -2,7 +2,7 @@ import { HeadersFunction, json, Link, LoaderFunction } from 'remix'
 import { getBooks, getLatestFilms } from '~/home'
 import { useLoaderData } from 'remix'
 import { db } from '~/utils/db.server'
-import { toReadableDate, toSlug } from '~/utils/utils'
+import { toReadableDate } from '~/utils/utils'
 
 export const loader: LoaderFunction = async () => {
   const [books, latestFilms] = await Promise.all([getBooks(), getLatestFilms()])

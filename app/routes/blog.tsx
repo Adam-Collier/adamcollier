@@ -3,12 +3,21 @@ import {
   json,
   Link,
   LoaderFunction,
+  MetaFunction,
   Outlet,
   useLoaderData,
   useLocation,
 } from 'remix'
 import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toReadableDate, toSlug } from '~/utils/utils'
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Adam Collier - Blog',
+    description:
+      'A diverse collection of writing which ranges from code, design and life in general.',
+  }
+}
 
 export const loader: LoaderFunction = async () => {
   const data = await db.post.findMany({
