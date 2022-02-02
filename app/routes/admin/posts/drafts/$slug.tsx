@@ -15,6 +15,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const data = await request.formData()
   const action = data.get('_action')
   const title = data.get('title') as string
+  const description = data.get('description') as string
   const content = data.get('markdown') as string
 
   if (action === 'draft') {
@@ -25,6 +26,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       data: {
         slug: toSlug(title),
         title,
+        description,
         content,
       },
     })
@@ -40,6 +42,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       data: {
         slug: toSlug(title),
         title,
+        description,
         content,
         published: true,
       },
@@ -76,6 +79,13 @@ const EditDraft = () => {
               label="Title"
               required
               defaultValue={title}
+            />
+            <TextArea
+              label="Description"
+              name="description"
+              rows={2}
+              minChar={120}
+              maxChar={155}
             />
             <TextArea
               label="Markdown"

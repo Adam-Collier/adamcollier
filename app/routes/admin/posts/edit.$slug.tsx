@@ -15,9 +15,9 @@ export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData()
   const action = formData.get('_action')
   const title = formData.get('title') as string
+  const description = formData.get('description') as string
   const content = formData.get('markdown') as string
   const publishedDate = formData.get('published-date') as string
-  console.log(publishedDate, 'this is the published date')
 
   if (action === 'update') {
     await db.post.update({
@@ -26,6 +26,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
       data: {
         title,
+        description,
         content,
         slug: toSlug(title),
         createdAt: String(new Date(publishedDate).toISOString()),
@@ -57,12 +58,16 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const EditPost = () => {
   const data = useLoaderData()
-  const { title, content, createdAt } = data
+  const { title, description, content, createdAt } = data
   const transition = useTransition()
 
   return (
     <>
-      <Form method="post" className="w-full max-w-5xl mx-auto">
+      <Form
+        method="post"
+        className="w-full max-w-5xl mx-auto"
+        disabled={transition.state === 'submitting'}
+      >
         <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
           <div className="flex-grow flex flex-col gap-3">
             <TextInput
@@ -70,6 +75,14 @@ const EditPost = () => {
               label="Title"
               required
               defaultValue={title}
+            />
+            <TextArea
+              label="Description"
+              name="description"
+              rows={2}
+              minChar={120}
+              maxChar={155}
+              defaultValue={description}
             />
             <TextArea
               label="Markdown"

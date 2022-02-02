@@ -54,11 +54,12 @@ model SnippetCollection {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.MediumText
-  slug      String   @unique
-  content   String?  @db.LongText
-  published Boolean  @default(false)
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String   @db.MediumText
+  slug        String   @unique
+  description String   @default("") @db.MediumText
+  content     String?  @db.LongText
+  published   Boolean  @default(false)
 }

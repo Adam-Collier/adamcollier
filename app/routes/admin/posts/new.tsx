@@ -7,6 +7,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const action = formData.get('_action')
   const title = formData.get('title') as string
+  const description = formData.get('description') as string
   const content = formData.get('markdown') as string
   const publishedDate = formData.get('published-date') as string
 
@@ -15,7 +16,8 @@ export const action: ActionFunction = async ({ request }) => {
       data: {
         title,
         slug: toSlug(title),
-        content: content,
+        content,
+        description,
         published: false,
       },
     })
@@ -28,7 +30,8 @@ export const action: ActionFunction = async ({ request }) => {
       data: {
         title,
         slug: toSlug(title),
-        content: content,
+        content,
+        description,
         published: true,
         ...(publishedDate && {
           createdAt: new Date(publishedDate).toISOString(),
@@ -48,6 +51,13 @@ const NewPost = () => {
       <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
         <div className="flex-grow flex flex-col gap-3">
           <TextInput name="title" label="Title" required />
+          <TextArea
+            label="Description"
+            name="description"
+            rows={2}
+            minChar={120}
+            maxChar={155}
+          />
           <TextArea label="Markdown" name="markdown" rows={10} />
         </div>
         <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
