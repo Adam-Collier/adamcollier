@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'remix'
+import { MetaFunction, NavLink, Outlet } from 'remix'
 import { NavLinkProps } from 'remix'
 
 const Link = (props: NavLinkProps) => (
@@ -15,6 +15,14 @@ const Link = (props: NavLinkProps) => (
 export function headers({}) {
   return {
     'Cache-Control': 's-maxage=1, stale-while-revalidate',
+  }
+}
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Adam Collier - Inspiration',
+    description:
+      'A space for visual references and quickly exploring inspiration imagery and website layouts. All takes from my Saave',
   }
 }
 

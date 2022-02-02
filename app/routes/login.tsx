@@ -1,7 +1,13 @@
-import { json, useActionData } from 'remix'
+import { json, MetaFunction, useActionData } from 'remix'
 import type { ActionFunction } from 'remix'
 import { login, createUserSession } from '~/utils/session.server'
 import { Form, TextInput } from '~/components/Form'
+
+export const meta: MetaFunction = () => {
+  return {
+    robots: 'noindex, nofollow',
+  }
+}
 
 type ActionData = {
   formError?: string

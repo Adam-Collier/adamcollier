@@ -3,6 +3,7 @@ import {
   json,
   Link,
   LoaderFunction,
+  MetaFunction,
   useCatch,
   useLoaderData,
 } from 'remix'
@@ -33,6 +34,14 @@ export const loader: LoaderFunction = async () => {
   return json({
     ...data,
   })
+}
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Adam Collier - Music',
+    description:
+      'All the music I love to listen to online. Including Spotify albums, Soundcloud mixes and my favourite Radio Stations.',
+  }
 }
 
 const Music = () => {

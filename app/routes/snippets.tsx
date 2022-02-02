@@ -1,4 +1,11 @@
-import { json, Link, LoaderFunction, useLoaderData, Outlet } from 'remix'
+import {
+  json,
+  Link,
+  LoaderFunction,
+  useLoaderData,
+  Outlet,
+  MetaFunction,
+} from 'remix'
 import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toSlug } from '~/utils/utils'
 import prism from '~/styles/prism.css'
@@ -25,6 +32,14 @@ export const links = () => [
   { rel: 'stylesheet', href: prism },
   { rel: 'stylesheet', href: dark },
 ]
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Adam Collier - Snippets',
+    description:
+      "There's nothing worse than almost remembering a bit of code you saw on stackoverflow on in a blogpost once. So I've collated all of the ones I find most useful.",
+  }
+}
 
 const Snippets = () => {
   const data = useLoaderData()

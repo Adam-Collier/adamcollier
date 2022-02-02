@@ -1,4 +1,11 @@
-import { json, Link, LoaderFunction, Outlet, useLoaderData } from 'remix'
+import {
+  json,
+  Link,
+  LoaderFunction,
+  MetaFunction,
+  Outlet,
+  useLoaderData,
+} from 'remix'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 
@@ -11,6 +18,14 @@ export const loader: LoaderFunction = async () => {
   })
 
   return json(data)
+}
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Adam Collier - Resources',
+    description:
+      'This is a group of resources I have either learned something from or thought could become useful in the future.',
+  }
 }
 
 type Collection = {
