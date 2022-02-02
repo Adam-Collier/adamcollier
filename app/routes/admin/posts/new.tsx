@@ -1,13 +1,14 @@
-import { ActionFunction, redirect } from 'remix'
-import { TextArea, TextInput, Form } from '~/components/Form'
+import { ActionFunction, redirect, useTransition } from 'remix'
+import { TextArea, TextInput, Form, DatePicker } from '~/components/Form'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 
 export const action: ActionFunction = async ({ request }) => {
-  const data = await request.formData()
-  const action = data.get('_action')
-  const title = data.get('title') as string
-  const content = data.get('markdown') as string
+  const formData = await request.formData()
+  const action = formData.get('_action')
+  const title = formData.get('title') as string
+  const content = formData.get('markdown') as string
+  const publishedDate = formData.get('published-date') as string
 
   if (action === 'draft') {
     await db.post.create({
@@ -29,6 +30,9 @@ export const action: ActionFunction = async ({ request }) => {
         slug: toSlug(title),
         content: content,
         published: true,
+        ...(publishedDate && {
+          createdAt: new Date(publishedDate).toISOString(),
+        }),
       },
     })
 
@@ -37,25 +41,36 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 const NewPost = () => {
+  const transition = useTransition()
+
   return (
-    <Form method="post" className="w-full max-w-3xl mx-auto pt-8">
-      <div className="flex items-start w-full space-x-8">
-        <div className="w-full flex-grow flex flex-col space-y-3">
+    <Form method="post" className="w-full max-w-5xl mx-auto">
+      <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
+        <div className="flex-grow flex flex-col gap-3">
           <TextInput name="title" label="Title" required />
-          <TextArea label="Markdown" name="markdown" rows={50} />
+          <TextArea label="Markdown" name="markdown" rows={10} />
         </div>
-        <div className="flex flex-shrink-0 space-x-2">
-          <button
-            name="_action"
-            value="draft"
-            className="btn bg-white hover:bg-gray-100 border border-black text-black"
-          >
-            Save as Draft
-          </button>
-          <button name="_action" value="publish" className="btn">
-            Publish
-          </button>
-        </div>
+        <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
+          <div className="flex space-x-2">
+            <button
+              name="_action"
+              value="draft"
+              className="btn bg-white hover:bg-gray-100 border border-black text-black"
+            >
+              {transition.submission?.formData.get('_action') === 'draft' &&
+              transition.state === 'submitting'
+                ? 'Saving'
+                : 'Save Draft'}
+            </button>
+            <button name="_action" value="publish" className="btn">
+              {transition.submission?.formData.get('_action') === 'publish' &&
+              transition.state === 'submitting'
+                ? 'Publishing'
+                : 'Publish'}
+            </button>
+          </div>
+          <DatePicker name="published-date" label="Published" />
+        </aside>
       </div>
     </Form>
   )

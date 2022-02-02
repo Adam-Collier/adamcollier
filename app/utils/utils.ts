@@ -196,6 +196,8 @@ export type Heading = {
 }
 
 export const getHeadings = (source: string) => {
+  // if there is no content return an empty array
+  if (!source) return []
   // Get each line individually, and filter out anything that
   // isn't a heading.
   const headingLines = source
@@ -232,4 +234,40 @@ export const getHeadings = (source: string) => {
   })
 
   return headings
+}
+
+export const copyToClipboard = (content: string) => {
+  if (typeof window !== 'undefined') {
+    console.log('this ran')
+    const el = document.createElement(`textarea`)
+    el.value = content
+    el.setAttribute(`readonly`, ``)
+    el.style.position = `absolute`
+    el.style.left = `-9999px`
+    document.body.appendChild(el)
+    el.select()
+    document.execCommand(`copy`)
+    document.body.removeChild(el)
+  }
+}
+
+declare global {
+  interface Window {
+    copyCodeToClipboard: any
+  }
+}
+
+export const copyCodeToClipboard = () => {
+  if (!window.copyCodeToClipboard) {
+    window.copyCodeToClipboard = async (el: HTMLButtonElement) => {
+      el.children[0].classList.remove('i-ri:clipboard-line')
+      el.children[0].classList.add('i-ri:check-line')
+      if (el.dataset.code) {
+        copyToClipboard(el.dataset.code!)
+      }
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      el.children[0].classList.remove('i-ri:check-line')
+      el.children[0].classList.add('i-ri:clipboard-line')
+    }
+  }
 }

@@ -31,5 +31,9 @@ module.exports = (options = {}) => {
     if(parentNode.tagName !== "pre" && node.tagName === "code") {
         node.properties.className = 'bg-gray-100 dark:bg-gray-700 text-sm px-1.5 py-1 rounded'
     }
+    if(node.tagName === "a") {
+      node.properties.className =
+        'underline text-purple-600'
+    }
   }
 }
