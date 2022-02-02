@@ -1,4 +1,12 @@
-import { json, Link, LoaderFunction, useLoaderData, useLocation } from 'remix'
+import {
+  json,
+  Link,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+  useLoaderData,
+  useLocation,
+} from 'remix'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
 import { db } from '~/utils/db.server'
@@ -20,7 +28,16 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ ...data, content: await toHTML(data?.content!), headings })
 }
 
-export const links = () => [{ rel: 'stylesheet', href: prism }]
+export const meta: MetaFunction = ({ data }) => {
+  const { description, title } = data
+
+  return {
+    title,
+    description,
+  }
+}
+
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: prism }]
 
 const createTableItems = (items: Heading[], pathname: string) =>
   items &&

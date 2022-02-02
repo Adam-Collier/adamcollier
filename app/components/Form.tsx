@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Form as RemixForm, FormProps as RemixFormProps } from 'remix'
 
 interface FormProps extends RemixFormProps {
@@ -47,7 +47,7 @@ export const TextInput = ({
       type="text"
       id={name}
       name={name}
-      className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base"
+      className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
       defaultValue={defaultValue}
       required={required}
       onChange={onChange}
@@ -78,7 +78,7 @@ export const NumberInput = ({
       type="number"
       id={name}
       name={name}
-      className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base"
+      className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
       defaultValue={defaultValue}
       required={required}
       step=".01"
@@ -91,6 +91,8 @@ type TextAreaProps = {
   name: string
   defaultValue?: string
   rows?: number
+  maxChar?: number
+  minChar?: number
 }
 
 export const TextArea = ({
@@ -98,8 +100,14 @@ export const TextArea = ({
   name,
   defaultValue,
   rows = 5,
+  maxChar,
+  minChar,
 }: TextAreaProps) => {
   const textarea = useRef<HTMLTextAreaElement>(null)
+  const [characterCount, setCharacterCount] = useState(
+    defaultValue?.length || 0,
+  )
+
   // if we change the line height in css make sure to change this
   let lineHeight = 1.75
   let initialLimit = rows * (lineHeight * 16)
@@ -128,18 +136,36 @@ export const TextArea = ({
   }, [])
 
   return (
-    <div className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col gap-2 w-full relative">
       <label htmlFor={name}>{label}</label>
       <textarea
         ref={textarea}
-        className="border-slate-300 border w-full p-3 text-black leading-7 rounded text-base resize-none overflow-hidden"
+        className="border-slate-300 border w-full p-3 text-black leading-7 rounded text-base resize-none overflow-hidden disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
         name={name}
         id={name}
         rows={rows}
         defaultValue={defaultValue}
         spellCheck={true}
-        onChange={handleChange}
+        onChange={(e) => {
+          handleChange(e)
+          if (minChar || maxChar) {
+            setCharacterCount(e.target.value.length)
+          }
+        }}
       ></textarea>
+      {maxChar && (
+        <p
+          className={`text-xs absolute bottom-2 right-2 ${
+            characterCount > maxChar ? 'text-red-800' : ''
+          } ${
+            minChar && characterCount > minChar && characterCount < maxChar
+              ? 'text-green-500'
+              : 'text-amber-500'
+          }`}
+        >
+          {characterCount}/{maxChar}
+        </p>
+      )}
     </div>
   )
 }
@@ -212,7 +238,7 @@ export const DatePicker = ({
       <input
         id={name}
         name={name}
-        className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base"
+        className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
         type="date"
         defaultValue={value}
         autoComplete="off"
