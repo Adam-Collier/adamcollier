@@ -15,9 +15,7 @@ model Resource {
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
   title                String
-  description          String              @db.MediumText
-  link                 String
-  summary              String              @db.VarChar(250)
+  content              String              @default("") @db.MediumText
   section              String
   ResourceCollection   ResourceCollection? @relation(fields: [resourceCollectionId], references: [id])
   resourceCollectionId Int?

@@ -52,7 +52,6 @@ export const TextInput = ({
       required={required}
       onChange={onChange}
       spellCheck={true}
-      autoComplete="off"
     />
   </div>
 )

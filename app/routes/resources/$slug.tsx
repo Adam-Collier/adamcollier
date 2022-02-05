@@ -2,9 +2,9 @@ import { json, Link, LoaderFunction, useLoaderData } from 'remix'
 import { db } from '~/utils/db.server'
 import { toTitleCase } from '~/utils/utils'
 import { Resource as ResourceProps } from '@prisma/client'
-import Resource from '~/components/Resource'
 import { useAuth } from '~/context'
 import AdminToolbar from '~/components/AdminToolbar'
+import { toHTML } from '~/utils/utils.server'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
@@ -24,7 +24,17 @@ export const loader: LoaderFunction = async ({ params }) => {
     },
   })
 
-  return json(data)
+  if (!data)
+    throw new Response('No Resources returned from database', { status: 500 })
+
+  const formattedResources = await Promise.all(
+    data.resources.map(async (resource) => ({
+      ...resource,
+      content: await toHTML(resource.content),
+    })),
+  )
+
+  return json({ ...data, resources: formattedResources })
 }
 
 const Resources = () => {
@@ -38,6 +48,7 @@ const Resources = () => {
   return (
     <>
       <AdminToolbar user={user}>
+        <Link to="/admin/resources/collection/new">Add Collection</Link>
         <Link to={`/admin/resources/collection/edit/${id}`}>
           Edit Collection
         </Link>
@@ -46,16 +57,32 @@ const Resources = () => {
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl">{name}</h1>
         <p>{description}</p>
-        {resources.map((props: ResourceProps) => {
+        {resources.map(({ content, id, section }: ResourceProps) => {
           const resource = (
             <>
-              {props.section !== sectionName && (
-                <h2 className="text-xl">{props.section}</h2>
+              {section !== sectionName && (
+                <h2 className="text-xl">{section}</h2>
               )}
-              <Resource user={user} {...props} />
+              <div>
+                <div
+                  className="space-y-4 children:no-underline"
+                  dangerouslySetInnerHTML={{ __html: content }}
+                />
+                {user && (
+                  <Link
+                    to={`/admin/resources/edit/${id}`}
+                    className="hover:underline"
+                  >
+                    <i className="text-sm flex items-center gap-1 hover:underline">
+                      Edit{' '}
+                      <span className="inline-block i-ri:arrow-right-line" />
+                    </i>
+                  </Link>
+                )}
+              </div>
             </>
           )
-          sectionName = props.section
+          sectionName = section
           return resource
         })}
       </div>

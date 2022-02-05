@@ -1,17 +1,9 @@
 import { LoaderFunction, json, useLoaderData, Link } from 'remix'
 import { db } from '~/utils/db.server'
 import { Resource as ResourceProps } from '@prisma/client'
-import Resource from '~/components/Resource'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
-
-type Resource = {
-  id: number
-  title: string
-  description: string
-  link: string
-  summary: string
-}
+import { toHTML } from '~/utils/utils.server'
 
 export const loader: LoaderFunction = async () => {
   const latestResources = await db.resource.findMany({
@@ -19,9 +11,7 @@ export const loader: LoaderFunction = async () => {
     select: {
       id: true,
       title: true,
-      description: true,
-      link: true,
-      summary: true,
+      content: true,
     },
     orderBy: [
       {
@@ -30,7 +20,14 @@ export const loader: LoaderFunction = async () => {
     ],
   })
 
-  return json(latestResources)
+  const formattedData = await Promise.all(
+    latestResources.map(async (resource) => ({
+      ...resource,
+      content: await toHTML(resource.content),
+    })),
+  )
+
+  return json(formattedData)
 }
 
 const Resources = () => {
@@ -50,8 +47,20 @@ const Resources = () => {
           thought could become useful in the future.
         </p>
         <h3 className="text-xl">Latest Resources</h3>
-        {data.map((props: ResourceProps) => (
-          <Resource user={user} {...props} />
+        {data.map(({ content, id }: ResourceProps) => (
+          <div>
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+            {user && (
+              <Link
+                to={`/admin/resources/edit/${id}`}
+                className="hover:underline"
+              >
+                <i className="text-sm flex items-center gap-1 hover:underline mt-0.5">
+                  Edit <span className="inline-block i-ri:arrow-right-line" />
+                </i>
+              </Link>
+            )}
+          </div>
         ))}
       </main>
     </>

@@ -2,7 +2,7 @@ import { HeadersFunction, json, Link, LoaderFunction } from 'remix'
 import { getBooks, getLatestFilms } from '~/home'
 import { useLoaderData } from 'remix'
 import { db } from '~/utils/db.server'
-import { toReadableDate } from '~/utils/utils'
+import { toReadableDate, toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async () => {
   const [books, latestFilms] = await Promise.all([getBooks(), getLatestFilms()])
@@ -24,8 +24,12 @@ export const loader: LoaderFunction = async () => {
     take: 5,
     select: {
       title: true,
-      link: true,
       createdAt: true,
+      ResourceCollection: {
+        select: {
+          name: true,
+        },
+      },
     },
     orderBy: [
       {
@@ -72,7 +76,7 @@ export default function Index() {
       </section>
       {/* latest posts */}
       <section className="bg-gray-50 py-8 sm:py-16">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-8 sm:gap-16">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row sm:justify-around gap-8 sm:gap-16">
           <div className="space-y-6">
             <h2 className="text-xl">Latest Posts</h2>
             <div className="space-y-4">
@@ -103,13 +107,20 @@ export default function Index() {
                 ({
                   createdAt,
                   title,
-                  link,
+                  ResourceCollection,
                 }: {
                   createdAt: Date
                   title: string
-                  link: string
+                  ResourceCollection: {
+                    name: string
+                  }
                 }) => (
-                  <a href={link} target="_blank" className="block group">
+                  <a
+                    href={`/resources/${toSlug(
+                      ResourceCollection.name,
+                    )}#${toSlug(title)}`}
+                    className="block group"
+                  >
                     <h3 className="text-md group-hover:underline">{title}</h3>
                     <small className="text-slate-500">
                       {toReadableDate(createdAt)}
@@ -130,7 +141,7 @@ export default function Index() {
               Looking for a new book to read? Check out what I'm reading and the
               last few I've finished. All pulled from my{' '}
               <a
-                className="underline text-purple-500"
+                className="underline text-indigo-600"
                 href="https://oku.club/user/mistapolnareff"
                 target="_blank"
               >
@@ -144,8 +155,8 @@ export default function Index() {
               Currently Reading...
             </p>
             <section className="flex flex-col gap-4">
-              <a href={reading.link}>
-                <h2>{reading.title}</h2>
+              <a href={reading.link} className="group">
+                <h2 className="group-hover:underline">{reading.title}</h2>
                 <p className="text-slate-500 text-sm">{reading.creator}</p>
               </a>
               <p className="block bg-lime-50 text-lime-800 self-start px-2 py-1 text-sm flex gap-1 items-center">
@@ -158,8 +169,8 @@ export default function Index() {
                   book: { link: string; title: string; creator: string },
                   index: number,
                 ) => (
-                  <a href={book.link} key={index}>
-                    <h2>{book.title}</h2>
+                  <a href={book.link} key={index} className="group">
+                    <h2 className="group-hover:underline">{book.title}</h2>
                     <p className="text-slate-500 text-sm">{book.creator}</p>
                   </a>
                 ),
@@ -170,7 +181,7 @@ export default function Index() {
             <p>
               Struggling for a film to watch? Here's the latest eight from my{' '}
               <a
-                className="underline text-purple-500"
+                className="underline text-indigo-600"
                 href="https://letterboxd.com/mistapolnareff/"
               >
                 Letterboxd

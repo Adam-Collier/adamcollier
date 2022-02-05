@@ -11,6 +11,7 @@ const rehypeParse = require('rehype-parse')
 
 const highlight = require('~/utils/unified/highlight')
 const typography = require('~/utils/unified/typography')
+const resource = require('~/utils/unified/resource')
 
 export const toHTML = async (markdown: string) => {
   let processor = unified()
@@ -18,6 +19,7 @@ export const toHTML = async (markdown: string) => {
     .use(remarkRehype) // Turn markdown syntax tree to HTML syntax tree, ignoring embedded HTML
     .use(await highlight)
     .use(await typography)
+    .use(await resource)
     .use(remarkExternalLinks)
     .use(rehypeStringify)
 
