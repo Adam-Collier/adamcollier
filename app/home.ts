@@ -45,6 +45,7 @@ export const getLatestFilms = async () => {
   const filteredFilms = items.slice(0, 8).map((film) => {
     const { content, title, link } = film
 
+    const formattedFilmLink = link?.replace(/\/mistapolnareff/g, '')
     const src = content?.split('"')[1]
 
     let lastCommaIndex = title?.lastIndexOf(',')
@@ -53,7 +54,7 @@ export const getLatestFilms = async () => {
     const [year, rating] = rest?.split('-')!
 
     return {
-      link,
+      link: formattedFilmLink,
       title: filmTitle,
       year: year.trim(),
       rating: rating.trim(),
