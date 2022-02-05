@@ -8,16 +8,12 @@ import {
 } from 'remix'
 import { Resource } from '@prisma/client'
 import { db } from '~/utils/db.server'
-import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
-import { toMarkdown, toHTML } from '~/utils/utils.server'
+import { toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
-
   const { id } = params
-  const data = await db.resource.findUnique({
+  const resource = await db.resource.findUnique({
     where: {
       id: Number(id),
     },
@@ -31,7 +27,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   })
 
   return json({
-    resource: { ...data, description: await toMarkdown(data!.description) },
+    resource,
     collections,
   })
 }
@@ -44,12 +40,12 @@ type Collection = {
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData()
   const button = formData.get('button')
-  const title = formData.get('title')?.toString()
-  const link = formData.get('link')?.toString()
-  const summary = formData.get('summary')?.toString()
-  const collection = formData.get('collection')
-  const description = formData.get('description')?.toString()
-  const section = formData.get('section')?.toString()
+  const title = formData.get('title') as string
+  const content = formData.get('markdown') as string
+  const collection = formData.get('collection') as string
+  const section = formData.get('section') as string
+
+  const [collectionId, ...collectionName] = collection.split(' ')
 
   if (button === 'delete') {
     await db.resource.delete({
@@ -66,16 +62,14 @@ export const action: ActionFunction = async ({ request, params }) => {
       id: Number(params.id),
     },
     data: {
-      title: title,
-      link: link,
-      description: await toHTML(description!),
-      summary: summary,
-      resourceCollectionId: Number(collection),
+      title,
+      content,
+      resourceCollectionId: Number(collectionId),
       section: section,
     },
   })
 
-  return redirect('/resources')
+  return redirect(`/resources/${toSlug(collectionName.join(' '))}`)
 }
 
 const Edit = () => {
@@ -86,24 +80,12 @@ const Edit = () => {
     resource,
     collections,
   }: { resource: Resource; collections: Collection[] } = data
-  const { link, title, description, summary, resourceCollectionId, section } =
-    resource
+  const { title, content, resourceCollectionId, section } = resource
 
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
-      <TextInput name="link" label="Link" defaultValue={link} required />
       <TextInput name="title" label="Title" defaultValue={title} required />
-      <TextInput
-        name="summary"
-        label="Summary"
-        defaultValue={summary}
-        required
-      />
-      <TextArea
-        name="description"
-        label="Description"
-        defaultValue={description}
-      />
+      <TextArea name="markdown" label="Markdown" defaultValue={content} />
       <TextInput
         name="section"
         label="Section"
@@ -116,7 +98,7 @@ const Edit = () => {
             key={name}
             name="collection"
             label={name}
-            value={id}
+            value={`${id} ${name}`}
             defaultChecked={id === resourceCollectionId}
           />
         ))}

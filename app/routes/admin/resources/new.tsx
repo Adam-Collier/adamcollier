@@ -9,8 +9,7 @@ import {
 import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
-import { toHTML } from '~/utils/utils.server'
-import { metaAutofill } from '~/utils/utils'
+import { toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const isAuthenticated = await getUser(request)
@@ -28,12 +27,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  const title = formData.get('title')?.toString() || ''
-  const link = formData.get('link')?.toString() || ''
-  const summary = formData.get('summary')?.toString() || ''
-  const description = formData.get('description')?.toString()
-  const section = formData.get('section')?.toString() || ''
-  const collectionId = formData.get('collectionId')
+  const title = formData.get('title') as string
+  const content = formData.get('markdown') as string
+  const section = formData.get('section') as string
+  const collection = formData.get('collection') as string
+
+  const [collectionId, ...collectionName] = collection.split(' ')
 
   await db.resource.create({
     data: {
@@ -41,14 +40,12 @@ export const action: ActionFunction = async ({ request }) => {
       resourceCollectionId: Number(collectionId),
       // the rest is the state from our inputs
       title,
-      summary,
-      description: await toHTML(description!),
-      link,
+      content,
       section,
     },
   })
 
-  return redirect('/resources')
+  return redirect(`/resources/${toSlug(collectionName.join(' '))}`)
 }
 
 type Collection = {
@@ -62,14 +59,12 @@ const NewResource = () => {
 
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
-      <TextInput name="link" label="Link" onChange={metaAutofill} required />
       <TextInput name="title" label="Title" required />
-      <TextInput name="summary" label="Summary" required />
+      <TextArea name="markdown" label="Markdown" />
       <TextInput name="section" label="Section" required />
-      <TextArea name="description" label="Description" />
       <div className="flex w-full gap-2 mt-2">
         {collections.map(({ id, name }: Collection) => (
-          <RadioButton name="collectionId" label={name} value={id} />
+          <RadioButton name="collection" label={name} value={`${id} ${name}`} />
         ))}
       </div>
       <button className="btn">

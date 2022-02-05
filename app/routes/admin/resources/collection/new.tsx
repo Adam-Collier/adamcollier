@@ -36,7 +36,7 @@ const NewResourceCollection = () => {
       <TextArea name="description" label="Description" />
       <TextArea name="excerpt" rows={2} label="Excerpt" />
       <button className="btn">
-        {transition.submission ? 'Creating...' : 'Create Snippet Collection'}
+        {transition.submission ? 'Creating...' : 'Create Resource Collection'}
       </button>
     </Form>
   )
