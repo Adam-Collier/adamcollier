@@ -1,46 +1,29 @@
 import { HeadersFunction, json, Link, LoaderFunction } from 'remix'
-import { getBooks, getLatestFilms } from '~/home'
+import {
+  getBooks,
+  getLatestFilms,
+  getTopTracks,
+  getLatestPosts,
+  getLatestResources,
+} from '~/home'
 import { useLoaderData } from 'remix'
-import { db } from '~/utils/db.server'
 import { toReadableDate, toSlug } from '~/utils/utils'
+import { Spotify as SpotifyLogo } from '~/svgs'
 
 export const loader: LoaderFunction = async () => {
-  const [books, latestFilms] = await Promise.all([getBooks(), getLatestFilms()])
-
-  const latestPosts = await db.post.findMany({
-    take: 5,
-    orderBy: {
-      createdAt: 'desc',
-    },
-    select: {
-      title: true,
-      createdAt: true,
-      updatedAt: true,
-      slug: true,
-    },
-  })
-
-  const latestResources = await db.resource.findMany({
-    take: 5,
-    select: {
-      title: true,
-      createdAt: true,
-      ResourceCollection: {
-        select: {
-          name: true,
-        },
-      },
-    },
-    orderBy: [
-      {
-        updatedAt: 'desc',
-      },
-    ],
-  })
+  const [books, latestFilms, topTracks, latestPosts, latestResources] =
+    await Promise.all([
+      getBooks(),
+      getLatestFilms(),
+      getTopTracks(),
+      getLatestPosts(),
+      getLatestResources(),
+    ])
 
   const data = {
     books,
     latestFilms,
+    topTracks,
     latestPosts,
     latestResources,
   }
@@ -59,11 +42,11 @@ export const headers: HeadersFunction = () => {
 
 export default function Index() {
   const data = useLoaderData()
-  const { books, latestFilms, latestPosts, latestResources } = data
+  const { books, latestFilms, latestPosts, latestResources, topTracks } = data
   const { reading, read } = books
 
   return (
-    <main className="block pb-24 flex flex-col gap-10 children:w-full children:mx-auto children:px-4">
+    <main className="block pb-24 flex flex-col gap-10 sm:gap-20 children:w-full children:mx-auto children:px-4">
       <section className="max-w-2xl pt-24 pb-16 mx-auto flex flex-col gap-4">
         <h1 className="text-3xl">Hey, I'm Adam </h1>
         <p className="text-lg leading-relaxed">
@@ -75,60 +58,110 @@ export default function Index() {
         </p>
       </section>
       {/* latest posts */}
-      <section className="bg-gray-50 py-8 sm:py-16">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row sm:justify-around gap-8 sm:gap-16">
-          <div className="space-y-6">
-            <h2 className="text-xl">Latest Posts</h2>
-            <div className="space-y-4">
-              {latestPosts.map(
-                ({
-                  title,
-                  slug,
-                  createdAt,
-                }: {
-                  title: string
-                  slug: string
-                  createdAt: Date
-                }) => (
-                  <Link to={`/blog/${slug}`} className="block group">
-                    <h3 className="text-md group-hover:underline">{title}</h3>
-                    <small className="text-slate-500">
-                      {toReadableDate(createdAt)}
-                    </small>
-                  </Link>
-                ),
-              )}
-            </div>
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-8 px-0 sm:px-4 sm:gap-16 sm:children:basis-1/2 sm:children:p-8">
+        <div className="space-y-6 sm:rounded-xl border border-dashed border-gray-600 p-4">
+          <h2 className="text-xl">Latest Posts</h2>
+          <div className="space-y-4">
+            {latestPosts.map(
+              ({
+                title,
+                slug,
+                createdAt,
+              }: {
+                title: string
+                slug: string
+                createdAt: Date
+              }) => (
+                <Link to={`/blog/${slug}`} className="block group">
+                  <h3 className="text-md group-hover:underline">{title}</h3>
+                  <small className="text-slate-500">
+                    {toReadableDate(createdAt)}
+                  </small>
+                </Link>
+              ),
+            )}
           </div>
-          <div className="space-y-6">
-            <h2 className="text-xl">Latest Resources</h2>
-            <div className="space-y-4">
-              {latestResources.map(
-                ({
-                  createdAt,
+        </div>
+        <div className="space-y-6 px-4 sm:p-4">
+          <h2 className="text-xl">Latest Resources</h2>
+          <div className="space-y-4">
+            {latestResources.map(
+              ({
+                createdAt,
+                title,
+                ResourceCollection,
+              }: {
+                createdAt: Date
+                title: string
+                ResourceCollection: {
+                  name: string
+                }
+              }) => (
+                <a
+                  href={`/resources/${toSlug(ResourceCollection.name)}#${toSlug(
+                    title,
+                  )}`}
+                  className="block group"
+                >
+                  <h3 className="text-md group-hover:underline">{title}</h3>
+                  <small className="text-slate-500">
+                    {toReadableDate(createdAt)}
+                  </small>
+                </a>
+              ),
+            )}
+          </div>
+        </div>
+      </div>
+      {/* top tracks section */}
+      <section className="w-full bg-gradient-to-t from-zinc-100 to-gray-50">
+        <div className="space-y-4 rounded-xl max-w-7xl mx-auto py-4 sm:py-12">
+          <div className="h-[24px] flex justify-between items-center">
+            <SpotifyLogo className="h-full w-auto" />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 sm:pt-4">
+            {topTracks.map(
+              (
+                {
+                  artist,
+                  url,
                   title,
-                  ResourceCollection,
+                  image,
                 }: {
-                  createdAt: Date
+                  artist: string
+                  url: string
                   title: string
-                  ResourceCollection: {
-                    name: string
-                  }
-                }) => (
-                  <a
-                    href={`/resources/${toSlug(
-                      ResourceCollection.name,
-                    )}#${toSlug(title)}`}
-                    className="block group"
-                  >
-                    <h3 className="text-md group-hover:underline">{title}</h3>
-                    <small className="text-slate-500">
-                      {toReadableDate(createdAt)}
-                    </small>
-                  </a>
-                ),
-              )}
-            </div>
+                  image: string
+                },
+                index: number,
+              ) => (
+                <a
+                  className="block w-full flex items-start"
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  key={index}
+                >
+                  <div className="block w-full relative rounded overflow-hidden shadow-lg basis-16 sm:basis-20 shrink-0">
+                    <div className="block w-full pt-full"></div>
+                    <img
+                      className="rounded absolute top-0 left-0 bottom-0 right-0 bg-gray-100/20 text-xs text-gray-400"
+                      src={image}
+                      alt={`${title}, ${artist}`}
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div className="p-1 sm:p-2 space-y-0.5">
+                    <h3 className="text-sm sm:text-base leading-4 sm:leading-5 text-clamp-2">
+                      {title}
+                    </h3>
+                    <p className="text-xs leading-4 text-clamp-1">{artist}</p>
+                  </div>
+                </a>
+              ),
+            )}
           </div>
         </div>
       </section>
