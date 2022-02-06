@@ -33,7 +33,7 @@ module.exports = (options = {}) => {
     }
     if(node.tagName === "a") {
       node.properties.className =
-        'underline text-indigo-600'
+        'underline text-indigo-600 dark:text-indigo-400'
     }
   }
 }

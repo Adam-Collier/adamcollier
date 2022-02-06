@@ -9,6 +9,7 @@ import {
 import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
+import { toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const isAuthenticated = await getUser(request)
@@ -28,7 +29,9 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const title = formData.get('title') as string
   const content = formData.get('content') as string
-  const collectionId = formData.get('collectionId') as string
+  const collection = formData.get('collection') as string
+
+  const [collectionId, collectionName] = collection.split(' - ')
 
   await db.snippet.create({
     data: {
@@ -40,7 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
     },
   })
 
-  return redirect('/snippets')
+  return redirect(toSlug(`/snippets/${collectionName}`))
 }
 
 type Collection = {
@@ -58,7 +61,11 @@ const NewResource = () => {
       <TextArea name="content" label="Content" rows={15} />
       <div className="flex w-full gap-2 mt-2">
         {collections.map(({ id, name }: Collection) => (
-          <RadioButton name="collectionId" label={name} value={id} />
+          <RadioButton
+            name="collection"
+            label={name}
+            value={`${id} - ${name}`}
+          />
         ))}
       </div>
       <button className="btn">

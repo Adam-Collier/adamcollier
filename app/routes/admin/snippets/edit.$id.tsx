@@ -8,7 +8,7 @@ import {
 } from 'remix'
 import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
-import { Form, TextInput, TextArea } from '~/components/Form'
+import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -16,21 +16,31 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
 
   const { id } = params
-  const data = await db.snippet.findUnique({
+
+  const snippet = await db.snippet.findUnique({
     where: {
       id: Number(id),
     },
     include: {
       SnippetCollection: {
         select: {
+          id: true,
           name: true,
         },
       },
     },
   })
 
+  const collections = await db.snippetCollection.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  })
+
   return json({
-    ...data,
+    snippet,
+    collections,
   })
 }
 
@@ -64,11 +74,15 @@ export const action: ActionFunction = async ({ request, params }) => {
   return redirect(`/snippets/${toSlug(collectionName)}`)
 }
 
+type Collection = {
+  name: string
+  id: number
+}
+
 const EditSnippet = () => {
   const transition = useTransition()
-  const data = useLoaderData()
-
-  const { title, content, SnippetCollection } = data
+  const { snippet, collections } = useLoaderData()
+  const { title, content, SnippetCollection } = snippet
 
   return (
     <Form method="post" className="w-full max-w-xl mx-auto">
@@ -85,6 +99,16 @@ const EditSnippet = () => {
         defaultValue={content}
         rows={5}
       />
+      <div className="flex w-full gap-2 mt-2">
+        {collections.map(({ id, name }: Collection) => (
+          <RadioButton
+            name="collectionId"
+            label={name}
+            value={id}
+            defaultChecked={id === SnippetCollection.id}
+          />
+        ))}
+      </div>
       <div className="flex gap-2">
         <button className="btn" name="button">
           {transition.submission ? 'Saving...' : 'Edit Snippet'}

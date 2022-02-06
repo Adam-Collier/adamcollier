@@ -8,6 +8,7 @@ import {
 } from 'remix'
 import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toSlug } from '~/utils/utils'
+import { Accordion } from '~/components/Accordion'
 import prism from '~/styles/prism.css'
 import dark from '~/styles/dark.css'
 import { useEffect } from 'react'
@@ -51,8 +52,8 @@ const Snippets = () => {
   return (
     <div className="dark w-full bg-zinc-900">
       <div className="flex flex-col sm:flex-row gap-8 block max-w-5xl mx-auto px-4 py-16">
-        <aside className="sm:flex-shrink-0 sm:w-52 space-y-4">
-          <ul className="flex flex-col gap-1">
+        <aside className="sm:flex-shrink-0 sm:w-52 space-y-4 sm:self-start sm:sticky sm:top-16">
+          <ul className="flex flex-col gap-3 text-white">
             {data.map(
               (
                 {
@@ -64,23 +65,22 @@ const Snippets = () => {
                 },
                 index: number,
               ) => (
-                <>
-                  <li className="font-medium text-white">
-                    <Link to={`/snippets/${toSlug(name)}`}>{name}</Link>
-                  </li>
-                  <ul className="flex flex-col gap-0.5 pl-2" key={index}>
-                    {snippets &&
-                      snippets.map(({ title }) => (
-                        <li className="text-sm hover:underline text-gray-300">
-                          <Link
-                            to={`/snippets/${toSlug(name)}#${toSlug(title)}`}
-                          >
-                            {title}
-                          </Link>
-                        </li>
-                      ))}
-                  </ul>
-                </>
+                <li>
+                  <Accordion title={name}>
+                    <ul className="flex flex-col gap-2 pl-4.5" key={index}>
+                      {snippets &&
+                        snippets.map(({ title }) => (
+                          <li className="text-sm hover:underline text-gray-400">
+                            <Link
+                              to={`/snippets/${toSlug(name)}#${toSlug(title)}`}
+                            >
+                              {title}
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                  </Accordion>
+                </li>
               ),
             )}
           </ul>
