@@ -17,6 +17,15 @@ export default defineConfig({
         'background-position': 'right 0.55rem center',
       }),
     ],
+    [
+      /^text-clamp-(\d)$/,
+      ([, d]: any) => ({
+        display: '-webkit-box;',
+        '-webkit-line-clamp': d,
+        '-webkit-box-orient': 'vertical',
+        overflow: 'hidden',
+      }),
+    ],
   ],
   variants: [
     // href: hover:
