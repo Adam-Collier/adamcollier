@@ -58,8 +58,8 @@ export default function Index() {
         </p>
       </section>
       {/* latest posts */}
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-8 px-0 sm:px-4 sm:gap-16 sm:children:basis-1/2 sm:children:p-8">
-        <div className="space-y-6 sm:rounded-xl border border-dashed border-gray-600 p-4">
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-8 sm:gap-16 sm:children:basis-1/2 sm:children:p-8">
+        <div className="space-y-6 sm:rounded-xl sm:border sm:border-dashed sm:border-gray-600">
           <h2 className="text-xl">Latest Posts</h2>
           <div className="space-y-4">
             {latestPosts.map(
@@ -82,7 +82,7 @@ export default function Index() {
             )}
           </div>
         </div>
-        <div className="space-y-6 px-4 sm:p-4">
+        <div className="space-y-6">
           <h2 className="text-xl">Latest Resources</h2>
           <div className="space-y-4">
             {latestResources.map(
