@@ -39,11 +39,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     let data = await fetch(`${origin}/blog/${toSlug(title)}`)
     console.log(data, 'this is the data from the fetch')
 
-    return redirect(`/blog/${toSlug(title)}`, {
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
-    })
+    return redirect(`/blog/${toSlug(title)}`)
   }
 
   if (action === 'delete') {
