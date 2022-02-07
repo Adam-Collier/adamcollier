@@ -39,7 +39,9 @@ export const action: ActionFunction = async ({ request, params }) => {
     let data = await fetch(`${origin}/blog/${toSlug(title)}`)
     console.log(data, 'this is the data from the fetch')
 
-    return redirect(`/blog/${toSlug(title)}`)
+    return redirect(`/blog/${toSlug(title)}`, {
+      headers: { 'Cache-Control': 'max-age=0, must-revalidate' },
+    })
   }
 
   if (action === 'delete') {
