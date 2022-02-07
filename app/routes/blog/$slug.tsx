@@ -1,4 +1,5 @@
 import {
+  HeadersFunction,
   json,
   Link,
   LinksFunction,
@@ -13,6 +14,15 @@ import { db } from '~/utils/db.server'
 import { toHTML } from '~/utils/utils.server'
 import prism from '~/styles/prism.css'
 import { getHeadings, Heading, toSlug } from '~/utils/utils'
+
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: prism }]
+
+export const headers: HeadersFunction = () => {
+  // loader headers doesnt seem to be working atm
+  return {
+    'Cache-Control': 's-maxage=1, stale-while-revalidate',
+  }
+}
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
@@ -36,8 +46,6 @@ export const meta: MetaFunction = ({ data }) => {
     description,
   }
 }
-
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: prism }]
 
 const createTableItems = (items: Heading[], pathname: string) =>
   items &&

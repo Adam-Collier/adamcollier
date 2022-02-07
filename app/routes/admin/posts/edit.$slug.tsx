@@ -33,7 +33,11 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
 
-    return redirect(`/blog/${toSlug(title)}`)
+    return redirect(`/blog/${toSlug(title)}`, {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
   }
 
   if (action === 'delete') {
@@ -42,6 +46,8 @@ export const action: ActionFunction = async ({ request, params }) => {
         slug,
       },
     })
+
+    redirect('/blog')
   }
 }
 
