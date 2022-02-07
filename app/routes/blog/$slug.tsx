@@ -17,12 +17,6 @@ import { getHeadings, Heading, toSlug } from '~/utils/utils'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: prism }]
 
-export const headers: HeadersFunction = () => {
-  return {
-    'Cache-Control': 's-maxage=1, stale-while-revalidate',
-  }
-}
-
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
 

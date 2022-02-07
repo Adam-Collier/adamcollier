@@ -33,12 +33,6 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
 
-    // fetch requests need an absolute url
-    const { origin } = new URL(request.url)
-    // make a request to the updated page to stale-while-revalidate is triggered
-    let data = await fetch(`${origin}/blog/${toSlug(title)}`)
-    console.log(data, 'this is the data from the fetch')
-
     return redirect(`/blog/${toSlug(title)}`, {
       headers: { 'Cache-Control': 'max-age=0, must-revalidate' },
     })
