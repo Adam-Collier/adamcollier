@@ -18,7 +18,6 @@ import { getHeadings, Heading, toSlug } from '~/utils/utils'
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: prism }]
 
 export const headers: HeadersFunction = () => {
-  // loader headers doesnt seem to be working atm
   return {
     'Cache-Control': 's-maxage=1, stale-while-revalidate',
   }
@@ -34,8 +33,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   })
 
   const headings = getHeadings(data?.content!)
-
-  return json({ ...data, content: await toHTML(data?.content!), headings })
+  return json(
+    { ...data, content: await toHTML(data?.content!), headings },
+    {
+      headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate' },
+    },
+  )
 }
 
 export const meta: MetaFunction = ({ data }) => {
