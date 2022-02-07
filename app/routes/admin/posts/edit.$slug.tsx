@@ -33,6 +33,9 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
 
+    // make a request to the updated page to stale-while-revalidate is triggered
+    await fetch(`/blog/${toSlug(title)}`)
+
     return redirect(`/blog/${toSlug(title)}`, {
       headers: {
         'Cache-Control': 'no-cache',
