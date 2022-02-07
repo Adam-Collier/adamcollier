@@ -61,7 +61,9 @@ export const loader: LoaderFunction = async ({ params }) => {
     },
   })
 
-  return json(data)
+  return json(data, {
+    headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate' },
+  })
 }
 
 const EditPost = () => {
