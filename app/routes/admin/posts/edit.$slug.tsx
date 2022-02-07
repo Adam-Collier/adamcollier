@@ -33,8 +33,10 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
 
+    // fetch requests need an absolute url
+    const { origin } = new URL(request.url)
     // make a request to the updated page to stale-while-revalidate is triggered
-    await fetch(`/blog/${toSlug(title)}`)
+    await fetch(`${origin}/blog/${toSlug(title)}`)
 
     return redirect(`/blog/${toSlug(title)}`, {
       headers: {
