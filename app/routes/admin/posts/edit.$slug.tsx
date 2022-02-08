@@ -33,6 +33,15 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
 
+    // fetch requests need an absolute url
+    const { origin } = new URL(request.url)
+    // make a request to the updated page to trigger revalidate
+    await fetch(`${origin}/blog/${toSlug(title)}`, {
+      headers: {
+        Pragma: 'no-cache',
+      },
+    })
+
     return redirect(`/blog/${toSlug(title)}`, {
       headers: {
         Pragma: 'no-cache',
@@ -68,52 +77,59 @@ const EditPost = () => {
   const transition = useTransition()
 
   return (
-    <Form
-      method="post"
-      className="w-full max-w-5xl mx-auto"
-      disabled={transition.state === 'submitting'}
-    >
-      <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
-        <div className="flex-grow flex flex-col gap-3">
-          <TextInput name="title" label="Title" required defaultValue={title} />
-          <TextArea
-            label="Description"
-            name="description"
-            rows={2}
-            minChar={120}
-            maxChar={155}
-            defaultValue={description}
-          />
-          <TextArea
-            label="Markdown"
-            name="markdown"
-            rows={50}
-            defaultValue={content}
-          />
-        </div>
-        <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
-          <div className="flex space-x-2 sm:sticky sm:top-8">
-            <button name="_action" value="delete" className="btn-delete">
-              {transition.submission?.formData.get('_action') === 'delete' &&
-              transition.state === 'submitting'
-                ? 'Deleting'
-                : 'Delete'}
-            </button>
-            <button name="_action" value="update" className="btn">
-              {transition.submission?.formData.get('_action') === 'update' &&
-              transition.state === 'submitting'
-                ? 'Updating'
-                : 'Update'}
-            </button>
+    <>
+      <Form
+        method="post"
+        className="w-full max-w-5xl mx-auto"
+        disabled={transition.state === 'submitting'}
+      >
+        <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
+          <div className="flex-grow flex flex-col gap-3">
+            <TextInput
+              name="title"
+              label="Title"
+              required
+              defaultValue={title}
+            />
+            <TextArea
+              label="Description"
+              name="description"
+              rows={2}
+              minChar={120}
+              maxChar={155}
+              defaultValue={description}
+            />
+            <TextArea
+              label="Markdown"
+              name="markdown"
+              rows={50}
+              defaultValue={content}
+            />
           </div>
-          <DatePicker
-            defaultValue={createdAt}
-            name="published-date"
-            label="Published"
-          />
-        </aside>
-      </div>
-    </Form>
+          <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
+            <div className="flex space-x-2 sm:sticky sm:top-8">
+              <button name="_action" value="delete" className="btn-delete">
+                {transition.submission?.formData.get('_action') === 'delete' &&
+                transition.state === 'submitting'
+                  ? 'Deleting'
+                  : 'Delete'}
+              </button>
+              <button name="_action" value="update" className="btn">
+                {transition.submission?.formData.get('_action') === 'update' &&
+                transition.state === 'submitting'
+                  ? 'Updating'
+                  : 'Update'}
+              </button>
+            </div>
+            <DatePicker
+              defaultValue={createdAt}
+              name="published-date"
+              label="Published"
+            />
+          </aside>
+        </div>
+      </Form>
+    </>
   )
 }
 
