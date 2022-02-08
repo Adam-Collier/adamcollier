@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     // fetch requests need an absolute url
     const { origin } = new URL(request.url)
     // make a request to the updated page to trigger revalidate
-    await fetch(`${origin}/blog/${toSlug(title)}`, {
+    await fetch(`${origin}/blog/${toSlug(title)}?_data=routes/blog/$slug`, {
       headers: {
         Pragma: 'no-cache',
       },
