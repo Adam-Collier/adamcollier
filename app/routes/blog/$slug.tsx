@@ -19,7 +19,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
 
   // if we have cached data, return it. If not carry on
-  let cachedData = await cache.get(`snippets-${slug}`)
+  let cachedData = await cache.get(`blog-${slug}`)
   if (cachedData) return json(cachedData)
 
   const data = await db.post.findUnique({
