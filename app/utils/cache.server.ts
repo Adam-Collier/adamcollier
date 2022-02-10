@@ -1,22 +1,61 @@
-import LRU from 'lru-cache'
-
-const createLruCache = () => {
-  // doing anything other than any was a pain
-  const newCache = new LRU<string, any>({
-    max: 1000,
-    maxAge: 1000 * 60 * 60, // 1 hour
-  })
-
-  return newCache
-}
-declare global {
-  // This preserves the LRU cache during development
-  // eslint-disable-next-line
-  var lruCache: LRU<string, { value: any }> | undefined
+const headers = {
+  Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
 }
 
-const lruCache = (global.lruCache = global.lruCache
-  ? global.lruCache
-  : createLruCache())
+const get = async (key: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.UPSTASH_REDIS_REST_URL}/get/${key}`,
+      {
+        headers,
+      },
+    )
 
-export { lruCache }
+    const { result } = await response.json()
+
+    return JSON.parse(result)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const has = async (key: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.UPSTASH_REDIS_REST_URL}/exists/${key}`,
+      {
+        headers,
+      },
+    )
+    const { result } = await response.json()
+    return result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const set = async (key: string, val: any) => {
+  try {
+    await fetch(`${process.env.UPSTASH_REDIS_REST_URL}/set/${key}`, {
+      headers,
+      body: JSON.stringify(val),
+      method: 'POST',
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const del = async (key: string) => {
+  try {
+    await fetch(`${process.env.UPSTASH_REDIS_REST_URL}/del/${key}`, {
+      headers,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const cache = { get, set, del, has }

@@ -1,6 +1,7 @@
 import { json, Link, LoaderFunction, useLoaderData } from 'remix'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
+import { cache } from '~/utils/cache.server'
 import { db } from '~/utils/db.server'
 import { toSlug, toTitleCase } from '~/utils/utils'
 import { toHTML } from '~/utils/utils.server'
@@ -8,12 +9,25 @@ import { toHTML } from '~/utils/utils.server'
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
 
+  let cachedData = await cache.get(`snippets-${slug}`)
+  if (cachedData) return json(cachedData)
+
   if (!slug) return
 
   const data = await db.snippetCollection.findUnique({
     where: { name: toTitleCase(slug) },
-    include: {
-      snippets: true,
+    select: {
+      name: true,
+      description: true,
+      id: true,
+      snippets: {
+        select: {
+          id: true,
+          updatedAt: true,
+          title: true,
+          content: true,
+        },
+      },
     },
   })
 
@@ -26,16 +40,21 @@ export const loader: LoaderFunction = async ({ params }) => {
     })),
   )
 
-  return json({ ...data, snippets: snippetsWithHtmlContent })
+  let formattedData = {
+    ...data,
+    snippets: snippetsWithHtmlContent,
+  }
+
+  cache.set(`snippets-${slug}`, formattedData)
+
+  return json(formattedData)
 }
 
 type Snippet = {
   id: number
-  createdAt: Date
   updatedAt: Date
   title: string
   content: string
-  SnippetCollection: any
 }
 
 const Snippets = () => {
@@ -48,7 +67,7 @@ const Snippets = () => {
     day: 'numeric',
   }
 
-  const { name, description, id } = data
+  const { name, description, id, snippets } = data
 
   return (
     <>
@@ -63,10 +82,10 @@ const Snippets = () => {
         <h1 className="text-2xl text-white">{name}</h1>
         {description && <p className="text-white">{description}</p>}
         <div className="space-y-8">
-          {data.snippets.map(
+          {snippets.map(
             ({ title, content, updatedAt, id }: Snippet, index: number) => {
               return (
-                <div className="block space-y-3">
+                <div className="block space-y-3" key={index}>
                   <h2 className="text-lg text-white" id={toSlug(title)}>
                     {title}
                   </h2>

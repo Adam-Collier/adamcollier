@@ -13,9 +13,14 @@ import { db } from '~/utils/db.server'
 import { toHTML } from '~/utils/utils.server'
 import prism from '~/styles/prism.css'
 import { getHeadings, Heading, toSlug } from '~/utils/utils'
+import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
+
+  // if we have cached data, return it. If not carry on
+  let cachedData = await cache.get(`snippets-${slug}`)
+  if (cachedData) return json(cachedData)
 
   const data = await db.post.findUnique({
     where: {
@@ -25,7 +30,15 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const headings = getHeadings(data?.content!)
 
-  return json({ ...data, content: await toHTML(data?.content!), headings })
+  let formattedData = {
+    ...data,
+    content: await toHTML(data?.content!),
+    headings,
+  }
+
+  cache.set(`blog-${slug}`, formattedData)
+
+  return json(formattedData)
 }
 
 export const meta: MetaFunction = ({ data }) => {

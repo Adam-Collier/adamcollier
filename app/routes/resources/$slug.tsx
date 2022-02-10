@@ -13,8 +13,16 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const data = await db.resourceCollection.findUnique({
     where: { name: toTitleCase(slug) },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      description: true,
       resources: {
+        select: {
+          content: true,
+          id: true,
+          section: true,
+        },
         orderBy: [
           {
             section: 'asc',
@@ -39,6 +47,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const Resources = () => {
   const data = useLoaderData()
+  console.log(data)
   const { user } = useAuth()
 
   const { name, description, resources, id } = data

@@ -10,11 +10,9 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
+import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
-
   const collections = await db.snippetCollection.findMany({
     select: {
       id: true,
@@ -43,6 +41,12 @@ export const action: ActionFunction = async ({ request }) => {
     },
   })
 
+  // delete the cache for the index and $slug route
+  await Promise.all([
+    cache.del('snippets'),
+    cache.del(`snippets-${toSlug(collectionName)}`),
+  ])
+
   return redirect(toSlug(`/snippets/${collectionName}`))
 }
 
@@ -51,7 +55,7 @@ type Collection = {
   id: number
 }
 
-const NewResource = () => {
+const NewSnippet = () => {
   const transition = useTransition()
   const { collections } = useLoaderData()
 
@@ -75,4 +79,4 @@ const NewResource = () => {
   )
 }
 
-export default NewResource
+export default NewSnippet

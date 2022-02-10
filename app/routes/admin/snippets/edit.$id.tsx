@@ -10,6 +10,7 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
+import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const isAuthenticated = await getUser(request)
@@ -57,19 +58,23 @@ export const action: ActionFunction = async ({ request, params }) => {
         id: Number(params.id),
       },
     })
-
-    return redirect('/snippets')
+  } else {
+    await db.snippet.update({
+      where: {
+        id: Number(params.id),
+      },
+      data: {
+        title: title,
+        content: content,
+      },
+    })
   }
 
-  await db.snippet.update({
-    where: {
-      id: Number(params.id),
-    },
-    data: {
-      title: title,
-      content: content,
-    },
-  })
+  // delete the cache for the index and $slug route
+  await Promise.all([
+    cache.del('snippets'),
+    cache.del(`snippets-${toSlug(collectionName)}`),
+  ])
 
   return redirect(`/snippets/${toSlug(collectionName)}`)
 }

@@ -1,17 +1,25 @@
 import { json, Link, LoaderFunction, useLoaderData } from 'remix'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
+import { cache } from '~/utils/cache.server'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 import { toHTML } from '~/utils/utils.server'
 
 export const loader: LoaderFunction = async () => {
+  let cachedData = await cache.get('snippets')
+  if (cachedData) return json(cachedData)
+
   const data = await db.snippet.findMany({
     take: 5,
     orderBy: {
       updatedAt: 'desc',
     },
-    include: {
+    select: {
+      id: true,
+      updatedAt: true,
+      title: true,
+      content: true,
       SnippetCollection: {
         select: {
           name: true,
@@ -19,12 +27,15 @@ export const loader: LoaderFunction = async () => {
       },
     },
   })
+
   const formattedData = await Promise.all(
     data.map(async (snippet) => ({
       ...snippet,
       content: await toHTML(snippet.content),
     })),
   )
+
+  cache.set('snippets', formattedData)
 
   return json(formattedData)
 }

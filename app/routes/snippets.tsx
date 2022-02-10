@@ -65,12 +65,15 @@ const Snippets = () => {
                 },
                 index: number,
               ) => (
-                <li>
+                <li key={index}>
                   <Accordion title={name}>
                     <ul className="flex flex-col gap-2 pl-4.5" key={index}>
                       {snippets &&
-                        snippets.map(({ title }) => (
-                          <li className="text-sm hover:underline text-gray-400">
+                        snippets.map(({ title }, index) => (
+                          <li
+                            className="text-sm hover:underline text-gray-400"
+                            key={index}
+                          >
                             <Link
                               to={`/snippets/${toSlug(name)}#${toSlug(title)}`}
                             >

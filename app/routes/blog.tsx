@@ -57,8 +57,8 @@ const Blog = () => {
         className={`${slugClasses} lg:block sm:w-56 sm:flex-shrink-0 sm:self-start sm:sticky sm:top-0 sm:overflow-y-scroll h-screen no-scrollbar sm:-my-16 sm:py-16`}
       >
         <ul>
-          {data.map((post: Post) => (
-            <li className="hover:bg-gray-50 p-2 rounded">
+          {data.map((post: Post, index: number) => (
+            <li className="hover:bg-gray-50 p-2 rounded" key={index}>
               <Link to={toSlug(post.title)}>
                 <h2 className="text-md sm:text-sm leading-5 text-gray-700">
                   {post.title}
