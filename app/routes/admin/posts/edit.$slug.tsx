@@ -7,6 +7,7 @@ import {
   useTransition,
 } from 'remix'
 import { DatePicker, Form, TextArea, TextInput } from '~/components/Form'
+import { cache } from '~/utils/cache.server'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 
@@ -18,6 +19,9 @@ export const action: ActionFunction = async ({ request, params }) => {
   const description = formData.get('description') as string
   const content = formData.get('markdown') as string
   const publishedDate = formData.get('published-date') as string
+
+  // if we are either updating or deleting we can delete the associated cache
+  cache.del(`blog-${toSlug(title)}`)
 
   if (action === 'update') {
     await db.post.update({
@@ -43,6 +47,8 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
   }
+
+  return redirect('/blog')
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -91,8 +97,8 @@ const EditPost = () => {
               defaultValue={content}
             />
           </div>
-          <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
-            <div className="flex space-x-2 sm:sticky sm:top-8">
+          <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
+            <div className="flex space-x-2">
               <button name="_action" value="delete" className="btn-delete">
                 {transition.submission?.formData.get('_action') === 'delete' &&
                 transition.state === 'submitting'

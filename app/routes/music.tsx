@@ -10,26 +10,25 @@ import {
 import { Spotify as SpotifyLogo, Soundcloud as SoundcloudLogo } from '~/svgs'
 import { useAuth } from '~/context'
 import { getMusicData } from '~/music'
-import { lruCache } from '~/utils/cache.server'
+import { cache } from '~/utils/cache.server'
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
-  const cache = form.get('cache')
+  const deleteCache = form.get('delete-cache')
 
-  if (cache) {
-    if (lruCache.has('musicData')) lruCache.del('musicData')
+  if (deleteCache) {
+    if (await cache.has('music')) await cache.del('music')
   }
 
   return null
 }
 
 export const loader: LoaderFunction = async () => {
-  if (lruCache.has('musicData')) {
-    return json({ ...lruCache.get('musicData') })
-  }
+  let cachedData = await cache.get('music')
+  if (cachedData) return json(cachedData)
 
   let data = await getMusicData()
-  lruCache.set('musicData', data)
+  await cache.set('music', data)
 
   return json({
     ...data,
@@ -45,7 +44,8 @@ export const meta: MetaFunction = () => {
 }
 
 const Music = () => {
-  const { spotifyAlbums, soundcloudMixes, radioStations } = useLoaderData()
+  const data = useLoaderData()
+  const { spotifyAlbums, soundcloudMixes, radioStations } = data
   const { user } = useAuth()
 
   return (
@@ -69,7 +69,7 @@ const Music = () => {
                 <button
                   type="submit"
                   className="text-xs"
-                  name="cache"
+                  name="delete-cache"
                   value="delete"
                 >
                   Delete the cache
