@@ -115,7 +115,7 @@ export default function Index() {
       </div>
       {/* top tracks section */}
       <section className="w-full bg-gradient-to-t from-zinc-100 to-gray-50">
-        <div className="space-y-4 rounded-xl max-w-7xl mx-auto py-4 sm:py-12">
+        <div className="space-y-4 rounded-xl max-w-7xl mx-auto py-4 sm:py-12 sm:px-8">
           <div className="h-[24px] flex justify-between items-center">
             <SpotifyLogo className="h-full w-auto" />
           </div>
