@@ -82,8 +82,8 @@ const Snippets = () => {
               const slug = toSlug(`${SnippetCollection.name}/#${title}`)
 
               return (
-                <div className="block space-y-3">
-                  <Link to={`/snippets/${slug}`} key={index}>
+                <div className="block space-y-3" key={index}>
+                  <Link to={`/snippets/${slug}`}>
                     <h2 className="text-lg text-white" id={slug}>
                       {title}
                     </h2>

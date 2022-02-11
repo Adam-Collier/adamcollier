@@ -30,6 +30,7 @@ type TextInputProps = {
   defaultValue?: string
   required?: boolean
   onChange?: (e: React.ChangeEvent<any>) => void
+  type?: 'text' | 'password'
 }
 
 export const TextInput = ({
@@ -38,13 +39,14 @@ export const TextInput = ({
   defaultValue,
   required,
   onChange,
+  type = 'text',
 }: TextInputProps) => (
   <div className="flex flex-col gap-2 w-full">
     <label htmlFor={name} className="font-medium">
       {label}
     </label>
     <input
-      type="text"
+      type={type}
       id={name}
       name={name}
       className="border-slate-300 border w-full py-2 px-3 text-black leading-tight rounded text-base disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"

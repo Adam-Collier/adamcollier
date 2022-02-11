@@ -10,7 +10,13 @@ interface WrapperProps {
 
 const Wrapper = ({ url, children, ...props }: WrapperProps) =>
   url ? (
-    <a href={url} rel="noopener noreferrer" target="_blank" {...props}>
+    <a
+      href={url}
+      rel="noopener noreferrer"
+      target="_blank"
+      {...props}
+      aria-label="masonry inspiration item"
+    >
       {children}
       <div className="text-white absolute top-1 right-1 p-0.5 bg-black">
         <span className="i-ri:arrow-right-up-line block w-3 h-3"></span>

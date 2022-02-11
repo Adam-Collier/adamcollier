@@ -52,7 +52,7 @@ const Resources = () => {
                   <p className="font-semibold hover:underline group-hover:underline">
                     {name}
                   </p>
-                  <small className="text-gray-400 text-xs">
+                  <small className="text-gray-500 text-xs">
                     <i>
                       Updated:{' '}
                       {new Date(updatedAt).toLocaleDateString(

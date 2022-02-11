@@ -63,7 +63,7 @@ const Blog = () => {
                 <h2 className="text-md sm:text-sm leading-5 text-gray-700">
                   {post.title}
                 </h2>
-                <small className="text-xs text-gray-400">
+                <small className="text-xs text-gray-500">
                   {toReadableDate(post.createdAt)}
                 </small>
               </Link>

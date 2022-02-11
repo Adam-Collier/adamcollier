@@ -25,15 +25,15 @@ module.exports = () => {
     if (node.tagName === 'pre') {
       node.properties.className = 'pre'
       let code = nodeToString(node.children[0])
-      
+
       const wrapperNode = {
         type: 'element',
         tagName: 'div',
         properties: {
-          className: "relative"
+          className: 'relative',
         },
         children: [
-          {...node},
+          { ...node },
           {
             type: 'element',
             tagName: 'button',
@@ -42,6 +42,7 @@ module.exports = () => {
                 'absolute top-2 right-2 p-1 bg-[hsl(15_12.9%_20%)] hover:bg-[hsl(15_12.9%_25%)] rounded text-white',
               dataCode: code,
               onclick: 'copyCodeToClipboard(this)',
+              ariaLabel: 'copy to clipboard',
             },
             children: [
               {
@@ -55,8 +56,8 @@ module.exports = () => {
           },
         ],
       }
-      
-      parentNode.children[index] = wrapperNode;
+
+      parentNode.children[index] = wrapperNode
     }
 
     if (parentNode.tagName === 'pre' && node.tagName === 'code') {
