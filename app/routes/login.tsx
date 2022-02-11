@@ -54,7 +54,7 @@ const Login = () => {
         className="max-w-sm w-full shadow-sm p-8"
       >
         <TextInput name="username" label="Username" />
-        <TextInput name="password" label="Password" />
+        <TextInput name="password" label="Password" type="password" />
         <button className="btn" type="submit">
           Submit
         </button>

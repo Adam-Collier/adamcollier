@@ -183,7 +183,7 @@ export default function Index() {
               feed.
             </p>
             {/* show the one im currently reading first */}
-            <p className="block bg-amber-50 text-amber-600 self-start px-2 py-1 text-sm flex gap-1 items-center">
+            <p className="block bg-amber-50 text-amber-700 self-start px-2 py-1 text-sm flex gap-1 items-center">
               <span className="i-ri:bookmark-line" />
               Currently Reading...
             </p>
@@ -222,16 +222,25 @@ export default function Index() {
             </p>
             <div className="grid grid-cols-4 gap-2">
               {latestFilms.map(
-                ({ link, src }: { link: string; src: string }) => {
+                ({
+                  link,
+                  src,
+                  title,
+                }: {
+                  link: string
+                  src: string
+                  title: string
+                }) => {
                   return (
                     <a
                       href={link}
                       className="block overflow-hidden rounded relative w-full"
+                      aria-label={`${title} film`}
                     >
                       <div className="block pt-[150%]"></div>
                       <img
                         src={src}
-                        alt=""
+                        alt={title}
                         className="absolute top-0 left-0 w-full h-full object-cover"
                       />
                     </a>

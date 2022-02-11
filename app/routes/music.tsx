@@ -174,6 +174,7 @@ const Music = () => {
             <Link
               className="w-10 h-10 bg-orange-200 flex items-center justify-center rounded"
               to="/admin/music/new/radio"
+              aria-label="add radio station"
             >
               <span className="block w-6 h-6 i-ri:add-line"></span>
             </Link>

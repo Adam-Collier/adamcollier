@@ -47,8 +47,8 @@ const Resources = () => {
           thought could become useful in the future.
         </p>
         <h3 className="text-xl">Latest Resources</h3>
-        {data.map(({ content, id }: ResourceProps) => (
-          <div>
+        {data.map(({ content, id }: ResourceProps, index: number) => (
+          <div key={index}>
             <div dangerouslySetInnerHTML={{ __html: content }} />
             {user && (
               <Link

@@ -17,9 +17,6 @@ const Blog = () => {
           I hope you enjoy reading what I write and learn something a long the
           way
         </p>
-        <small className="text-white hidden sm:block italic">
-          Pick an article on the left to get started
-        </small>
       </div>
     </>
   )

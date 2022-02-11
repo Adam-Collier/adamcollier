@@ -8,7 +8,7 @@ module.exports = (options = {}) => {
   function visitor(node, index, parentNode) {
     // make sure we only target elements with the resource structure
     if (
-    node.tagName === "p" && 
+      node.tagName === 'p' &&
       node.children[0].tagName === 'a' &&
       node.children[1].value.startsWith(' - ') &&
       node.children[1].value.split(' - ').length === 3
@@ -89,7 +89,7 @@ module.exports = (options = {}) => {
                 type: 'element',
                 tagName: 'p',
                 properties: {
-                  className: ['text-sm', 'text-gray-400'],
+                  className: ['text-sm', 'text-gray-500'],
                 },
                 children: [
                   {
@@ -104,7 +104,7 @@ module.exports = (options = {}) => {
             type: 'element',
             tagName: 'div',
             properties: {
-              className: ['href:text-indigo-500', 'href:underline'],
+              className: ['href:text-indigo-600', 'href:underline'],
             },
             children: content,
           },
