@@ -1,4 +1,5 @@
 const visit = require('unist-util-visit')
+const { toSlug } = require('~/utils/utils')
 
 module.exports = (options = {}) => {
   return (tree) => {
@@ -58,7 +59,9 @@ module.exports = (options = {}) => {
           {
             type: 'element',
             tagName: 'div',
-            properties: {},
+            properties: {
+              id: toSlug(title),
+            },
             children: [
               {
                 type: 'element',
