@@ -55,7 +55,7 @@ const Snippets = () => {
   return (
     <div className="dark w-full bg-zinc-900">
       <div className="flex flex-col sm:flex-row gap-8 block max-w-5xl mx-auto px-4 sm:pt-16">
-        <aside className="py-3 sm:py-0 sm:flex-shrink-0 sm:w-52 space-y-4 sm:self-start sm:sticky sm:top-16">
+        <aside className="py-4 sm:py-0 sm:flex-shrink-0 sm:w-52 space-y-4 sm:self-start sm:sticky sm:top-16">
           <ul className="flex sm:flex-col gap-3 text-white overflow-x-scroll overflow-y-hidden px-4 -mx-4 sm:px-0 sm:mx-0 w-screen sm:w-full no-scrollbar">
             {data.map(
               (
@@ -77,7 +77,7 @@ const Snippets = () => {
                       to={`/snippets/${toSlug(name)}`}
                       className={[
                         activeClass,
-                        'sm:hidden px-2 py-1 sm:py-2 rounded',
+                        'sm:hidden font-semibold px-2 py-1 block rounded',
                       ].join(' ')}
                     >
                       {name}
