@@ -77,7 +77,7 @@ const Snippets = () => {
                       to={`/snippets/${toSlug(name)}`}
                       className={[
                         activeClass,
-                        'sm:hidden font-semibold px-2 py-1 block rounded',
+                        'sm:hidden px-2 py-1 block rounded',
                       ].join(' ')}
                     >
                       {name}
