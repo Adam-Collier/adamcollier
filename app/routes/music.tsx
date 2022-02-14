@@ -11,6 +11,7 @@ import { Spotify as SpotifyLogo, Soundcloud as SoundcloudLogo } from '~/svgs'
 import { useAuth } from '~/context'
 import { getMusicData } from '~/music'
 import { cache } from '~/utils/cache.server'
+import { NavSpacer } from '~/components/NavSpacer'
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
@@ -49,7 +50,7 @@ const Music = () => {
   const { user } = useAuth()
 
   return (
-    <section className="flex flex-col sm:flex-row h-full p-2 sm:p-4 gap-2">
+    <section className="flex flex-col sm:flex-row sm:h-full p-2 sm:p-4 gap-2">
       {/* gradient created with: https://larsenwork.com/easing-gradients/#editor */}
       {/* spotify */}
       {/* spotify colours: 
@@ -165,7 +166,7 @@ const Music = () => {
             },
           )}
         </div>
-        <div className="block h-24"></div>
+        <NavSpacer />
       </div>
       {/* radio stations */}
       <div className="order-first rounded-xl sm:order-last bg-black p-2 flex sm:flex-col justify-between items-center bg-gradient-to-t sm:bg-gradient-to-t from-orange-200 to-orange-100 ">

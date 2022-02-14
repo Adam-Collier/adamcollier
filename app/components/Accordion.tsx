@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 export const Accordion = ({
   children,
   title,
+  className,
 }: {
   children: React.ReactNode
   title: string
+  className?: string
 }) => {
   const [sectionIsOpen, setAccorsionIsOpen] = useState(false)
 
@@ -14,7 +16,7 @@ export const Accordion = ({
     : 'i-ri:add-box-line'
 
   return (
-    <div className="space-y-2">
+    <div className={`${className || ''} space-y-2`}>
       <button
         className="flex items-center gap-1.5"
         type="button"
