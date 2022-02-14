@@ -47,7 +47,7 @@ const Resources = () => {
   return (
     <main className="flex flex-col sm:flex-row gap-8 md:gap-16 block max-w-5xl mx-auto px-4 sm:pt-16">
       <aside className="py-3 sm:py-0 md:flex-shrink-0">
-        <ul className="flex sm:flex-col gap-2 overflow-x-scroll px-4 -mx-4 sm:px-0 sm:mx-0 w-screen sm:w-full no-scrollbar">
+        <ul className="flex sm:flex-col gap-2 overflow-x-scroll overflow-y-hidden px-4 -mx-4 sm:px-0 sm:mx-0 w-screen sm:w-full no-scrollbar">
           {data.map(({ name, updatedAt }: Collection, index: number) => {
             const slug = toSlug(name)
             let activeClass = pathname.endsWith(slug) ? 'bg-gray-50' : ''
