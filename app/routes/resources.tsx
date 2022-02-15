@@ -56,7 +56,9 @@ const Resources = () => {
         <ul className="flex sm:flex-col gap-2 overflow-x-scroll overflow-y-hidden px-2 -mx-4 sm:px-0 sm:mx-0 w-screen sm:w-full no-scrollbar">
           {data.map(({ name, updatedAt }: Collection, index: number) => {
             const slug = toSlug(name)
-            let activeClass = pathname.endsWith(slug) ? 'bg-gray-50' : ''
+            let activeClass = pathname.endsWith(slug)
+              ? 'bg-gradient-to-l from-gray-50 to-gray-50 sm:to-transparent'
+              : ''
 
             return (
               <li
