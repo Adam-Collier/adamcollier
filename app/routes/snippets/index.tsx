@@ -64,7 +64,7 @@ const Snippets = () => {
         <Link to="/admin/snippets/collection/new">Add Collection</Link>
         <Link to="/admin/snippets/new">Add Snippet</Link>
       </AdminToolbar>
-      <div className="flex flex-col gap-4 min-w-0">
+      <div className="flex flex-col gap-4">
         <h1 className="text-2xl text-white">Snippets</h1>
         <p className="text-white">
           There's nothing worse than almost remembering where you found that
