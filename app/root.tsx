@@ -42,6 +42,14 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            async
+            defer
+            data-website-id="5e5ce6b5-3fb0-49eb-ae22-ab3cb1fa483b"
+            src="https://umami-production-7v-m.up.railway.app/umami.js"
+          />
+        )}
         <Meta />
         <Links />
       </head>
