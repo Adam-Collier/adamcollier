@@ -22,16 +22,25 @@ export const links = () => [
 ]
 
 export const meta: MetaFunction = () => {
+  const title = 'Adam Collier'
   const description =
     'Adam Collier is a Creative UX Designer Developer from Manchester, UK. Creating content to come back to. Discover useful snippets, resources and blogposts.'
+  const image = 'https://adamcollier.co.uk/img/social.jpg'
   return {
-    title: 'Adam Collier',
+    title,
     description,
-    'twitter:image': 'https://adamcollier.co.uk/img/social.jpg',
+    // facebook
+    'og:type': 'website',
+    'og:url': 'https://www.adamcollier.co.uk/',
+    'og:title': title,
+    'og:description': description,
+    'og:image': image,
+    // twitter
+    'twitter:image': image,
     'twitter:card': 'summary_large_image',
     'twitter:creator': '@CollierAdam',
     'twitter:site': '@CollierAdam',
-    'twitter:title': 'Adam Collier',
+    'twitter:title': title,
     'twitter:description': description,
   }
 }

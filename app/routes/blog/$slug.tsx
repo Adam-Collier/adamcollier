@@ -47,6 +47,8 @@ export const meta: MetaFunction = ({ data }) => {
   return {
     title,
     description,
+    'twitter:title': title,
+    'twitter:description': description,
   }
 }
 

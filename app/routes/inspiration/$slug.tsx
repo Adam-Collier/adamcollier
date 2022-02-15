@@ -1,5 +1,6 @@
-import { json, LoaderFunction, useLoaderData } from 'remix'
+import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import Masonry from '~/components/Masonry'
+import { toTitleCase } from '~/utils/utils'
 import { saveeBoards } from './index'
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -15,6 +16,19 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json(data, {
     headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate' },
   })
+}
+
+export const meta: MetaFunction = ({ params }) => {
+  const { slug } = params
+  const title = toTitleCase(slug!)
+  const description = `A space for all of the ${title} references I have collected and screenshotted. All taken from my Saave`
+
+  return {
+    title,
+    description,
+    'twitter:title': `${title} Inspiration`,
+    'twitter:description': description,
+  }
 }
 
 export const headers = () => ({

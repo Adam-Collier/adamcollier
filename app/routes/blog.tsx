@@ -12,10 +12,15 @@ import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toReadableDate, toSlug } from '~/utils/utils'
 
 export const meta: MetaFunction = () => {
+  const title = 'Adam Collier - Blog'
+  const description =
+    'A diverse collection of writing which ranges from code, design and life in general.'
+
   return {
-    title: 'Adam Collier - Blog',
-    description:
-      'A diverse collection of writing which ranges from code, design and life in general.',
+    title,
+    description,
+    'twitter:title': title,
+    'twitter:description': description,
   }
 }
 
