@@ -238,7 +238,6 @@ export const getHeadings = (source: string) => {
 
 export const copyToClipboard = (content: string) => {
   if (typeof window !== 'undefined') {
-    console.log('this ran')
     const el = document.createElement(`textarea`)
     el.value = content
     el.setAttribute(`readonly`, ``)

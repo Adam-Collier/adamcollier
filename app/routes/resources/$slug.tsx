@@ -47,7 +47,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const Resources = () => {
   const data = useLoaderData()
-  console.log(data)
   const { user } = useAuth()
 
   const { name, description, resources, id } = data
