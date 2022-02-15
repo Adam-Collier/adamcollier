@@ -10,6 +10,7 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
+import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const isAuthenticated = await getUser(request)
@@ -48,6 +49,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
     // we must delete the snippets first otherwise snippetCollectionId changes to null before we can delete them via id
     await db.$transaction([deleteSnippets, deleteCollection])
+    await cache.del('snippets-nav')
 
     return redirect('/snippets')
   }
@@ -62,6 +64,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     },
   })
 
+  await cache.del('snippets-nav')
   return redirect(`/snippets/${toSlug(name)}`)
 }
 

@@ -2,6 +2,7 @@ import { LoaderFunction, ActionFunction, useTransition, redirect } from 'remix'
 import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea } from '~/components/Form'
+import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const isAuthenticated = await getUser(request)
@@ -22,6 +23,7 @@ export const action: ActionFunction = async ({ request }) => {
     },
   })
 
+  await cache.del('snippets-nav')
   return redirect('/snippets')
 }
 

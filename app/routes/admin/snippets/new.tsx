@@ -45,6 +45,7 @@ export const action: ActionFunction = async ({ request }) => {
   await Promise.all([
     cache.del('snippets'),
     cache.del(`snippets-${toSlug(collectionName)}`),
+    cache.del('snippets-nav'),
   ])
 
   return redirect(toSlug(`/snippets/${collectionName}`))
