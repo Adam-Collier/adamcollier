@@ -57,7 +57,7 @@ const Music = () => {
         light grey: hsl(0, 0%, 70.2%), #b3b3b3
         dark grey: hsl(0, 0%, 7.1%), #121212
       */}
-      <div className="sm:w-11/12 lg:w-8/12 p-4 pb-5 space-y-4 rounded-xl bg-gradient-to-t from-[#121212] to-gray-100">
+      <div className="sm:w-11/12 lg:w-8/12 p-4 pb-0 space-y-4 rounded-xl bg-gradient-to-t from-[#121212] to-gray-100 flex flex-col">
         <div className="h-[24px] flex justify-between items-center">
           <SpotifyLogo className="h-full w-auto" />
           {user && (
@@ -79,40 +79,41 @@ const Music = () => {
             </div>
           )}
         </div>
-
-        <div className="grid grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-2">
-          {spotifyAlbums.map(
-            (
-              {
-                image,
-                link,
-                artist,
-                album,
-              }: {
-                image: string
-                link: string
-                rating: number
-                artist: string
-                album: string
-              },
-              index: string,
-            ) => (
-              <a
-                className="block w-full relative pt-full rounded overflow-hidden shadow-lg"
-                href={link}
-                target="_blank"
-                rel="noreferrer noopener"
-                key={index}
-              >
-                <img
-                  className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
-                  src={image.replace(/b273/g, '1e02')}
-                  alt={`${album}, ${artist}`}
-                  loading="lazy"
-                />
-              </a>
-            ),
-          )}
+        <div className="sm:overflow-y-scroll self-stretch pb-5">
+          <div className="grid grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-2">
+            {spotifyAlbums.map(
+              (
+                {
+                  image,
+                  link,
+                  artist,
+                  album,
+                }: {
+                  image: string
+                  link: string
+                  rating: number
+                  artist: string
+                  album: string
+                },
+                index: string,
+              ) => (
+                <a
+                  className="block w-full relative pt-full rounded overflow-hidden shadow-lg"
+                  href={link}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  key={index}
+                >
+                  <img
+                    className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
+                    src={image.replace(/b273/g, '1e02')}
+                    alt={`${album}, ${artist}`}
+                    loading="lazy"
+                  />
+                </a>
+              ),
+            )}
+          </div>
         </div>
       </div>
       {/* soundcloud 
