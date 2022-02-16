@@ -7,8 +7,8 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const action = formData.get('_action')
   const title = formData.get('title') as string
-  const description = formData.get('description') as string
-  const content = formData.get('markdown') as string
+  const description = (formData.get('description') as string) || ''
+  const content = (formData.get('markdown') as string) || ''
   const publishedDate = formData.get('published-date') as string
 
   if (action === 'draft') {
@@ -58,9 +58,9 @@ const NewPost = () => {
             minChar={120}
             maxChar={155}
           />
-          <TextArea label="Markdown" name="markdown" rows={10} />
+          <TextArea label="Markdown" name="markdown" />
         </div>
-        <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72">
+        <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
           <div className="flex space-x-2">
             <button
               name="_action"

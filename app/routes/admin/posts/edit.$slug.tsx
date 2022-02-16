@@ -90,12 +90,7 @@ const EditPost = () => {
               maxChar={155}
               defaultValue={description}
             />
-            <TextArea
-              label="Markdown"
-              name="markdown"
-              rows={50}
-              defaultValue={content}
-            />
+            <TextArea label="Markdown" name="markdown" defaultValue={content} />
           </div>
           <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
             <div className="flex space-x-2">

@@ -57,7 +57,7 @@ model Post {
   updatedAt   DateTime @updatedAt
   title       String   @db.MediumText
   slug        String   @unique
-  description String   @default("") @db.MediumText
+  description String?  @db.MediumText
   content     String?  @db.LongText
   published   Boolean  @default(false)
 }

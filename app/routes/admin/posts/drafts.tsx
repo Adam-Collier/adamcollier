@@ -22,7 +22,7 @@ const PostDrafts = () => {
   const data = useLoaderData()
 
   return (
-    <div className="flex flex-col sm:flex-row gap-8 block max-w-6xl mx-auto pt-8 px-4">
+    <div className="flex flex-col sm:flex-row gap-8 block max-w-6xl mx-auto">
       <aside className="flex flex-col sm:w-44 sm:flex-shrink-0 gap-4">
         <h2 className="text-md">Drafts</h2>
         <ul className="space-y-4">
