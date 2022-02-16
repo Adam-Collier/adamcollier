@@ -1,4 +1,4 @@
-import { json, Link, LoaderFunction, useLoaderData } from 'remix'
+import { json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import { db } from '~/utils/db.server'
 import { toTitleCase } from '~/utils/utils'
 import { Resource as ResourceProps } from '@prisma/client'
@@ -43,6 +43,19 @@ export const loader: LoaderFunction = async ({ params }) => {
   )
 
   return json({ ...data, resources: formattedResources })
+}
+
+export const meta: MetaFunction = ({ data }) => {
+  const { name } = data
+  const title = toTitleCase(name)
+  const description = `${title} resources I have either learned something from or thought could be useful in the future.`
+
+  return {
+    title,
+    description,
+    'twitter:title': title,
+    'twitter:description': description,
+  }
 }
 
 const Resources = () => {

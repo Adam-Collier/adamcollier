@@ -20,13 +20,13 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export const meta: MetaFunction = ({ params }) => {
   const { slug } = params
-  const title = toTitleCase(slug!)
+  const title = `${toTitleCase(slug!)} Inspiration`
   const description = `A space for all of the ${title} references I have collected and screenshotted. All taken from my Saave`
 
   return {
     title,
     description,
-    'twitter:title': `${title} Inspiration`,
+    'twitter:title': title,
     'twitter:description': description,
   }
 }

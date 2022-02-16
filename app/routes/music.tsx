@@ -37,7 +37,7 @@ export const loader: LoaderFunction = async () => {
 }
 
 export const meta: MetaFunction = () => {
-  const title = 'Adam Collier - Music'
+  const title = 'Music'
   const description =
     'All the music I love to listen to online. Including Spotify albums, Soundcloud mixes and my favourite Radio Stations.'
 

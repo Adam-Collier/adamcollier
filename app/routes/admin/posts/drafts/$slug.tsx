@@ -66,7 +66,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const EditDraft = () => {
   const data = useLoaderData()
-  const { title, content } = data
+  const { title, content, description } = data
   const transition = useTransition()
 
   return (
@@ -86,6 +86,7 @@ const EditDraft = () => {
               rows={2}
               minChar={120}
               maxChar={155}
+              defaultValue={description}
             />
             <TextArea
               label="Markdown"

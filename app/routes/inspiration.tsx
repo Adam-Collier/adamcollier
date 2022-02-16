@@ -19,7 +19,7 @@ export function headers({}) {
 }
 
 export const meta: MetaFunction = () => {
-  const title = 'Adam Collier - Inspiration'
+  const title = 'Inspiration'
   const description =
     'A space for visual references and quickly exploring inspiration imagery and website layouts. All taken from my Saave'
 

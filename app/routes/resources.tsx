@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async () => {
 }
 
 export const meta: MetaFunction = () => {
-  const title = 'Adam Collier - Resources'
+  const title = 'Resources'
   const description =
     'This is a group of resources I have either learned something from or thought could become useful in the future.'
 

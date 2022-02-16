@@ -44,7 +44,7 @@ export const links = () => [
 ]
 
 export const meta: MetaFunction = () => {
-  const title = 'Adam Collier - Snippets'
+  const title = 'Snippets'
   const description =
     "There's nothing worse than almost remembering a bit of code you saw on stackoverflow on in a blogpost once. So I've collated all of the ones I find most useful."
 

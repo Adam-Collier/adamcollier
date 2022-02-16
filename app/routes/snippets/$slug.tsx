@@ -1,4 +1,4 @@
-import { json, Link, LoaderFunction, useLoaderData } from 'remix'
+import { json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
 import { cache } from '~/utils/cache.server'
@@ -48,6 +48,19 @@ export const loader: LoaderFunction = async ({ params }) => {
   cache.set(`snippets-${slug}`, formattedData)
 
   return json(formattedData)
+}
+
+export const meta: MetaFunction = ({ data }) => {
+  const { name } = data
+  const title = name
+  const description = `${title} snippets which I like to use or refer back to when working on projects. Easily copy and paste them into your own projects.`
+
+  return {
+    title,
+    description,
+    'twitter:title': title,
+    'twitter:description': description,
+  }
 }
 
 type Snippet = {
