@@ -120,6 +120,7 @@ export const getTopTracks = async () => {
 
 export const getLatestPosts = async () =>
   await db.post.findMany({
+    where: { published: true },
     take: 5,
     orderBy: {
       createdAt: 'desc',
