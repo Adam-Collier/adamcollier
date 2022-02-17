@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   ActionFunction,
   json,
@@ -18,7 +19,6 @@ export const action: ActionFunction = async ({ request, params }) => {
   const description = (formData.get('description') as string) || ''
   const content = (formData.get('markdown') as string) || ''
   const publishedDate = formData.get('published-date') as string
-  console.log(publishedDate)
 
   if (action === 'draft') {
     await db.post.update({
@@ -74,6 +74,8 @@ const EditDraft = () => {
   const { title, content, description, createdAt } = data
   const transition = useTransition()
 
+  const [currentContent, setCurrentContent] = useState(content)
+
   return (
     <div className="w-full min-w-0">
       <Form method="post">
@@ -93,7 +95,12 @@ const EditDraft = () => {
               maxChar={155}
               defaultValue={description}
             />
-            <TextArea label="Markdown" name="markdown" defaultValue={content} />
+            <TextArea
+              label="Markdown"
+              name="markdown"
+              defaultValue={content}
+              onChange={(e) => setCurrentContent(e.target.value)}
+            />
           </div>
           <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
             <div className="flex space-x-2">
@@ -119,6 +126,15 @@ const EditDraft = () => {
               name="published-date"
               label="Published"
             />
+            {currentContent === content ? (
+              <p className="bg-green-100 border border-green-500 rounded px-4 py-2 text-green-700 text-sm">
+                Content is saved and up to date
+              </p>
+            ) : (
+              <p className="bg-amber-50 border border-amber-500 rounded px-4 py-2 text-amber-600 text-sm">
+                Remember to save before leaving
+              </p>
+            )}
           </aside>
         </div>
       </Form>

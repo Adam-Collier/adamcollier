@@ -94,6 +94,7 @@ type TextAreaProps = {
   rows?: number
   maxChar?: number
   minChar?: number
+  onChange?: (e: any) => void
 }
 
 export const TextArea = ({
@@ -103,6 +104,7 @@ export const TextArea = ({
   rows = 5,
   maxChar,
   minChar,
+  onChange,
 }: TextAreaProps) => {
   const textarea = useRef<HTMLTextAreaElement>(null)
   const [characterCount, setCharacterCount] = useState(
@@ -149,6 +151,7 @@ export const TextArea = ({
         spellCheck={true}
         onChange={(e) => {
           handleChange(e)
+          if (onChange) onChange(e)
           if (minChar || maxChar) {
             setCharacterCount(e.target.value.length)
           }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   ActionFunction,
   json,
@@ -67,6 +68,8 @@ const EditPost = () => {
   const { title, description, content, createdAt } = data
   const transition = useTransition()
 
+  const [currentContent, setCurrentContent] = useState(content)
+
   return (
     <>
       <Form
@@ -90,7 +93,12 @@ const EditPost = () => {
               maxChar={155}
               defaultValue={description}
             />
-            <TextArea label="Markdown" name="markdown" defaultValue={content} />
+            <TextArea
+              label="Markdown"
+              name="markdown"
+              defaultValue={content}
+              onChange={(e) => setCurrentContent(e.target.value)}
+            />
           </div>
           <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
             <div className="flex space-x-2">
@@ -112,6 +120,11 @@ const EditPost = () => {
               name="published-date"
               label="Published"
             />
+            {currentContent !== content && (
+              <p className="bg-amber-50 border border-amber-500 rounded px-4 py-2 text-amber-600 text-sm">
+                Your content needs saving!
+              </p>
+            )}
           </aside>
         </div>
       </Form>
