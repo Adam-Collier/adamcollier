@@ -7,12 +7,11 @@ import {
   useLoaderData,
 } from 'remix'
 import { db } from '~/utils/db.server'
-import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 import { cache } from '~/utils/cache.server'
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   const collections = await db.snippetCollection.findMany({
     select: {
       id: true,
@@ -64,7 +63,7 @@ const NewSnippet = () => {
     <Form method="post" className="w-full max-w-xl mx-auto">
       <TextInput name="title" label="Title" required />
       <TextArea name="content" label="Content" rows={15} />
-      <div className="flex w-full gap-2 mt-2">
+      <div className="flex flex-wrap w-full gap-2 py-4">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton
             name="collection"

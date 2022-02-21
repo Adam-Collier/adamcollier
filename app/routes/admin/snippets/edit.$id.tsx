@@ -7,7 +7,6 @@ import {
   redirect,
 } from 'remix'
 import { db } from '~/utils/db.server'
-import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 import { cache } from '~/utils/cache.server'
@@ -102,7 +101,7 @@ const EditSnippet = () => {
         defaultValue={content}
         rows={5}
       />
-      <div className="flex w-full gap-2 mt-2">
+      <div className="flex flex-wrap w-full gap-2 py-4">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton
             name="collectionId"

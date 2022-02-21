@@ -77,69 +77,61 @@ const EditDraft = () => {
   const [currentContent, setCurrentContent] = useState(content)
 
   return (
-    <div className="w-full min-w-0">
-      <Form method="post">
-        <div className="flex flex-col-reverse sm:flex-row gap-8 sm:items-start w-full">
-          <div className="flex flex-grow flex-col gap-3">
-            <TextInput
-              name="title"
-              label="Title"
-              required
-              defaultValue={title}
-            />
-            <TextArea
-              label="Description"
-              name="description"
-              rows={2}
-              minChar={120}
-              maxChar={155}
-              defaultValue={description}
-            />
-            <TextArea
-              label="Markdown"
-              name="markdown"
-              defaultValue={content}
-              onChange={(e) => setCurrentContent(e.target.value)}
-            />
-          </div>
-          <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
-            <div className="flex space-x-2">
-              <button
-                name="_action"
-                value="draft"
-                className="btn bg-white hover:bg-gray-100 border border-black text-black"
-              >
-                {transition.submission?.formData.get('_action') === 'draft' &&
-                transition.state === 'submitting'
-                  ? 'Saving'
-                  : 'Save Draft'}
-              </button>
-              <button name="_action" value="publish" className="btn">
-                {transition.submission?.formData.get('_action') === 'publish' &&
-                transition.state === 'submitting'
-                  ? 'Publishing'
-                  : 'Publish'}
-              </button>
-            </div>
-            <DatePicker
-              defaultValue={createdAt}
-              name="published-date"
-              label="Published"
-            />
-            {currentContent === content ? (
-              <p className="bg-green-100 border border-green-500 rounded px-4 py-2 text-green-700 text-sm">
-                Content is saved and up to date
-              </p>
-            ) : (
-              <p className="bg-amber-50 border border-amber-500 rounded px-4 py-2 text-amber-600 text-sm">
-                Remember to save before leaving
-              </p>
-            )}
-          </aside>
+    <Form method="post" className="w-full min-w-0">
+      <div className="flex flex-col sm:flex-row gap-8 sm:items-start w-full">
+        <div className="flex flex-grow flex-col gap-3">
+          <TextInput name="title" label="Title" required defaultValue={title} />
+          <TextArea
+            label="Description"
+            name="description"
+            rows={2}
+            minChar={120}
+            maxChar={155}
+            defaultValue={description}
+          />
+          <TextArea
+            label="Markdown"
+            name="markdown"
+            defaultValue={content}
+            onChange={(e) => setCurrentContent(e.target.value)}
+          />
         </div>
-      </Form>
-      <div className="h-50vh"></div>
-    </div>
+        <aside className="p-4 bg-gray-50 rounded flex flex-col space-y-4 sm:min-w-72 sm:sticky sm:top-8">
+          <div className="flex space-x-2">
+            <button
+              name="_action"
+              value="draft"
+              className="btn bg-white hover:bg-gray-100 border border-black text-black"
+            >
+              {transition.submission?.formData.get('_action') === 'draft' &&
+              transition.state === 'submitting'
+                ? 'Saving'
+                : 'Save Draft'}
+            </button>
+            <button name="_action" value="publish" className="btn">
+              {transition.submission?.formData.get('_action') === 'publish' &&
+              transition.state === 'submitting'
+                ? 'Publishing'
+                : 'Publish'}
+            </button>
+          </div>
+          <DatePicker
+            defaultValue={createdAt}
+            name="published-date"
+            label="Published"
+          />
+          {currentContent === content ? (
+            <p className="bg-green-100 border border-green-500 rounded px-4 py-2 text-green-700 text-sm">
+              Content is saved and up to date
+            </p>
+          ) : (
+            <p className="bg-amber-50 border border-amber-500 rounded px-4 py-2 text-amber-600 text-sm">
+              Remember to save before leaving
+            </p>
+          )}
+        </aside>
+      </div>
+    </Form>
   )
 }
 

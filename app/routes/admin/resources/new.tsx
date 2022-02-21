@@ -7,11 +7,10 @@ import {
   useLoaderData,
 } from 'remix'
 import { db } from '~/utils/db.server'
-import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   const collections = await db.resourceCollection.findMany({
     select: {
       id: true,
@@ -59,7 +58,7 @@ const NewResource = () => {
       <TextInput name="title" label="Title" required />
       <TextArea name="markdown" label="Markdown" />
       <TextInput name="section" label="Section" required />
-      <div className="flex w-full gap-2 mt-2">
+      <div className="flex flex-wrap w-full gap-2 py-2">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton name="collection" label={name} value={`${id} ${name}`} />
         ))}

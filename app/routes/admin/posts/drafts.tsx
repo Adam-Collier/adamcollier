@@ -1,4 +1,11 @@
-import { json, Link, LoaderFunction, Outlet, useLoaderData } from 'remix'
+import {
+  json,
+  Link,
+  LoaderFunction,
+  Outlet,
+  useLoaderData,
+  useLocation,
+} from 'remix'
 import { db } from '~/utils/db.server'
 import { toReadableDate } from '~/utils/utils'
 
@@ -20,10 +27,15 @@ export type Post = {
 
 const PostDrafts = () => {
   const data = useLoaderData()
+  const location = useLocation()
+
+  const isSidebar = location.pathname.endsWith('drafts')
+    ? 'flex flex-col'
+    : 'hidden sm:flex sm:flex-col'
 
   return (
     <div className="flex flex-col sm:flex-row gap-8 block max-w-6xl mx-auto">
-      <aside className="flex flex-col sm:w-44 sm:flex-shrink-0 gap-4">
+      <aside className={`${isSidebar} sm:w-44 sm:flex-shrink-0 gap-4`}>
         <h2 className="text-md">Drafts</h2>
         <ul className="space-y-4">
           {data.map(({ slug, title, createdAt }: Post, index: number) => (

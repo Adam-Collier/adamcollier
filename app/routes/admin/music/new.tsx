@@ -1,5 +1,4 @@
-import { LoaderFunction, NavLink, Outlet } from 'remix'
-import { getUser } from '~/utils/session.server'
+import { NavLink, Outlet } from 'remix'
 import { NavLinkProps } from 'remix'
 
 const Link = (props: NavLinkProps) => (
@@ -15,9 +14,9 @@ const Link = (props: NavLinkProps) => (
 
 const NewMusic = () => {
   return (
-    <main className="flex flex-col sm:flex-row sm:gap-8 md:gap-16 block max-w-4xl mx-auto min-h-[100vh] bg-gradient-to-t">
-      <div className="md:flex-shrink-0">
-        <ul className="flex md:flex-col gap-2 md:gap-4 pl-8 sm:pl-0">
+    <main className="flex flex-col sm:flex-row gap-8 sm:gap-16 block max-w-4xl mx-auto min-h-[100vh]">
+      <div className="sm:flex-shrink-0">
+        <ul className="flex sm:flex-col gap-2 md:gap-4">
           <li>
             <Link to="spotify">Spotify</Link>
           </li>

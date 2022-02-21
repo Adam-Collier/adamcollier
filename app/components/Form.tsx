@@ -16,7 +16,7 @@ export const Form = (props: FormProps) => {
     >
       <fieldset
         disabled={disabled}
-        className="flex flex-col items-start gap-3 w-full"
+        className="flex flex-col items-start gap-3 w-full min-w-0"
       >
         {children}
       </fieldset>

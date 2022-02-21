@@ -1,6 +1,5 @@
-import { LoaderFunction, ActionFunction, useTransition, redirect } from 'remix'
+import { ActionFunction, useTransition, redirect } from 'remix'
 import { db } from '~/utils/db.server'
-import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea } from '~/components/Form'
 
 export const action: ActionFunction = async ({ request }) => {

@@ -11,7 +11,7 @@ import { db } from '~/utils/db.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
   const resource = await db.resource.findUnique({
     where: {
@@ -92,7 +92,7 @@ const Edit = () => {
         defaultValue={section}
         required
       />
-      <div className="flex w-full gap-2 my-2">
+      <div className="flex flex-wrap w-full gap-2 py-2">
         {collections.map(({ id, name }: Collection) => (
           <RadioButton
             key={name}
