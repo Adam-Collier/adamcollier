@@ -1,4 +1,6 @@
-import { MetaFunction, Outlet } from 'remix'
+import { LoaderFunction, MetaFunction, Outlet } from 'remix'
+import { NavSpacer } from '~/components/NavSpacer'
+import { getUser } from '~/utils/session.server'
 
 export const meta: MetaFunction = () => {
   return {
@@ -6,9 +8,17 @@ export const meta: MetaFunction = () => {
   }
 }
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const isAuthenticated = await getUser(request)
+  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
+
+  return null
+}
+
 const adminLayout = () => (
-  <main className="px-4 pt-8 pb-30">
+  <main className="px-4 pt-8">
     <Outlet />
+    <NavSpacer />
   </main>
 )
 

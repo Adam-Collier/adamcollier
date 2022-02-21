@@ -3,13 +3,6 @@ import { db } from '~/utils/db.server'
 import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea } from '~/components/Form'
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
-
-  return null
-}
-
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const name = formData.get('name') as string

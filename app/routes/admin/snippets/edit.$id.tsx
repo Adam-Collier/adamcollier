@@ -12,10 +12,7 @@ import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 import { cache } from '~/utils/cache.server'
 
-export const loader: LoaderFunction = async ({ request, params }) => {
-  const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
-
+export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
 
   const snippet = await db.snippet.findUnique({

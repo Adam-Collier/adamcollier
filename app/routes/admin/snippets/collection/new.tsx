@@ -4,13 +4,6 @@ import { getUser } from '~/utils/session.server'
 import { Form, TextInput, TextArea } from '~/components/Form'
 import { cache } from '~/utils/cache.server'
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
-
-  return null
-}
-
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
   const name = formData.get('name')?.toString() || ''

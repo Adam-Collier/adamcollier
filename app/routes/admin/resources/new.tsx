@@ -12,9 +12,6 @@ import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const isAuthenticated = await getUser(request)
-  if (!isAuthenticated) throw new Response('Unauthorized', { status: 401 })
-
   const collections = await db.resourceCollection.findMany({
     select: {
       id: true,
