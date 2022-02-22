@@ -12,6 +12,7 @@ import { useAuth } from '~/context'
 import { getMusicData } from '~/music'
 import { cache } from '~/utils/cache.server'
 import { NavSpacer } from '~/components/NavSpacer'
+import { Image } from '~/components/Image'
 
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
@@ -109,11 +110,19 @@ const Music = () => {
                   rel="noreferrer noopener"
                   key={index}
                 >
-                  <img
+                  {/* <img
                     className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
                     src={image.replace(/b273/g, '1e02')}
                     alt={`${album}, ${artist}`}
                     loading="lazy"
+                  /> */}
+                  <Image
+                    className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
+                    src={image.replace(/b273/g, '1e02')}
+                    alt={`${album}, ${artist}`}
+                    loading="lazy"
+                    height={218}
+                    width={218}
                   />
                 </a>
               ),
