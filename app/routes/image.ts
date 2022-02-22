@@ -1,17 +1,7 @@
-import { createHash } from 'crypto'
-import fs from 'fs'
-import fsp from 'fs/promises'
-import path from 'path'
-import https from 'https'
-import { PassThrough } from 'stream'
-import type { Readable } from 'stream'
 import type { LoaderFunction } from 'remix'
+import type { FitEnum } from 'sharp'
 import sharp from 'sharp'
-import type {
-  Request as NodeRequest,
-  Response as NodeResponse,
-} from '@remix-run/node'
-import { Response, Request } from '@remix-run/node'
+import { Response } from '@remix-run/node'
 
 let badImageBase64 = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
@@ -46,29 +36,17 @@ export let loader: LoaderFunction = async ({ request }) => {
 
   let width = getIntOrNull(url.searchParams.get('width'))
   let height = getIntOrNull(url.searchParams.get('height'))
-  let fit: any = url.searchParams.get('fit') || 'cover'
-
-  let hash = createHash('sha256')
-  hash.update('v1')
-  hash.update(request.method)
-  hash.update(request.url)
-  hash.update(width?.toString() || '0')
-  hash.update(height?.toString() || '0')
-  hash.update(fit)
-  let key = hash.digest('hex')
-  //   let cachedFile = path.resolve(path.join('.cache/images', key + '.webp'))
+  let fit = (url.searchParams.get('fit') || 'cover') as keyof FitEnum
 
   try {
-    let imageBody: Readable | undefined
-    let status = 200
-    //   fetch the image data
+    // fetch the image data
     let response = await fetch(src.toString())
-    //   store the body data
+    // store the body data
     const data = await response.arrayBuffer()
-    //   store the status
-    status = response.status
+    // store the status
+    let status = response.status
 
-    //   if the image has no data, return a bad image response
+    // if the image has no data, return a bad image response
     if (!data) {
       return badImageResponse()
     }
@@ -81,8 +59,10 @@ export let loader: LoaderFunction = async ({ request }) => {
       // return a buffer
       .toBuffer()
       .catch((e: any) => {
-        console.log(e, 'this is an error')
+        console.log(e)
       })
+
+    if (!sharpInstance) return badImageResponse()
 
     return new Response(sharpInstance, {
       status: status,
