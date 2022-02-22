@@ -9,3 +9,6 @@ api/_build
 app/styles/uno.css
 
 .env
+
+.DS_Store
+tmp
