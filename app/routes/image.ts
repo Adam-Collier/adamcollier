@@ -1,10 +1,6 @@
 import { createHash } from 'crypto'
-import fs from 'fs'
-import fsp from 'fs/promises'
-import path from 'path'
 import https from 'https'
 import { PassThrough } from 'stream'
-import type { Readable } from 'stream'
 import type { LoaderFunction } from 'remix'
 import sharp from 'sharp'
 import type {
@@ -59,32 +55,45 @@ export let loader: LoaderFunction = async ({ request }) => {
   //   let cachedFile = path.resolve(path.join('.cache/images', key + '.webp'))
 
   try {
-    let imageBody: Readable | undefined
     let status = 200
     //   fetch the image data
-    let response = await fetch(src.toString())
-    //   store the body data
-    const data = await response.arrayBuffer()
+    let imgRequest = new Request(src.toString()) as unknown as NodeRequest
+    imgRequest.agent = new https.Agent({
+      rejectUnauthorized: false,
+    })
+    let imageResponse = await fetch(imgRequest as unknown as Request)
+    let imageBody = imageResponse.body as unknown as PassThrough
     //   store the status
-    status = response.status
+    status = imageResponse.status
 
     //   if the image has no data, return a bad image response
-    if (!data) {
+    if (!imageBody) {
       return badImageResponse()
     }
 
-    let sharpInstance = await sharp(Buffer.from(data))
-      // resize to the supplied width and height
-      .resize(width, height, { fit })
-      // transform to webp
-      .webp({ reductionEffort: 6 })
-      // return a buffer
-      .toBuffer()
-      .catch((e: any) => {
-        console.log(e, 'this is an error')
-      })
+    let sharpInstance = sharp()
+    sharpInstance.on('error', (error) => {
+      console.error(error)
+    })
 
-    return new Response(sharpInstance, {
+    if (width || height) {
+      sharpInstance.resize(width, height, { fit })
+    }
+    sharpInstance.webp({ reductionEffort: 6 })
+
+    let imageManipulationStream = imageBody.pipe(sharpInstance)
+
+    // await new Promise<void>((resolve, reject) => {
+    //   imageManipulationStream.on('end', () => {
+    //     resolve()
+    //     imageBody!.destroy()
+    //   })
+    //   imageManipulationStream.on('error', async (error) => {
+    //     imageBody!.destroy()
+    //   })
+    // })
+
+    return new Response(imageManipulationStream, {
       status: status,
       headers: {
         'Content-Type': 'image/webp',
