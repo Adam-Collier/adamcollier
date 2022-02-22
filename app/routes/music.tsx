@@ -110,12 +110,6 @@ const Music = () => {
                   rel="noreferrer noopener"
                   key={index}
                 >
-                  {/* <img
-                    className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
-                    src={image.replace(/b273/g, '1e02')}
-                    alt={`${album}, ${artist}`}
-                    loading="lazy"
-                  /> */}
                   <Image
                     className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
                     src={image.replace(/b273/g, '1e02')}
@@ -171,6 +165,14 @@ const Music = () => {
                       alt={`${title}, ${artist}`}
                       loading="lazy"
                     />
+                    <Image
+                      className="absolute top-0 left-0 w-full h-full"
+                      src={image}
+                      alt={`${title}, ${artist}`}
+                      loading="lazy"
+                      height={104}
+                      width={104}
+                    />
                   </div>
                   <div className="p-2 flex flex-col w-full min-w-0">
                     <h3 className="text-sm truncate">{title}</h3>
@@ -215,11 +217,13 @@ const Music = () => {
                 rel="noreferrer noopener"
                 key={index}
               >
-                <img
+                <Image
+                  className="absolute top-0 left-0 w-full h-full"
                   src={image}
                   alt={name}
-                  className="absolute top-0 left-0 w-full h-full"
                   loading="lazy"
+                  height={104}
+                  width={104}
                 />
               </a>
             ),
