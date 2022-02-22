@@ -1,9 +1,12 @@
 import type { LoaderFunction } from 'remix'
-import { imageLoader, DiskCache } from 'remix-image/server'
+import { imageLoader, MemoryCache, pureTransformer } from 'remix-image/server'
 
 const config = {
-  selfUrl: 'http://localhost:3000',
-  cache: new DiskCache(),
+  selfUrl:
+    process.env.NODE_ENV === 'production'
+      ? 'https://www.adamcollier.co.uk/'
+      : 'http://localhost:3000',
+  cache: new MemoryCache(),
 }
 
 export const loader: LoaderFunction = ({ request }) => {
