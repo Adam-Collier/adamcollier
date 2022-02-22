@@ -159,12 +159,6 @@ const Music = () => {
                   key={index}
                 >
                   <div className="w-13 h-13 relative rounded overflow-hidden flex-shrink-0 bg-orange-100/20 text-xs text-orange-300">
-                    <img
-                      className="absolute top-0 left-0 w-full h-full"
-                      src={image}
-                      alt={`${title}, ${artist}`}
-                      loading="lazy"
-                    />
                     <Image
                       className="absolute top-0 left-0 w-full h-full"
                       src={image}
@@ -222,8 +216,8 @@ const Music = () => {
                   src={image}
                   alt={name}
                   loading="lazy"
-                  height={104}
-                  width={104}
+                  height={80}
+                  width={80}
                 />
               </a>
             ),
