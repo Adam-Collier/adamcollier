@@ -1,4 +1,5 @@
 import {
+  ErrorBoundaryComponent,
   Links,
   LiveReload,
   Meta,
@@ -70,6 +71,30 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}
+      </body>
+    </html>
+  )
+}
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <div className="w-full h-full flex justify-center items-center">
+          <AuthProvider>
+            <Header />
+            <h1 className="text-lg sm:text-2xl">
+              Oh no! There's been an error!
+            </h1>
+            <h2>Try reloading the page</h2>
+          </AuthProvider>
+        </div>
+        <Scripts />
       </body>
     </html>
   )

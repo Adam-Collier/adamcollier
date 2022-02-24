@@ -1,4 +1,11 @@
-import { json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
+import {
+  json,
+  Link,
+  LoaderFunction,
+  MetaFunction,
+  useCatch,
+  useLoaderData,
+} from 'remix'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
 import { cache } from '~/utils/cache.server'
@@ -31,7 +38,9 @@ export const loader: LoaderFunction = async ({ params }) => {
     },
   })
 
-  if (!data) return
+  if (!data) {
+    throw new Response("This Snippet Collection doesn't exist", { status: 404 })
+  }
 
   const snippetsWithHtmlContent = await Promise.all(
     data.snippets.map(async (snippet) => ({
@@ -51,6 +60,15 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const meta: MetaFunction = ({ data }) => {
+  if (!data) {
+    let errorMessage = 'Snippet Collection not found!'
+    return {
+      title: errorMessage,
+      description: errorMessage,
+      'twitter:title': errorMessage,
+      'twitter:description': errorMessage,
+    }
+  }
   const { name } = data
   const title = name
   const description = `${title} snippets which I like to use or refer back to when working on projects. Easily copy and paste them into your own projects.`
@@ -133,6 +151,18 @@ const Snippets = () => {
         </div>
       </div>
     </>
+  )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+
+  return (
+    <div>
+      <h1 className="text-lg sm:text-2xl text-white">
+        {caught.status}! {caught.data}
+      </h1>
+    </div>
   )
 }
 

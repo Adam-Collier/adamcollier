@@ -1,4 +1,11 @@
-import { json, Link, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
+import {
+  json,
+  Link,
+  LoaderFunction,
+  MetaFunction,
+  useCatch,
+  useLoaderData,
+} from 'remix'
 import { db } from '~/utils/db.server'
 import { toTitleCase } from '~/utils/utils'
 import { Resource as ResourceProps } from '@prisma/client'
@@ -9,7 +16,7 @@ import { toHTML } from '~/utils/utils.server'
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
 
-  if (!slug) return null
+  if (!slug) return
 
   const data = await db.resourceCollection.findUnique({
     where: { name: toTitleCase(slug) },
@@ -33,7 +40,9 @@ export const loader: LoaderFunction = async ({ params }) => {
   })
 
   if (!data)
-    throw new Response('No Resources returned from database', { status: 500 })
+    throw new Response("This Resource Collection doesn't exist", {
+      status: 404,
+    })
 
   const formattedResources = await Promise.all(
     data.resources.map(async (resource) => ({
@@ -46,6 +55,16 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const meta: MetaFunction = ({ data }) => {
+  if (!data) {
+    let errorMessage = 'Resource Collection not found!'
+    return {
+      title: errorMessage,
+      description: errorMessage,
+      'twitter:title': errorMessage,
+      'twitter:description': errorMessage,
+    }
+  }
+
   const { name } = data
   const title = toTitleCase(name)
   const description = `${title} resources I have either learned something from or thought could be useful in the future.`
@@ -108,6 +127,18 @@ const Resources = () => {
         })}
       </div>
     </>
+  )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+
+  return (
+    <div>
+      <h1 className="text-lg sm:text-2xl">
+        {caught.status}! {caught.data}
+      </h1>
+    </div>
   )
 }
 

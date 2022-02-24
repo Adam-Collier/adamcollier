@@ -6,6 +6,7 @@ import {
   MetaFunction,
   useLoaderData,
   useLocation,
+  useCatch,
 } from 'remix'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
@@ -28,6 +29,10 @@ export const loader: LoaderFunction = async ({ params }) => {
     },
   })
 
+  if (!data) {
+    throw new Response("This page doesn't exist", { status: 404 })
+  }
+
   const headings = getHeadings(data?.content!)
 
   let formattedData = {
@@ -42,13 +47,21 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const meta: MetaFunction = ({ data }) => {
-  const { description, title } = data
+  if (!data) {
+    let errorMessage = 'No post found'
+    return {
+      title: errorMessage,
+      description: errorMessage,
+      'twitter:title': errorMessage,
+      'twitter:description': errorMessage,
+    }
+  }
 
   return {
-    title,
-    description,
-    'twitter:title': title,
-    'twitter:description': description,
+    title: data.title,
+    description: data.description,
+    'twitter:title': data.title,
+    'twitter:description': data.description,
   }
 }
 
@@ -105,6 +118,18 @@ const Post = () => {
         <TableOfContents />
       </div>
     </>
+  )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+
+  return (
+    <div className="w-full h-full flex justify-center items-center">
+      <h1 className="text-lg sm:text-2xl">
+        {caught.status}! {caught.data}
+      </h1>
+    </div>
   )
 }
 
