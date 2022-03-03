@@ -20,6 +20,7 @@ export const links = () => [
   { rel: 'stylesheet', href: reset },
   { rel: 'stylesheet', href: styles },
   { rel: 'stylesheet', href: unocss },
+  { rel: 'alternate', type: 'application/rss+xml', href: '/rss.xml' },
 ]
 
 export const meta: MetaFunction = () => {
