@@ -1,4 +1,12 @@
-export const toSlug = (title: string) => title.toLowerCase().replace(/ /g, '-')
+export const toSlug = (title: string) =>
+  title
+    .toLowerCase()
+    // remove any spaces from the beginning and end of the string
+    .trim()
+    // replace any spaces with a dash
+    .replace(/ /g, '-')
+    // replace any non alpha numeric characters
+    .replace(/[^\w-]+/g, '')
 
 export const toReadableDate = (date: Date) => {
   const dateOptions: Intl.DateTimeFormatOptions = {
