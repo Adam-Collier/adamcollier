@@ -79,7 +79,7 @@ const Snippets = () => {
               { title, content, SnippetCollection, updatedAt }: Snippet,
               index: number,
             ) => {
-              const slug = `${toSlug(SnippetCollection.name)}/#${toSlug(title)}`
+              const slug = `${toSlug(SnippetCollection.name)}#${toSlug(title)}`
 
               return (
                 <div className="block space-y-3" key={index}>
