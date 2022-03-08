@@ -44,6 +44,8 @@ export const meta: MetaFunction = () => {
     'twitter:site': '@CollierAdam',
     'twitter:title': title,
     'twitter:description': description,
+    // google
+    'google-site-verification': 'kXoBZ3JPl4ac52Th5S3Jocx7XmmfMJZNQtkPTJZU4l8',
   }
 }
 
