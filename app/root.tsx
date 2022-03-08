@@ -89,10 +89,10 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
         <div className="w-full h-full flex flex-col justify-center items-center">
           <AuthProvider>
             <Header />
-            <h1 className="text-lg sm:text-2xl">
+            <h1 className="text-lg sm:text-2xl dark:text-white">
               Oh no! There's been an error!
             </h1>
-            <h2>Try reloading the page</h2>
+            <h2 className="dark:text-white">Try reloading the page</h2>
           </AuthProvider>
         </div>
         <Scripts />
