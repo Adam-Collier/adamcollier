@@ -47,7 +47,7 @@ export const action: ActionFunction = async ({ request }) => {
     cache.del('snippets-nav'),
   ])
 
-  return redirect(toSlug(`/snippets/${collectionName}`))
+  return redirect(`/snippets/${toSlug(collectionName)}`)
 }
 
 type Collection = {
