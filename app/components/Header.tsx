@@ -7,6 +7,7 @@ import {
   Inspiration,
   Signout,
   Music,
+  Twitter,
 } from '~/svgs'
 import { useAuth } from '~/context'
 
@@ -15,7 +16,7 @@ export const Header = () => {
 
   return (
     <div className="flex fixed bottom-8 w-full mx-auto left-1/2 -translate-x-1/2 justify-center px-8 z-10">
-      <ul className="flex justify-around items-center p-4 space-x-4 rounded-lg w-fit shadow-md z-10 bg-gray-200 bg-opacity-90 backdrop-filter backdrop-blur-sm">
+      <ul className="flex justify-around items-center p-4 space-x-3 sm:space-x-4 rounded-lg w-fit shadow-md z-10 bg-gray-200 bg-opacity-90 backdrop-filter backdrop-blur-sm">
         <li>
           <Link prefetch="intent" to="/" aria-label="Home">
             <Home />
@@ -46,13 +47,20 @@ export const Header = () => {
             <Music />
           </Link>
         </li>
-        {user && (
+        <li className="w-[1px] h-[20px] bg-zinc-400"></li>
+        {user ? (
           <li>
             <form action="/logout" method="post">
               <button className="block" type="submit" aria-label="Log out">
                 <Signout />
               </button>
             </form>
+          </li>
+        ) : (
+          <li>
+            <a href="https://twitter.com/CollierAdam">
+              <Twitter />
+            </a>
           </li>
         )}
       </ul>
