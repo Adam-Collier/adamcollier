@@ -3,7 +3,9 @@ export const toSlug = (title: string) =>
     .toLowerCase()
     // remove any spaces from the beginning and end of the string
     .trim()
-    // replace any characters that aren't numbers letters or slashes
+    // replace any spaces with a dash
+    .replace(/ /g, '-')
+    // replace any characters that aren't numbers letters dashes or slashes
     .replace(/[^a-z0-9-\/]/g, '')
 
 export const toReadableDate = (date: Date) => {
