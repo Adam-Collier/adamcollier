@@ -48,11 +48,12 @@ module.exports = (options = {}) => {
         tagName: 'div',
         properties: {
           className: [
-            'grid',
-            'grid-cols-[140px_1fr]',
-            'md:grid-cols-[200px_1fr]',
-            'gap-4',
-            'sm:gap-8',
+            'flex',
+            'flex-col',
+            'md:flex-row',
+            'space-y-2',
+            'md:space-y-0',
+            'md:space-x-8',
           ],
         },
         children: [
@@ -60,6 +61,7 @@ module.exports = (options = {}) => {
             type: 'element',
             tagName: 'div',
             properties: {
+              className: 'md:w-44 lg:w-48 md:shrink-0',
               id: toSlug(title),
             },
             children: [
