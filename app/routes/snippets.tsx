@@ -73,7 +73,7 @@ const Snippets = () => {
         } flex flex-col sm:flex-row gap-8 block max-w-5xl mx-auto px-4 sm:pt-16`}
       >
         <aside className="py-4 sm:space-y-4 lg:block sm:w-56 sm:flex-shrink-0 sm:self-start sm:sticky sm:top-0 sm:overflow-y-scroll sm:h-screen no-scrollbar sm:-my-16 sm:py-16">
-          <ul className="flex sm:flex-col gap-3 text-white overflow-x-scroll overflow-y-hidden px-2 -mx-4 sm:px-0 sm:mx-0 w-screen sm:w-full no-scrollbar">
+          <ul className="flex sm:flex-col gap-2 text-white overflow-x-scroll overflow-y-hidden px-2 -mx-4 sm:px-0 sm:mx-0 w-screen sm:w-full no-scrollbar">
             {data.map(
               (
                 {
