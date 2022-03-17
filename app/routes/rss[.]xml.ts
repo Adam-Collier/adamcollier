@@ -32,10 +32,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   const postsUrl = `${domain}/blog`
 
   const rssString = `
-    <rss xmlns:blogChannel="${postsUrl}" version="2.0">
+    <rss xmlns:blogChannel="${postsUrl}" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
       <channel>
         <title>Adam Collier's Blog</title>
         <link>${postsUrl}</link>
+        <atom:link href="${postsUrl}/rss.xml" rel="self" type="application/rss+xml" />
         <description>Welcome to the blog! I hope you enjoy reading what I write and learn something a long the way</description>
         <language>en-gb</language>
         <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
@@ -56,7 +57,6 @@ export const loader: LoaderFunction = async ({ request }) => {
             <item>
               <title><![CDATA[${escapeCdata(title)}]]></title>
               <description><![CDATA[${escapeHtml(description!)}]]></description>
-              <author><![CDATA[Adam Collier]]></author>
               <pubDate>${createdAt.toUTCString()}</pubDate>
               <link>${postsUrl}/${slug}</link>
               <guid>${postsUrl}/${slug}</guid>
