@@ -114,7 +114,7 @@ const Music = () => {
                     className="rounded absolute top-0 left-0 w-full h-full bg-gray-100/20 text-xs text-gray-400"
                     src={image.replace(/b273/g, '1e02')}
                     alt={`${album}, ${artist}`}
-                    loading="lazy"
+                    loading="eager"
                     height={218}
                     width={218}
                   />
@@ -163,7 +163,7 @@ const Music = () => {
                       className="absolute top-0 left-0 w-full h-full"
                       src={image}
                       alt={`${title}, ${artist}`}
-                      loading="lazy"
+                      loading="eager"
                       height={104}
                       width={104}
                     />
@@ -215,7 +215,7 @@ const Music = () => {
                   className="absolute top-0 left-0 w-full h-full"
                   src={image}
                   alt={name}
-                  loading="lazy"
+                  loading="eager"
                   height={80}
                   width={80}
                 />

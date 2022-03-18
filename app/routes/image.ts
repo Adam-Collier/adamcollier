@@ -2,8 +2,24 @@ import type { LoaderFunction } from 'remix'
 import type { FitEnum } from 'sharp'
 import sharp from 'sharp'
 import { Response } from '@remix-run/node'
+import { join } from 'path'
+import { promises } from 'fs'
+import { createHash } from 'crypto'
 
 let badImageBase64 = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
+// taken from https://github.com/vercel/next.js/blob/d3a53a6f018d572371f3ca41d0148c8329b59b33/packages/next/server/image-optimizer.ts#L633-L643
+export const getHash = (items: (string | number | Buffer)[]) => {
+  const hash = createHash('sha256')
+  for (let item of items) {
+    if (typeof item === 'number') hash.update(String(item))
+    else {
+      hash.update(item)
+    }
+  }
+  // See https://en.wikipedia.org/wiki/Base64#Filenames
+  return hash.digest('base64').replace(/\//g, '-')
+}
 
 // return a transparent png if the request is bad
 function badImageResponse() {
@@ -27,9 +43,29 @@ function getIntOrNull(value: string | null) {
 }
 
 export let loader: LoaderFunction = async ({ request }) => {
+  let cacheDir = join(__dirname, 'cache', 'images')
   let url = new URL(request.url)
-
   let src = url.searchParams.get('src')
+
+  let filename = getHash([src as string])
+  let cachedFilePath = `${cacheDir}/${filename}`
+
+  try {
+    // check if the cache has the image
+    const buffer = await promises.readFile(cachedFilePath)
+    console.info('served from the file cache')
+    return new Response(buffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'image/webp',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
+    })
+  } catch (err) {
+    console.info('cache skipped for', src)
+  }
+
+  // otherwise fetch the image and store in the cache
   if (!src) {
     return badImageResponse()
   }
@@ -63,6 +99,12 @@ export let loader: LoaderFunction = async ({ request }) => {
       })
 
     if (!sharpInstance) return badImageResponse()
+
+    // cache the transformed image here
+    // similar to how next handles it here:
+    // https://github.com/vercel/next.js/blob/d3a53a6f018d572371f3ca41d0148c8329b59b33/packages/next/server/image-optimizer.ts#L534-L543
+    await promises.mkdir(cacheDir, { recursive: true })
+    await promises.writeFile(cachedFilePath, sharpInstance)
 
     return new Response(sharpInstance, {
       status: status,
