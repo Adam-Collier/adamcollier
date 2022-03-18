@@ -1,7 +1,6 @@
 import type { LoaderFunction } from 'remix'
 import type { FitEnum } from 'sharp'
 import sharp from 'sharp'
-import { Response } from '@remix-run/node'
 
 let badImageBase64 = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
@@ -68,7 +67,7 @@ export let loader: LoaderFunction = async ({ request }) => {
       status: status,
       headers: {
         'Content-Type': 'image/webp',
-        'Cache-Control': 'public, max-age=31536000, immutable',
+        'Cache-Control': 'max-age=31536000, immutable',
       },
     })
   } catch (error) {
