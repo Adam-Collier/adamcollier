@@ -57,7 +57,7 @@ const Blog = () => {
   }, [])
 
   return (
-    <div className="flex flex-col-reverse min-w-0 sm:flex-row sm:max-w-7xl sm:mx-auto gap-8 lg:gap-x-16 w-full px-4 justify-between py-16">
+    <div className="flex flex-col-reverse min-w-0 sm:flex-row sm:max-w-7xl sm:mx-auto gap-8 lg:gap-x-16 w-full px-4 justify-between py-8 sm:py-16">
       <aside
         className={`${slugClasses} lg:block sm:w-56 sm:flex-shrink-0 sm:self-start sm:sticky sm:top-0 sm:overflow-y-scroll h-screen no-scrollbar sm:-my-16 sm:py-16`}
       >
