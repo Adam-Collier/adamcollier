@@ -72,12 +72,12 @@ const createTableItems = (items: Heading[], pathname: string) =>
   items.map((item, key: number) => {
     let href = `${pathname}#${toSlug(item.title)}`
     return item.items?.length ? (
-      <li key={key} className="text-sm text-gray-600 hover:underline">
+      <li key={key} className="text-sm sm:text-gray-600 hover:underline">
         <a href={href}>{item.title}</a>
         {item.items && <ul>{createTableItems(item.items, pathname)}</ul>}
       </li>
     ) : (
-      <li key={key} className="text-sm text-gray-600 hover:underline">
+      <li key={key} className="text-sm sm:text-gray-600 hover:underline">
         <a href={href}>{item.title}</a>
       </li>
     )
@@ -105,7 +105,8 @@ const Post = () => {
       <div className="flex flex-col space-y-4 sm:flex-grow w-full min-w-0 max-w-[65ch] pb-24">
         <h1 className="text-2xl">{title}</h1>
         {headings.length !== 0 && (
-          <div className="sm:hidden pl-4">
+          <div className="sm:hidden rounded p-4 space-y-3 bg-gray-50">
+            <h2>Table of Contents</h2>
             <TableOfContents />
           </div>
         )}
