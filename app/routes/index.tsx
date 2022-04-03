@@ -13,7 +13,7 @@ import { NavSpacer } from '~/components/NavSpacer'
 
 export const loader: LoaderFunction = async () => {
   const [books, latestFilms, topTracks, latestPosts, latestResources] =
-    await Promise.all([
+    await Promise.allSettled([
       getBooks(),
       getLatestFilms(),
       getTopTracks(),
@@ -22,16 +22,14 @@ export const loader: LoaderFunction = async () => {
     ])
 
   const data = {
-    books,
-    latestFilms,
-    topTracks,
-    latestPosts,
-    latestResources,
+    books: books?.value ?? null,
+    latestFilms: latestFilms?.value ?? null,
+    topTracks: topTracks?.value ?? null,
+    latestPosts: latestPosts?.value ?? null,
+    latestResources: latestResources?.value ?? null,
   }
 
-  return json(data, {
-    headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate' },
-  })
+  return json(data)
 }
 
 export const headers: HeadersFunction = () => {
@@ -222,34 +220,40 @@ export default function Index() {
                   Letterboxd
                 </a>
               </p>
-              <div className="grid grid-cols-4 gap-2">
-                {latestFilms.map(
-                  ({
-                    link,
-                    src,
-                    title,
-                  }: {
-                    link: string
-                    src: string
-                    title: string
-                  }) => {
-                    return (
-                      <a
-                        href={link}
-                        className="block overflow-hidden rounded relative w-full"
-                        aria-label={`${title} film`}
-                      >
-                        <div className="block pt-[150%]"></div>
-                        <img
-                          src={src}
-                          alt={title}
-                          className="absolute top-0 left-0 w-full h-full object-cover"
-                        />
-                      </a>
-                    )
-                  },
-                )}
-              </div>
+              {latestFilms ? (
+                <div className="grid grid-cols-4 gap-2">
+                  {latestFilms.map(
+                    ({
+                      link,
+                      src,
+                      title,
+                    }: {
+                      link: string
+                      src: string
+                      title: string
+                    }) => {
+                      return (
+                        <a
+                          href={link}
+                          className="block overflow-hidden rounded relative w-full"
+                          aria-label={`${title} film`}
+                        >
+                          <div className="block pt-[150%]"></div>
+                          <img
+                            src={src}
+                            alt={title}
+                            className="absolute top-0 left-0 w-full h-full object-cover"
+                          />
+                        </a>
+                      )
+                    },
+                  )}
+                </div>
+              ) : (
+                <p className="text-red-700 bg-red-100 px-3 py-2 rounded">
+                  Oh no! Letterboxd films can't currently be fetched! :'(
+                </p>
+              )}
             </section>
           </div>
         </section>
