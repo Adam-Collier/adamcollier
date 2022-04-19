@@ -49,7 +49,10 @@ const Resources = () => {
         <h3 className="text-xl">Latest Resources</h3>
         {data.map(({ content, id }: ResourceProps, index: number) => (
           <div key={index}>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div
+              className="space-y-4"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
             {user && (
               <Link
                 to={`/admin/resources/edit/${id}`}
