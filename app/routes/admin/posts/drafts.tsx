@@ -1,11 +1,5 @@
-import {
-  json,
-  Link,
-  LoaderFunction,
-  Outlet,
-  useLoaderData,
-  useLocation,
-} from 'remix'
+import { json, LoaderFunction } from "@remix-run/node";
+import { Link, Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { db } from '~/utils/db.server'
 import { toReadableDate } from '~/utils/utils'
 

@@ -1,12 +1,5 @@
-import {
-  json,
-  Link,
-  LoaderFunction,
-  MetaFunction,
-  Outlet,
-  useLoaderData,
-  useLocation,
-} from 'remix'
+import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Link, Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { NavSpacer } from '~/components/NavSpacer'
 import { useAuth } from '~/context'
 import { db } from '~/utils/db.server'

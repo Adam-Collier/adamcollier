@@ -1,4 +1,5 @@
-import { LoaderFunction, json, useLoaderData, Link } from 'remix'
+import { json, LoaderFunction } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import { db } from '~/utils/db.server'
 import { Resource as ResourceProps } from '@prisma/client'
 import AdminToolbar from '~/components/AdminToolbar'

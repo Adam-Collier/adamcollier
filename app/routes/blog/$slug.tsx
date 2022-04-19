@@ -1,13 +1,5 @@
-import {
-  json,
-  Link,
-  LinksFunction,
-  LoaderFunction,
-  MetaFunction,
-  useLoaderData,
-  useLocation,
-  useCatch,
-} from 'remix'
+import { json, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Link, useCatch, useLoaderData, useLocation } from "@remix-run/react";
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
 import { db } from '~/utils/db.server'

@@ -1,4 +1,4 @@
-import { Link, LinkProps, useLocation } from 'remix'
+import { Link, LinkProps, useLocation } from "@remix-run/react";
 import {
   Home,
   Posts,

@@ -1,4 +1,4 @@
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from "@remix-run/node";
 import type { FitEnum } from 'sharp'
 import sharp from 'sharp'
 import { Response } from '@remix-run/node'
