@@ -71,7 +71,7 @@ const Resources = () => {
                 className={[activeClass, 'px-2 py-1 sm:py-2 rounded'].join(' ')}
               >
                 <Link to={`/resources/${slug}`} className="group block">
-                  <p className="hover:underline group-hover:underline">
+                  <p className="hover:underline group-hover:underline font-semibold">
                     {name}
                   </p>
                   <small className="hidden sm:block text-gray-500 text-xs">
