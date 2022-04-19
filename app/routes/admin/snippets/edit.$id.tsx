@@ -1,11 +1,5 @@
-import {
-  LoaderFunction,
-  json,
-  useLoaderData,
-  ActionFunction,
-  useTransition,
-  redirect,
-} from 'remix'
+import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
+import { useLoaderData, useTransition } from "@remix-run/react";
 import { db } from '~/utils/db.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'

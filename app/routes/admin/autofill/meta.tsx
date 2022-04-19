@@ -1,4 +1,4 @@
-import { ActionFunction, json, LoaderFunction } from 'remix'
+import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
 import { parse, walk, SyntaxKind } from 'html5parser'
 
 export const action: ActionFunction = async ({ request }) => {

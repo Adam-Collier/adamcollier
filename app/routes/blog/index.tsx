@@ -1,4 +1,4 @@
-import { Link } from 'remix'
+import { Link } from "@remix-run/react";
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
 

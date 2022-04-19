@@ -1,12 +1,5 @@
-import {
-  json,
-  Link,
-  LoaderFunction,
-  useLoaderData,
-  Outlet,
-  MetaFunction,
-  useLocation,
-} from 'remix'
+import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Link, Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toSlug } from '~/utils/utils'
 import { Accordion } from '~/components/Accordion'
