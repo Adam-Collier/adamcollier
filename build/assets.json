@@ -1,0 +1,653 @@
+{
+  "version": "b17eb11e",
+  "entry": {
+    "module": "/build/entry.client-YQXKIADH.js",
+    "imports": [
+      "/build/_shared/chunk-GBJJ7QYJ.js",
+      "/build/_shared/chunk-VAGUMVBI.js",
+      "/build/_shared/chunk-LJCERJSD.js"
+    ]
+  },
+  "routes": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "module": "/build/root-REL77IN3.js",
+      "imports": [
+        "/build/_shared/chunk-FSYHSVDW.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": true
+    },
+    "routes/admin": {
+      "id": "routes/admin",
+      "parentId": "root",
+      "path": "admin",
+      "module": "/build/routes/admin-LJC4DTHX.js",
+      "imports": [
+        "/build/_shared/chunk-R3LFJB5T.js",
+        "/build/_shared/chunk-K34YA5FO.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/autofill/favicon": {
+      "id": "routes/admin/autofill/favicon",
+      "parentId": "routes/admin",
+      "path": "autofill/favicon",
+      "module": "/build/routes/admin/autofill/favicon-6CKKKN2A.js",
+      "imports": [
+        "/build/_shared/chunk-YXZYAGFK.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/autofill/meta": {
+      "id": "routes/admin/autofill/meta",
+      "parentId": "routes/admin",
+      "path": "autofill/meta",
+      "module": "/build/routes/admin/autofill/meta-ID42YARW.js",
+      "imports": [
+        "/build/_shared/chunk-YXZYAGFK.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/music/new": {
+      "id": "routes/admin/music/new",
+      "parentId": "routes/admin",
+      "path": "music/new",
+      "module": "/build/routes/admin/music/new-SJBJ7YZJ.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/music/new/radio": {
+      "id": "routes/admin/music/new/radio",
+      "parentId": "routes/admin/music/new",
+      "path": "radio",
+      "module": "/build/routes/admin/music/new/radio-EPDNGQPU.js",
+      "imports": [
+        "/build/_shared/chunk-PNDYUABD.js",
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/music/new/soundcloud": {
+      "id": "routes/admin/music/new/soundcloud",
+      "parentId": "routes/admin/music/new",
+      "path": "soundcloud",
+      "module": "/build/routes/admin/music/new/soundcloud-HRV24LQM.js",
+      "imports": [
+        "/build/_shared/chunk-PNDYUABD.js",
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/music/new/spotify": {
+      "id": "routes/admin/music/new/spotify",
+      "parentId": "routes/admin/music/new",
+      "path": "spotify",
+      "module": "/build/routes/admin/music/new/spotify-NPZF3KMI.js",
+      "imports": [
+        "/build/_shared/chunk-PNDYUABD.js",
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/posts/drafts": {
+      "id": "routes/admin/posts/drafts",
+      "parentId": "routes/admin",
+      "path": "posts/drafts",
+      "module": "/build/routes/admin/posts/drafts-3XXWF3NO.js",
+      "imports": [
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/posts/drafts/$slug": {
+      "id": "routes/admin/posts/drafts/$slug",
+      "parentId": "routes/admin/posts/drafts",
+      "path": ":slug",
+      "module": "/build/routes/admin/posts/drafts/$slug-CJ5FZQHK.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/posts/drafts/index": {
+      "id": "routes/admin/posts/drafts/index",
+      "parentId": "routes/admin/posts/drafts",
+      "index": true,
+      "module": "/build/routes/admin/posts/drafts/index-DAMYL24E.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/posts/edit.$slug": {
+      "id": "routes/admin/posts/edit.$slug",
+      "parentId": "routes/admin",
+      "path": "posts/edit/:slug",
+      "module": "/build/routes/admin/posts/edit.$slug-P5P4SGMS.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/posts/new": {
+      "id": "routes/admin/posts/new",
+      "parentId": "routes/admin",
+      "path": "posts/new",
+      "module": "/build/routes/admin/posts/new-YYNQ6RAL.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/resources/collection/edit.$id": {
+      "id": "routes/admin/resources/collection/edit.$id",
+      "parentId": "routes/admin",
+      "path": "resources/collection/edit/:id",
+      "module": "/build/routes/admin/resources/collection/edit.$id-JU6WQDO7.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/resources/collection/new": {
+      "id": "routes/admin/resources/collection/new",
+      "parentId": "routes/admin",
+      "path": "resources/collection/new",
+      "module": "/build/routes/admin/resources/collection/new-ULDH5VID.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/resources/edit.$id": {
+      "id": "routes/admin/resources/edit.$id",
+      "parentId": "routes/admin",
+      "path": "resources/edit/:id",
+      "module": "/build/routes/admin/resources/edit.$id-FWMM6GQU.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/resources/new": {
+      "id": "routes/admin/resources/new",
+      "parentId": "routes/admin",
+      "path": "resources/new",
+      "module": "/build/routes/admin/resources/new-KP2Z5HPT.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/snippets/collection/edit.$id": {
+      "id": "routes/admin/snippets/collection/edit.$id",
+      "parentId": "routes/admin",
+      "path": "snippets/collection/edit/:id",
+      "module": "/build/routes/admin/snippets/collection/edit.$id-IL64PJT5.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/snippets/collection/new": {
+      "id": "routes/admin/snippets/collection/new",
+      "parentId": "routes/admin",
+      "path": "snippets/collection/new",
+      "module": "/build/routes/admin/snippets/collection/new-FORHD4XN.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/snippets/edit.$id": {
+      "id": "routes/admin/snippets/edit.$id",
+      "parentId": "routes/admin",
+      "path": "snippets/edit/:id",
+      "module": "/build/routes/admin/snippets/edit.$id-3VJHVMTL.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/admin/snippets/new": {
+      "id": "routes/admin/snippets/new",
+      "parentId": "routes/admin",
+      "path": "snippets/new",
+      "module": "/build/routes/admin/snippets/new-KNY7K5VK.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/blog": {
+      "id": "routes/blog",
+      "parentId": "root",
+      "path": "blog",
+      "module": "/build/routes/blog-U7GFTQC3.js",
+      "imports": [
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/blog/$slug": {
+      "id": "routes/blog/$slug",
+      "parentId": "routes/blog",
+      "path": ":slug",
+      "module": "/build/routes/blog/$slug-AXY2Q5OP.js",
+      "imports": [
+        "/build/_shared/chunk-AYFPFAYD.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-GK2JP56W.js",
+        "/build/_shared/chunk-IKRLWMCN.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": false
+    },
+    "routes/blog/index": {
+      "id": "routes/blog/index",
+      "parentId": "routes/blog",
+      "index": true,
+      "module": "/build/routes/blog/index-AKQKLDTM.js",
+      "imports": [
+        "/build/_shared/chunk-IKRLWMCN.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/image": {
+      "id": "routes/image",
+      "parentId": "root",
+      "path": "image",
+      "module": "/build/routes/image-FRSKRPJP.js",
+      "imports": [
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/index": {
+      "id": "routes/index",
+      "parentId": "root",
+      "index": true,
+      "module": "/build/routes/index-OGHMLTCK.js",
+      "imports": [
+        "/build/_shared/chunk-K34YA5FO.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/inspiration": {
+      "id": "routes/inspiration",
+      "parentId": "root",
+      "path": "inspiration",
+      "module": "/build/routes/inspiration-SBFOPPY5.js",
+      "hasAction": false,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/inspiration/$slug": {
+      "id": "routes/inspiration/$slug",
+      "parentId": "routes/inspiration",
+      "path": ":slug",
+      "module": "/build/routes/inspiration/$slug-QLQJGWR7.js",
+      "imports": [
+        "/build/_shared/chunk-V5ROPQIL.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": false
+    },
+    "routes/inspiration/index": {
+      "id": "routes/inspiration/index",
+      "parentId": "routes/inspiration",
+      "index": true,
+      "module": "/build/routes/inspiration/index-53BQ3HVK.js",
+      "imports": [
+        "/build/_shared/chunk-V5ROPQIL.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/login": {
+      "id": "routes/login",
+      "parentId": "root",
+      "path": "login",
+      "module": "/build/routes/login-56VNJDHS.js",
+      "imports": [
+        "/build/_shared/chunk-3XWQZOBU.js",
+        "/build/_shared/chunk-R3LFJB5T.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": false,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/logout": {
+      "id": "routes/logout",
+      "parentId": "root",
+      "path": "logout",
+      "module": "/build/routes/logout-KXYGEARH.js",
+      "imports": [
+        "/build/_shared/chunk-R3LFJB5T.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/music": {
+      "id": "routes/music",
+      "parentId": "root",
+      "path": "music",
+      "module": "/build/routes/music-OXIKDGVL.js",
+      "imports": [
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-K34YA5FO.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": false
+    },
+    "routes/resources": {
+      "id": "routes/resources",
+      "parentId": "root",
+      "path": "resources",
+      "module": "/build/routes/resources-TAVR2JMK.js",
+      "imports": [
+        "/build/_shared/chunk-K34YA5FO.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/resources/$slug": {
+      "id": "routes/resources/$slug",
+      "parentId": "routes/resources",
+      "path": ":slug",
+      "module": "/build/routes/resources/$slug-VHI2GRP2.js",
+      "imports": [
+        "/build/_shared/chunk-GK2JP56W.js",
+        "/build/_shared/chunk-IKRLWMCN.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": false
+    },
+    "routes/resources/index": {
+      "id": "routes/resources/index",
+      "parentId": "routes/resources",
+      "index": true,
+      "module": "/build/routes/resources/index-COHTPINS.js",
+      "imports": [
+        "/build/_shared/chunk-GK2JP56W.js",
+        "/build/_shared/chunk-IKRLWMCN.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/rss[.]xml": {
+      "id": "routes/rss[.]xml",
+      "parentId": "root",
+      "path": "rss.xml",
+      "module": "/build/routes/rss[.]xml-KPIEAHL4.js",
+      "imports": [
+        "/build/_shared/chunk-J7LF6A5J.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/session": {
+      "id": "routes/session",
+      "parentId": "root",
+      "path": "session",
+      "module": "/build/routes/session-DGJXGSCD.js",
+      "imports": [
+        "/build/_shared/chunk-R3LFJB5T.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": true,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/sitemap[.]xml": {
+      "id": "routes/sitemap[.]xml",
+      "parentId": "root",
+      "path": "sitemap.xml",
+      "module": "/build/routes/sitemap[.]xml-4EBD62F4.js",
+      "imports": [
+        "/build/_shared/chunk-V5ROPQIL.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/snippets": {
+      "id": "routes/snippets",
+      "parentId": "root",
+      "path": "snippets",
+      "module": "/build/routes/snippets-FKRYBSTG.js",
+      "imports": [
+        "/build/_shared/chunk-AYFPFAYD.js",
+        "/build/_shared/chunk-L2XV7SPP.js",
+        "/build/_shared/chunk-K34YA5FO.js",
+        "/build/_shared/chunk-J7LF6A5J.js",
+        "/build/_shared/chunk-DHGWLAGA.js",
+        "/build/_shared/chunk-LPQW3Q6Z.js",
+        "/build/_shared/chunk-OXZPKQPN.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/snippets/$slug": {
+      "id": "routes/snippets/$slug",
+      "parentId": "routes/snippets",
+      "path": ":slug",
+      "module": "/build/routes/snippets/$slug-U3LRNYJ6.js",
+      "imports": [
+        "/build/_shared/chunk-GK2JP56W.js",
+        "/build/_shared/chunk-IKRLWMCN.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": false
+    },
+    "routes/snippets/index": {
+      "id": "routes/snippets/index",
+      "parentId": "routes/snippets",
+      "index": true,
+      "module": "/build/routes/snippets/index-DHOHD7JF.js",
+      "imports": [
+        "/build/_shared/chunk-GK2JP56W.js",
+        "/build/_shared/chunk-IKRLWMCN.js",
+        "/build/_shared/chunk-PTX7KVCP.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    }
+  },
+  "url": "/build/manifest-B17EB11E.js"
+}
