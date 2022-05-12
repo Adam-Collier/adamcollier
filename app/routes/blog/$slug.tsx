@@ -1,19 +1,19 @@
-import { json, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Link, useCatch, useLoaderData, useLocation } from "@remix-run/react";
+import {
+  json,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from '@remix-run/node'
+import { Link, useCatch, useLoaderData, useLocation } from '@remix-run/react'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
 import { db } from '~/utils/db.server'
 import { toHTML } from '~/utils/utils.server'
 import prism from '~/styles/prism.css'
 import { getHeadings, Heading, toSlug } from '~/utils/utils'
-import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
-
-  // if we have cached data, return it. If not carry on
-  let cachedData = await cache.get(`blog-${slug}`)
-  if (cachedData) return json(cachedData)
 
   const data = await db.post.findUnique({
     where: {
@@ -32,8 +32,6 @@ export const loader: LoaderFunction = async ({ params }) => {
     content: await toHTML(data?.content!),
     headings,
   }
-
-  cache.set(`blog-${slug}`, formattedData)
 
   return json(formattedData)
 }

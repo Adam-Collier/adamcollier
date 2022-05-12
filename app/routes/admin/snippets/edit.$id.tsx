@@ -1,9 +1,8 @@
-import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
-import { useLoaderData, useTransition } from "@remix-run/react";
+import { ActionFunction, json, LoaderFunction, redirect } from '@remix-run/node'
+import { useLoaderData, useTransition } from '@remix-run/react'
 import { db } from '~/utils/db.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'
 import { toSlug } from '~/utils/utils'
-import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
@@ -59,13 +58,6 @@ export const action: ActionFunction = async ({ request, params }) => {
       },
     })
   }
-
-  // delete the cache for the index and $slug route
-  await Promise.all([
-    cache.del('snippets'),
-    cache.del(`snippets-${toSlug(collectionName)}`),
-    cache.del('snippets-nav'),
-  ])
 
   return redirect(`/snippets/${toSlug(collectionName)}`)
 }

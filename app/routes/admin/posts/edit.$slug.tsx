@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
-import { useLoaderData, useTransition } from "@remix-run/react";
+import { ActionFunction, json, LoaderFunction, redirect } from '@remix-run/node'
+import { useLoaderData, useTransition } from '@remix-run/react'
 import { DatePicker, Form, TextArea, TextInput } from '~/components/Form'
-import { cache } from '~/utils/cache.server'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 
@@ -14,9 +13,6 @@ export const action: ActionFunction = async ({ request, params }) => {
   const description = formData.get('description') as string
   const content = formData.get('markdown') as string
   const publishedDate = formData.get('published-date') as string
-
-  // if we are either updating or deleting we can delete the associated cache
-  cache.del(`blog-${toSlug(title)}`)
 
   if (action === 'update') {
     await db.post.update({

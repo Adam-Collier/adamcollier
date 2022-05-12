@@ -1,8 +1,7 @@
-import { ActionFunction, redirect } from "@remix-run/node";
-import { useTransition } from "@remix-run/react";
+import { ActionFunction, redirect } from '@remix-run/node'
+import { useTransition } from '@remix-run/react'
 import { Form, TextInput } from '~/components/Form'
 import notion from '~/utils/notion.server'
-import { cache } from '~/utils/cache.server'
 import { faviconAutofill } from '~/utils/utils'
 
 export const action: ActionFunction = async ({ request }) => {
@@ -47,8 +46,6 @@ export const action: ActionFunction = async ({ request }) => {
       },
     },
   })
-
-  if (await cache.has('music')) await cache.del('music')
 
   return redirect('/music')
 }

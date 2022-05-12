@@ -94,6 +94,8 @@ const prepositions = [
   'without',
 ]
 
+const specials = ['CSS', 'HTML', 'NPM', 'NVM', 'PHP']
+
 const lowers = new Set([...conjunctions, ...articles, ...prepositions])
 
 export const toTitleCase = (slug: string) =>
@@ -102,6 +104,9 @@ export const toTitleCase = (slug: string) =>
     .map((word) => {
       if (lowers.has(word)) {
         return word
+      }
+      if (specials.includes(word.toUpperCase())) {
+        return word.toUpperCase()
       }
       return word.charAt(0).toUpperCase() + word.slice(1)
     })

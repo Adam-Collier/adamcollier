@@ -1,13 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Resource {
@@ -15,7 +12,7 @@ model Resource {
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
   title                String
-  content              String              @default("") @db.MediumText
+  content              String              @default("")
   section              String
   ResourceCollection   ResourceCollection? @relation(fields: [resourceCollectionId], references: [id])
   resourceCollectionId Int?
@@ -27,8 +24,8 @@ model ResourceCollection {
   updatedAt   DateTime   @updatedAt
   name        String     @unique
   // this stored as HTML that we convert from markdown
-  description String     @db.MediumText
-  excerpt     String?    @db.VarChar(250)
+  description String
+  excerpt     String?
   resources   Resource[]
 }
 
@@ -37,7 +34,7 @@ model Snippet {
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
   title               String
-  content             String             @db.LongText
+  content             String
   SnippetCollection   SnippetCollection? @relation(fields: [snippetCollectionId], references: [id])
   snippetCollectionId Int
 }
@@ -47,7 +44,7 @@ model SnippetCollection {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   name        String    @unique
-  description String?   @db.MediumText
+  description String?
   snippets    Snippet[]
 }
 
@@ -55,9 +52,9 @@ model Post {
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  title       String   @db.MediumText
+  title       String
   slug        String   @unique
-  description String?  @db.MediumText
-  content     String?  @db.LongText
+  description String?
+  content     String?
   published   Boolean  @default(false)
 }

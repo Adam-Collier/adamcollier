@@ -1,29 +1,13 @@
-import { ActionFunction, json, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Link, useCatch, useLoaderData } from "@remix-run/react";
+import { json, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { Link, useCatch, useLoaderData } from '@remix-run/react'
 import { Spotify as SpotifyLogo, Soundcloud as SoundcloudLogo } from '~/svgs'
 import { useAuth } from '~/context'
 import { getMusicData } from '~/music'
-import { cache } from '~/utils/cache.server'
 import { NavSpacer } from '~/components/NavSpacer'
 import { Image } from '~/components/Image'
 
-export const action: ActionFunction = async ({ request }) => {
-  const form = await request.formData()
-  const deleteCache = form.get('delete-cache')
-
-  if (deleteCache) {
-    if (await cache.has('music')) await cache.del('music')
-  }
-
-  return null
-}
-
 export const loader: LoaderFunction = async () => {
-  let cachedData = await cache.get('music')
-  if (cachedData) return json(cachedData)
-
   let data = await getMusicData()
-  await cache.set('music', data)
 
   return json({
     ...data,
@@ -218,7 +202,7 @@ const Music = () => {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 export default Music

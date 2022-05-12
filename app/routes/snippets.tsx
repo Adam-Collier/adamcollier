@@ -1,5 +1,5 @@
-import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Link, Outlet, useLoaderData, useLocation } from "@remix-run/react";
+import { json, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { Link, Outlet, useLoaderData, useLocation } from '@remix-run/react'
 import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toSlug } from '~/utils/utils'
 import { Accordion } from '~/components/Accordion'
@@ -8,12 +8,8 @@ import dark from '~/styles/dark.css'
 import { useEffect } from 'react'
 import { NavSpacer } from '~/components/NavSpacer'
 import { useAuth } from '~/context'
-import { cache } from '~/utils/cache.server'
 
 export const loader: LoaderFunction = async () => {
-  let cachedData = await cache.get('snippets-nav')
-  if (cachedData) return json(cachedData)
-
   // get everything we need for the headings here
   const data = await db.snippetCollection.findMany({
     select: {
@@ -25,8 +21,6 @@ export const loader: LoaderFunction = async () => {
       },
     },
   })
-
-  await cache.set('snippets-nav', data)
 
   return json(data)
 }

@@ -1,8 +1,7 @@
-import { ActionFunction, redirect } from "@remix-run/node";
-import { useTransition } from "@remix-run/react";
+import { ActionFunction, redirect } from '@remix-run/node'
+import { useTransition } from '@remix-run/react'
 import { db } from '~/utils/db.server'
 import { Form, TextInput, TextArea } from '~/components/Form'
-import { cache } from '~/utils/cache.server'
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
@@ -16,7 +15,6 @@ export const action: ActionFunction = async ({ request }) => {
     },
   })
 
-  await cache.del('snippets-nav')
   return redirect('/snippets')
 }
 

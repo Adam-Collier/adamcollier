@@ -1,16 +1,12 @@
-import { json, LoaderFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { json, LoaderFunction } from '@remix-run/node'
+import { Link, useLoaderData } from '@remix-run/react'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
-import { cache } from '~/utils/cache.server'
 import { db } from '~/utils/db.server'
 import { toSlug } from '~/utils/utils'
 import { toHTML } from '~/utils/utils.server'
 
 export const loader: LoaderFunction = async () => {
-  let cachedData = await cache.get('snippets')
-  if (cachedData) return json(cachedData)
-
   const data = await db.snippet.findMany({
     take: 5,
     orderBy: {
@@ -35,8 +31,6 @@ export const loader: LoaderFunction = async () => {
       content: await toHTML(snippet.content),
     })),
   )
-
-  cache.set('snippets', formattedData)
 
   return json(formattedData)
 }

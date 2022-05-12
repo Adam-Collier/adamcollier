@@ -9,3 +9,4 @@ api/_build
 app/styles/uno.css
 
 .env
+dev.db

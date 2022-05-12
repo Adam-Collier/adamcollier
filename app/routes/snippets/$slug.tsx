@@ -1,19 +1,16 @@
-import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Link, useCatch, useLoaderData } from "@remix-run/react";
+import { json, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { Link, useCatch, useLoaderData } from '@remix-run/react'
 import AdminToolbar from '~/components/AdminToolbar'
 import { useAuth } from '~/context'
-import { cache } from '~/utils/cache.server'
 import { db } from '~/utils/db.server'
 import { toSlug, toTitleCase } from '~/utils/utils'
 import { toHTML } from '~/utils/utils.server'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { slug } = params
-
-  let cachedData = await cache.get(`snippets-${slug}`)
-  if (cachedData) return json(cachedData)
-
   if (!slug) return
+
+  console.log(toTitleCase(slug))
 
   const data = await db.snippetCollection.findUnique({
     where: { name: toTitleCase(slug) },
@@ -32,6 +29,8 @@ export const loader: LoaderFunction = async ({ params }) => {
     },
   })
 
+  console.log(data)
+
   if (!data) {
     throw new Response("This Snippet Collection doesn't exist", { status: 404 })
   }
@@ -47,8 +46,6 @@ export const loader: LoaderFunction = async ({ params }) => {
     ...data,
     snippets: snippetsWithHtmlContent,
   }
-
-  cache.set(`snippets-${slug}`, formattedData)
 
   return json(formattedData)
 }

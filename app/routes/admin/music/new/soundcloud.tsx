@@ -1,5 +1,5 @@
-import { ActionFunction, redirect } from "@remix-run/node";
-import { useTransition } from "@remix-run/react";
+import { ActionFunction, redirect } from '@remix-run/node'
+import { useTransition } from '@remix-run/react'
 import { Form, TextInput } from '~/components/Form'
 import { cache } from '~/utils/cache.server'
 import notion from '~/utils/notion.server'
