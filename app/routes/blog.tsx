@@ -1,13 +1,6 @@
 import { useEffect } from 'react'
-import {
-  json,
-  Link,
-  LoaderFunction,
-  MetaFunction,
-  Outlet,
-  useLoaderData,
-  useLocation,
-} from 'remix'
+import { json, LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import { Link, Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { db } from '~/utils/db.server'
 import { copyCodeToClipboard, toReadableDate, toSlug } from '~/utils/utils'
 

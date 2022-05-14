@@ -1,5 +1,5 @@
-import { MetaFunction, NavLink, Outlet } from 'remix'
-import { NavLinkProps } from 'remix'
+import { MetaFunction } from "@remix-run/cloudflare";
+import { NavLink, NavLinkProps, Outlet } from "@remix-run/react";
 
 const Link = (props: NavLinkProps) => (
   <NavLink

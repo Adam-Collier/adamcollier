@@ -1,13 +1,6 @@
-import {
-  ErrorBoundaryComponent,
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from 'remix'
-import type { MetaFunction } from 'remix'
+import type { MetaFunction } from "@remix-run/cloudflare";
+import { ErrorBoundaryComponent } from "@remix-run/cloudflare";
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { AuthProvider } from '~/context'
 
 import { Header } from '~/components/Header'

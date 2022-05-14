@@ -1,5 +1,4 @@
-import { NavLink, Outlet } from 'remix'
-import { NavLinkProps } from 'remix'
+import { NavLink, NavLinkProps, Outlet } from "@remix-run/react";
 
 const Link = (props: NavLinkProps) => (
   <NavLink

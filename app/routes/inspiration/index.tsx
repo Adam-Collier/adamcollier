@@ -1,4 +1,5 @@
-import { json, LoaderFunction, useLoaderData } from 'remix'
+import { json, LoaderFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
 import Masonry from '~/components/Masonry'
 
 export const saveeBoards: { [key: string]: string } = {

@@ -1,4 +1,4 @@
-import { Link, useOutletContext } from 'remix'
+import { Link, useOutletContext } from "@remix-run/react";
 import type { Post } from '../drafts'
 
 const Drafts = () => {

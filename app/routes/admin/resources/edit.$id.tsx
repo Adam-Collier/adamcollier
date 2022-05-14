@@ -1,11 +1,5 @@
-import {
-  LoaderFunction,
-  json,
-  useLoaderData,
-  ActionFunction,
-  useTransition,
-  redirect,
-} from 'remix'
+import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/cloudflare";
+import { useLoaderData, useTransition } from "@remix-run/react";
 import { Resource } from '@prisma/client'
 import { db } from '~/utils/db.server'
 import { Form, TextInput, TextArea, RadioButton } from '~/components/Form'

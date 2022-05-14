@@ -1,4 +1,5 @@
-import { LoaderFunction, MetaFunction, Outlet } from 'remix'
+import { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import { Outlet } from "@remix-run/react";
 import { NavSpacer } from '~/components/NavSpacer'
 import { getUser } from '~/utils/session.server'
 

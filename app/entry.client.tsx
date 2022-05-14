@@ -1,5 +1,6 @@
 import { hydrate } from 'react-dom'
-import { HandleDataRequestFunction, RemixBrowser } from 'remix'
+import { HandleDataRequestFunction } from "@remix-run/cloudflare";
+import { RemixBrowser } from "@remix-run/react";
 
 // taken from https://sergiodxa.com/articles/fix-double-data-request-when-prefetching-in-remix
 export let handleDataRequest: HandleDataRequestFunction = async (

@@ -1,11 +1,5 @@
-import {
-  json,
-  Link,
-  LoaderFunction,
-  MetaFunction,
-  useCatch,
-  useLoaderData,
-} from 'remix'
+import { json, LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import { Link, useCatch, useLoaderData } from "@remix-run/react";
 import { db } from '~/utils/db.server'
 import { toTitleCase } from '~/utils/utils'
 import { Resource as ResourceProps } from '@prisma/client'

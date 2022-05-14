@@ -1,4 +1,5 @@
-import { HeadersFunction, json, Link, LoaderFunction } from 'remix'
+import { HeadersFunction, json, LoaderFunction } from "@remix-run/cloudflare";
+import { Link, useLoaderData } from "@remix-run/react";
 import {
   getBooks,
   getLatestFilms,
@@ -6,7 +7,6 @@ import {
   getLatestPosts,
   getLatestResources,
 } from '~/home'
-import { useLoaderData } from 'remix'
 import { toReadableDate, toSlug } from '~/utils/utils'
 import { Spotify as SpotifyLogo } from '~/svgs'
 import { NavSpacer } from '~/components/NavSpacer'

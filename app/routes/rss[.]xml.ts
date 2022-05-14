@@ -1,9 +1,9 @@
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction } from "@remix-run/cloudflare";
 
 import { db } from '~/utils/db.server'
 
 function escapeCdata(s: string) {
-  return s.replace(/\]\]>/g, ']]]]><![CDATA[>')
+  return s.replace(/\]\]>/g, ']]]]><![CDATA[>');
 }
 
 function escapeHtml(s: string) {
@@ -12,7 +12,7 @@ function escapeHtml(s: string) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+    .replace(/'/g, '&#039;');
 }
 
 export const loader: LoaderFunction = async ({ request }) => {

@@ -1,12 +1,5 @@
-import {
-  ActionFunction,
-  json,
-  Link,
-  LoaderFunction,
-  MetaFunction,
-  useCatch,
-  useLoaderData,
-} from 'remix'
+import { ActionFunction, json, LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import { Link, useCatch, useLoaderData } from "@remix-run/react";
 import { Spotify as SpotifyLogo, Soundcloud as SoundcloudLogo } from '~/svgs'
 import { useAuth } from '~/context'
 import { getMusicData } from '~/music'
@@ -225,7 +218,7 @@ const Music = () => {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default Music

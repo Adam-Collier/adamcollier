@@ -1,4 +1,5 @@
-import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix'
+import { json, LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
 import Masonry from '~/components/Masonry'
 import { toTitleCase } from '~/utils/utils'
 import { saveeBoards } from './index'

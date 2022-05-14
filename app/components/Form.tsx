@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Form as RemixForm, FormProps as RemixFormProps } from 'remix'
+import { Form as RemixForm, FormProps as RemixFormProps } from "@remix-run/react";
 
 interface FormProps extends RemixFormProps {
   className?: string
